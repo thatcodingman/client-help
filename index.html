@@ -24,6 +24,15 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:17px;box-shadow:0 2px 8px rgba(20,25,35,.025)}.stat .label{color:var(--muted);font-size:12px;font-weight:600}.stat .value{font-size:25px;font-weight:750;margin-top:4px}.stat .hint{font-size:11px;color:var(--muted);margin-top:3px}
 .nav{display:flex;gap:4px;background:#e9ebee;border-radius:11px;padding:4px;margin-bottom:16px;width:max-content}.nav button{border:0;background:transparent;padding:8px 13px;border-radius:8px;color:#656a72;font-weight:650}.nav button.active{background:#fff;color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .view{display:none}.view.active{display:block}
+.stage-toggle{display:flex;align-items:center;gap:4px;background:#e9ebee;border:1px solid #e1e4e8;border-radius:11px;padding:4px;overflow:auto;max-width:100%}
+.stage-toggle-btn{border:0;background:transparent;color:#656a72;border-radius:8px;padding:7px 9px;font-size:11px;font-weight:700;white-space:nowrap}
+.stage-toggle-btn:hover{color:var(--text)}.stage-toggle-btn.active{background:#fff;color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.stage-toggle-btn b{font-size:10px;color:#9298a1;margin-left:3px}.stage-toggle-btn.active b{color:var(--text)}
+.stage-toggle.compact{max-width:100%}.stage-toggle.compact .stage-toggle-btn{padding:7px 8px}
+.field input.invalid,.field select.invalid{border-color:var(--red);background:var(--red-soft)}.field-error{font-size:11px;color:var(--red);font-weight:650;display:none}.field-error.show{display:block}
+.next-move{margin-top:10px;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:#f8f9fb;font-size:11px;color:#4f555d}
+.next-move strong{color:var(--text)}.next-move.overdue{border-color:#f0caca;background:var(--red-soft)}.next-move.today{border-color:#f0dfb6;background:var(--amber-soft)}
+@media(max-width:900px){.stage-toggle{width:100%}.stage-toggle-btn{flex:1}}
 .toolbar{display:flex;justify-content:space-between;gap:12px;margin-bottom:14px}.search{position:relative;flex:1}.search input{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px 10px 35px;background:#fff;outline:none}.search span{position:absolute;left:12px;top:9px;color:#9298a1}.filters{display:flex;gap:8px}.filters select{border:1px solid var(--line);border-radius:10px;padding:9px 30px 9px 10px;background:#fff}
 .board{display:grid;grid-template-columns:1.45fr .75fr;gap:18px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.panel-head{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.panel-title{font-weight:750}.panel-sub{font-size:12px;color:var(--muted);margin-top:2px}
 .clients{padding:7px}.client{display:grid;grid-template-columns:minmax(180px,1.4fr) .8fr .7fr .8fr auto;align-items:center;gap:12px;padding:13px 11px;border-bottom:1px solid #f0f1f3}.client:last-child{border-bottom:0}.person{display:flex;align-items:center;gap:10px;min-width:0}.avatar{width:35px;height:35px;border-radius:10px;background:#eef0f3;display:grid;place-items:center;font-size:12px;font-weight:750;flex:0 0 auto}.person-info{min-width:0}.name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.company{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.stage{font-size:11px;padding:5px 8px;border-radius:999px;display:inline-block;background:#f0f1f3;color:#565c65;font-weight:650}.stage.new{background:#f0f1f3}.stage.contacted{background:var(--amber-soft);color:var(--amber)}.stage.proposal{background:var(--accent-soft);color:var(--accent)}.stage.won{background:var(--green-soft);color:var(--green)}.stage.lost{background:var(--red-soft);color:var(--red)}.money{font-weight:650}.follow{font-size:12px}.follow.overdue{color:var(--red);font-weight:700}.follow.today{color:var(--amber);font-weight:700}.follow.future{color:var(--muted)}.row-actions{display:flex;gap:5px}.icon-btn{width:31px;height:31px;border:1px solid var(--line);background:#fff;border-radius:8px}.empty{padding:40px 20px;text-align:center;color:var(--muted)}
@@ -73,7 +82,14 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   <section id="dashboardView" class="view active">
     <div class="toolbar">
       <div class="search"><span>⌕</span><input id="search" aria-label="Search clients" placeholder="Search clients, companies, notes, or next actions…"></div>
-      <div class="filters"><select id="stageFilter" aria-label="Filter by stage"><option value="all">All stages</option><option>New</option><option>Contacted</option><option>Proposal</option><option>Won</option><option>Lost</option></select></div>
+      <div class="stage-toggle" id="stageToggle" aria-label="Filter by stage">
+        <button type="button" class="stage-toggle-btn active" data-stage="all">All <b id="countAll">0</b></button>
+        <button type="button" class="stage-toggle-btn" data-stage="New">New <b id="countNew">0</b></button>
+        <button type="button" class="stage-toggle-btn" data-stage="Contacted">Contacted <b id="countContacted">0</b></button>
+        <button type="button" class="stage-toggle-btn" data-stage="Proposal">Proposal <b id="countProposal">0</b></button>
+        <button type="button" class="stage-toggle-btn" data-stage="Won">Won <b id="countWon">0</b></button>
+        <button type="button" class="stage-toggle-btn" data-stage="Lost">Lost <b id="countLost">0</b></button>
+      </div>
     </div>
     <div class="board">
       <section class="panel">
@@ -98,7 +114,14 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   <section id="clientsView" class="view">
     <div class="toolbar">
       <div class="search"><span>⌕</span><input id="clientSearch" aria-label="Search clients" placeholder="Search all clients…"></div>
-      <div class="filters"><select id="clientStageFilter" aria-label="Filter clients"><option value="all">All stages</option><option>New</option><option>Contacted</option><option>Proposal</option><option>Won</option><option>Lost</option></select></div>
+      <div class="stage-toggle compact" id="clientStageToggle" aria-label="Filter clients">
+        <button type="button" class="stage-toggle-btn active" data-stage="all">All</button>
+        <button type="button" class="stage-toggle-btn" data-stage="New">New</button>
+        <button type="button" class="stage-toggle-btn" data-stage="Contacted">Contacted</button>
+        <button type="button" class="stage-toggle-btn" data-stage="Proposal">Proposal</button>
+        <button type="button" class="stage-toggle-btn" data-stage="Won">Won</button>
+        <button type="button" class="stage-toggle-btn" data-stage="Lost">Lost</button>
+      </div>
     </div>
     <div class="client-grid" id="clientGrid"></div>
   </section>
@@ -110,13 +133,14 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     <div class="modal-head"><h2 id="modalTitle">Add client</h2><button class="close" id="closeModal" aria-label="Close">×</button></div>
     <form class="form" id="clientForm">
       <div class="grid">
-        <div class="field"><label for="fName">Client name *</label><input id="fName" required maxlength="60" placeholder="Jordan Smith"></div>
+        <div class="field"><label for="fName">Client name *</label><input id="fName" required maxlength="60" placeholder="Jordan Smith"><span class="field-error" id="fNameError"></span></div>
         <div class="field"><label for="fCompany">Company</label><input id="fCompany" maxlength="80" placeholder="Smith Plumbing"></div>
         <div class="field"><label for="fStage">Stage</label><select id="fStage"><option>New</option><option>Contacted</option><option>Proposal</option><option>Won</option><option>Lost</option></select></div>
-        <div class="field"><label for="fValue">Deal value</label><input id="fValue" type="number" min="0" max="10000000" step="1" placeholder="2500"></div>
-        <div class="field"><label for="fDate">Next follow-up</label><input id="fDate" type="date"></div>
-        <div class="field"><label for="fContact">Phone / email</label><input id="fContact" maxlength="120" placeholder="555-123-4567"></div>
-        <div class="field full"><label for="fAction">Next action</label><input id="fAction" maxlength="140" placeholder="Send revised proposal"></div>
+        <div class="field"><label for="fValue">Deal value *</label><input id="fValue" type="number" inputmode="decimal" min="0" max="10000000" step="1" required placeholder="2500"><span class="field-error" id="fValueError"></span></div>
+        <div class="field"><label for="fDate">Next follow-up *</label><input id="fDate" type="date" required><span class="field-error" id="fDateError"></span></div>
+        <div class="field"><label for="fPhone">Phone</label><input id="fPhone" type="tel" inputmode="numeric" autocomplete="tel" maxlength="14" placeholder="(404) 555-0192"><span class="field-error" id="fPhoneError"></span></div>
+        <div class="field"><label for="fEmail">Email</label><input id="fEmail" type="email" autocomplete="email" maxlength="120" placeholder="jordan@example.com"><span class="field-error" id="fEmailError"></span></div>
+        <div class="field full"><label for="fAction">Next action *</label><input id="fAction" maxlength="140" required placeholder="Send revised proposal"><span class="field-error" id="fActionError"></span></div>
         <div class="field full"><label for="fNotes">Notes</label><textarea id="fNotes" maxlength="1000" placeholder="What did you discuss? What happens next?"></textarea></div>
       </div>
       <div class="modal-actions"><button type="button" class="btn" id="cancelModal">Cancel</button><button class="btn primary">Save client</button></div>
@@ -152,6 +176,30 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     {id:6,name:"Chris Walker",company:"Walker Fitness",stage:"Lost",value:1900,date:addDays(-8),contact:"chris@walkerfitness.com",nextAction:"",notes:"Chose another vendor for now.",activity:[{text:"Deal marked lost",date:addDays(-8)}]}
   ];
 
+  function normalizePhone(v){
+    const digits=String(v||"").replace(/\D/g,"").slice(0,10);
+    return digits;
+  }
+  function formatPhone(v){
+    const d=normalizePhone(v);
+    if(d.length<4)return d;
+    if(d.length<7)return `(${d.slice(0,3)}) ${d.slice(3)}`;
+    return `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
+  }
+  function normalizeEmail(v){return String(v||"").trim().toLowerCase().slice(0,120);}
+  function validEmail(v){return !v||/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);}
+  function validPhone(v){return !v||normalizePhone(v).length===10;}
+  function nextMove(c){
+    if(c.stage==="Won")return "Customer closed — consider a check-in or referral ask.";
+    if(c.stage==="Lost")return "Closed out — no active follow-up.";
+    if(c.date&&c.date<isoToday)return "Contact now — this follow-up is overdue.";
+    if(c.date===isoToday)return c.nextAction||"Contact today and log what happens next.";
+    if(!c.nextAction)return "Set the next action before leaving this lead.";
+    if(c.stage==="New")return "Qualify the lead and confirm what they need.";
+    if(c.stage==="Contacted")return "Move the conversation toward a clear next step.";
+    if(c.stage==="Proposal")return "Follow up on the proposal and ask for a decision.";
+    return c.nextAction;
+  }
   function normalizeClient(c,i){
     if(!c||typeof c!=="object")return null;
     const stage=stages.includes(c.stage)?c.stage:"New";
@@ -159,7 +207,8 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     return {
       id:Number(c.id)||Date.now()+i,name:String(c.name||"Unnamed client").slice(0,60),
       company:String(c.company||"").slice(0,80),stage,value:Math.max(0,Math.min(10000000,Number(c.value)||0)),
-      date:/^\d{4}-\d{2}-\d{2}$/.test(c.date||"")?c.date:"",contact:String(c.contact||"").slice(0,120),
+      date:/^\d{4}-\d{2}-\d{2}$/.test(c.date||"")?c.date:"",phone:normalizePhone(c.phone||c.contact||""),
+      email:normalizeEmail(c.email||((String(c.contact||"").includes("@"))?c.contact:"")),
       nextAction:String(c.nextAction||"").slice(0,140),notes:String(c.notes||"").slice(0,1000),
       wonMonth:typeof c.wonMonth==="string"?c.wonMonth:"",activity
     };
@@ -173,7 +222,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       return list.length?list:seed.map(normalizeClient);
     }catch(e){return seed.map(normalizeClient);}
   }
-  let clients=load(),editingId=null,todayOnly=false,toastTimer;
+  let clients=load(),editingId=null,todayOnly=false,stageFilter="all",clientStageFilter="all",toastTimer;
 
   function save(){
     try{localStorage.setItem(KEY,JSON.stringify(clients));return true;}
@@ -213,12 +262,17 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     $("statDue").textContent=due.length;
     $("statPipeline").textContent=money(pipeline);
     $("statWon").textContent=money(won);
+    const counts={all:clients.length,New:0,Contacted:0,Proposal:0,Won:0,Lost:0};
+    clients.forEach(c=>counts[c.stage]=(counts[c.stage]||0)+1);
+    Object.entries(counts).forEach(([stage,count])=>{
+      const el=$("count"+(stage==="all"?"All":stage));
+      if(el)el.textContent=count;
+    });
   }
-
   function filteredClients(search,filter){
     const q=(search||"").trim().toLowerCase();
     return clients.filter(c=>{
-      const hay=[c.name,c.company,c.notes,c.contact,c.nextAction].join(" ").toLowerCase();
+      const hay=[c.name,c.company,c.notes,c.phone,c.email,c.nextAction].join(" ").toLowerCase();
       return (!q||hay.includes(q))&&(filter==="all"||c.stage===filter)&&(!todayOnly||(!["Won","Lost"].includes(c.stage)&&c.date&&c.date<=isoToday));
     });
   }
@@ -233,7 +287,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   }
 
   function renderList(){
-    const list=sortClients(filteredClients($("search").value,$("stageFilter").value));
+    const list=sortClients(filteredClients($("search").value,stageFilter));
     $("clientList").innerHTML=list.length?list.map(c=>`
       <div class="client">
         <div class="person"><div class="avatar">${esc(initials(c.name))}</div><div class="person-info"><div class="name">${esc(c.name)}</div><div class="company">${esc(c.company||"Independent")}</div></div></div>
@@ -255,7 +309,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     $("attention").insertAdjacentHTML("beforeend",`<div class="quick"><h3>Quick actions</h3><button type="button" id="quickNew">Add a new lead</button><button type="button" id="quickToday">${todayOnly?"Show all clients":"Show today's follow-ups"}</button></div>`);
     $("quickNew").addEventListener("click",()=>openModal());
     $("quickToday").addEventListener("click",()=>{
-      todayOnly=!todayOnly;$("search").value="";$("stageFilter").value="all";
+      todayOnly=!todayOnly;$("search").value="";stageFilter="all";$("stageToggle").querySelectorAll(".stage-toggle-btn").forEach(b=>b.classList.toggle("active",b.dataset.stage==="all"));
       renderList();renderAttention();window.scrollTo({top:180,behavior:"smooth"});
     });
   }
@@ -271,7 +325,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
           <div class="deal-card" draggable="${stage!=="Won"&&stage!=="Lost"}" data-deal="${c.id}">
             <div class="deal-name">${esc(c.name)}</div><div class="deal-company">${esc(c.company||"Independent")}</div>
             <div class="deal-meta"><strong>${money(c.value)}</strong><span class="deal-date ${dueClass(c)}">${esc(dueLabel(c))}</span></div>
-            ${c.nextAction?`<div class="next-action"><strong>Next</strong>${esc(c.nextAction)}</div>`:""}
+            <div class="next-move ${dueClass(c)}"><strong>Next move:</strong> ${esc(nextMove(c))}</div>
           </div>`).join(""):`<div class="lane-empty">Drop deals here</div>`}</div>
       </div>`;
     }).join("");
@@ -298,14 +352,14 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   let draggedId=null;
 
   function renderClientGrid(){
-    const list=sortClients(filteredClients($("clientSearch").value,$("clientStageFilter").value));
+    const list=sortClients(filteredClients($("clientSearch").value,clientStageFilter));
     $("clientGrid").innerHTML=list.length?list.map(c=>`
       <article class="client-card" data-card="${c.id}">
         <div class="card-top"><div class="card-person"><div class="avatar">${esc(initials(c.name))}</div><div class="card-copy"><div class="name">${esc(c.name)}</div><div class="company">${esc(c.company||"Independent")}</div></div></div><span class="stage ${c.stage.toLowerCase()}">${esc(c.stage)}</span></div>
         <div class="card-details">
           <div class="mini-box"><small>Value</small><b>${money(c.value)}</b></div>
           <div class="mini-box"><small>Follow-up</small><b>${esc(dueLabel(c))}</b></div>
-          <div class="mini-box"><small>Contact</small><b>${esc(c.contact||"—")}</b></div>
+          <div class="mini-box"><small>Contact</small><b>${esc(c.phone?formatPhone(c.phone):(c.email||"—"))}</b></div>
         </div>
         ${c.nextAction?`<div class="next-action"><strong>Next action</strong>${esc(c.nextAction)}</div>`:""}
       </article>`).join(""):`<div class="empty">No clients match your filters.</div>`;
@@ -324,8 +378,10 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     $("modalTitle").textContent=id?"Edit client":"Add client";
     const c=id?clients.find(x=>x.id===id):null;
     $("fName").value=c?.name||"";$("fCompany").value=c?.company||"";$("fStage").value=c?.stage||"New";
-    $("fValue").value=c?.value||"";$("fDate").value=c?.date||isoToday;$("fContact").value=c?.contact||"";
+    $("fValue").value=c?.value||"";$("fDate").value=c?.date||isoToday;
+    $("fPhone").value=c?.phone?formatPhone(c.phone):"";$("fEmail").value=c?.email||"";
     $("fAction").value=c?.nextAction||"";$("fNotes").value=c?.notes||"";
+    clearFormErrors();
     $("modal").classList.add("open");$("fName").focus();
   }
   function closeModal(){$("modal").classList.remove("open");editingId=null;}
@@ -346,7 +402,8 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
           <div class="detail-box"><small>Follow-up</small><b>${esc(c.date?dateText(c.date):"Not scheduled")}</b></div>
           <div class="detail-box"><small>Next action</small><b>${esc(c.nextAction||"Not set")}</b></div>
         </div>
-        <div class="notes"><h3>CONTACT</h3><p>${esc(c.contact||"No phone or email saved.")}</p></div>
+        <div class="notes"><h3>CONTACT</h3><p>${esc(c.phone?formatPhone(c.phone):"No phone saved.")}${c.phone&&c.email?" · ":""}${esc(c.email||"")||(!c.phone?"No email saved.":"")}</p></div>
+        <div class="next-move ${dueClass(c)}"><strong>Next move:</strong> ${esc(nextMove(c))}</div>
         <div class="notes"><h3>NOTES</h3><p>${esc(c.notes||"No notes yet.")}</p></div>
         <div class="timeline">
           <div class="timeline-head"><h3>ACTIVITY</h3></div>
@@ -383,19 +440,72 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   $("closeModal").addEventListener("click",closeModal);$("cancelModal").addEventListener("click",closeModal);
   $("modal").addEventListener("click",e=>{if(e.target===$("modal"))closeModal();});
   $("search").addEventListener("input",()=>{todayOnly=false;renderList();renderAttention();});
-  $("stageFilter").addEventListener("change",()=>{todayOnly=false;renderList();renderAttention();});
+  document.querySelectorAll("#stageToggle .stage-toggle-btn").forEach(btn=>btn.addEventListener("click",()=>{
+    todayOnly=false;
+    $("stageToggle").querySelectorAll(".stage-toggle-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    stageFilter=btn.dataset.stage;
+    renderList();renderAttention();
+  }));
   $("clientSearch").addEventListener("input",renderClientGrid);
-  $("clientStageFilter").addEventListener("change",renderClientGrid);
+  document.querySelectorAll("#clientStageToggle .stage-toggle-btn").forEach(btn=>btn.addEventListener("click",()=>{
+    $("clientStageToggle").querySelectorAll(".stage-toggle-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    clientStageFilter=btn.dataset.stage;
+    renderClientGrid();
+  }));
   document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>switchView(b.dataset.view)));
 
+  function setFieldError(id,message){
+    const field=$(id),error=$(id+"Error");
+    if(field)field.classList.add("invalid");
+    if(error){error.textContent=message;error.classList.add("show");}
+  }
+  function clearFormErrors(){
+    ["fName","fValue","fDate","fPhone","fEmail","fAction"].forEach(id=>{
+      const el=$(id),err=$(id+"Error");
+      if(el)el.classList.remove("invalid");
+      if(err)err.classList.remove("show");
+    });
+  }
+  $("fPhone").addEventListener("input",e=>{
+    e.target.value=formatPhone(e.target.value);
+    e.target.setCustomValidity(validPhone(e.target.value)?"":"Enter a 10-digit phone number.");
+  });
+  $("fEmail").addEventListener("input",e=>{
+    e.target.value=e.target.value.toLowerCase();
+    e.target.setCustomValidity(validEmail(e.target.value)?"":"Enter a valid email address.");
+  });
+  $("fValue").addEventListener("input",e=>{
+    e.target.value=e.target.value.replace(/[^\d]/g,"");
+  });
   $("clientForm").addEventListener("submit",e=>{
     e.preventDefault();
-    const name=$("fName").value.trim();if(!name)return;
+    clearFormErrors();
+    const name=$("fName").value.trim();
+    const valueRaw=$("fValue").value.trim();
+    const date=$("fDate").value;
+    const phone=normalizePhone($("fPhone").value);
+    const email=normalizeEmail($("fEmail").value);
+    const action=$("fAction").value.trim();
+    let valid=true;
+
+    if(!name){setFieldError("fName","Client name is required.");valid=false;}
+    if(valueRaw===""||!/^\\d+(\\.\\d+)?$/.test(valueRaw)){setFieldError("fValue","Enter numbers only.");valid=false;}
+    if(valueRaw!==""&&(Number(valueRaw)<0||Number(valueRaw)>10000000)){setFieldError("fValue","Use a value from $0 to $10,000,000.");valid=false;}
+    if(!date){setFieldError("fDate","Choose the next follow-up date.");valid=false;}
+    if(!validPhone(phone)){setFieldError("fPhone","Enter exactly 10 digits.");valid=false;}
+    if(!validEmail(email)){setFieldError("fEmail","Enter a valid email address.");valid=false;}
+    if(!phone&&!email){setFieldError("fPhone","Add a phone number or email.");setFieldError("fEmail","Add a phone number or email.");valid=false;}
+    if(!action){setFieldError("fAction","Give yourself a clear next step.");valid=false;}
+    if(!valid)return;
+
     const stage=$("fStage").value;
     const data={
-      name,company:$("fCompany").value.trim(),stage,value:Math.max(0,Math.min(10000000,Number($("fValue").value)||0)),
-      date:$("fDate").value,contact:$("fContact").value.trim(),nextAction:$("fAction").value.trim(),notes:$("fNotes").value.trim()
+      name,company:$("fCompany").value.trim(),stage,value:Number(valueRaw),
+      date,phone,email,nextAction:action,notes:$("fNotes").value.trim()
     };
+
     if(editingId){
       const c=clients.find(x=>x.id===editingId),old=c.stage;Object.assign(c,data);
       if(old!=="Won"&&stage==="Won"){c.wonMonth=monthKey;addActivity(c,"Deal marked won");}
@@ -409,7 +519,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   });
 
   $("exportBtn").addEventListener("click",()=>{
-    const rows=[["Name","Company","Stage","Deal Value","Follow-up","Contact","Next Action","Notes"],...clients.map(c=>[c.name,c.company,c.stage,c.value,c.date,c.contact,c.nextAction,c.notes])];
+    const rows=[["Name","Company","Stage","Deal Value","Follow-up","Phone","Email","Next Action","Notes"],...clients.map(c=>[c.name,c.company,c.stage,c.value,c.date,c.phone,c.email,c.nextAction,c.notes])];
     const dangerous=/^[=+\-@]/;
     const safe=v=>{let s=String(v??"");if(dangerous.test(s))s="'"+s;return `"${s.replace(/"/g,'""')}"`;};
     const csv=rows.map(r=>r.map(safe).join(",")).join("\n");
