@@ -24,7 +24,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:17px;box-shadow:0 2px 8px rgba(20,25,35,.025)}.stat .label{color:var(--muted);font-size:12px;font-weight:600}.stat .value{font-size:25px;font-weight:750;margin-top:4px}.stat .hint{font-size:11px;color:var(--muted);margin-top:3px}
 .nav{display:flex;gap:4px;background:#e9ebee;border-radius:11px;padding:4px;margin-bottom:16px;width:max-content}.nav button{border:0;background:transparent;padding:8px 13px;border-radius:8px;color:#656a72;font-weight:650}.nav button.active{background:#fff;color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .view{display:none}.view.active{display:block}
-.stage-toggle{display:flex;align-items:center;gap:4px;background:#e9ebee;border:1px solid #e1e4e8;border-radius:11px;padding:4px;overflow:auto;max-width:100%}
+.filter-group{display:flex;align-items:center;gap:8px;min-width:0}.filter-label{font-size:9px;font-weight:800;letter-spacing:.08em;color:var(--muted);white-space:nowrap}.stage-toggle{display:flex;align-items:center;gap:4px;background:#e9ebee;border:1px solid #e1e4e8;border-radius:11px;padding:4px;overflow:auto;max-width:100%}
 .stage-toggle-btn{border:0;background:transparent;color:#656a72;border-radius:8px;padding:7px 9px;font-size:11px;font-weight:700;white-space:nowrap}
 .stage-toggle-btn:hover{color:var(--text)}.stage-toggle-btn.active{background:#fff;color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.08)}
 .stage-toggle-btn b{font-size:10px;color:#9298a1;margin-left:3px}.stage-toggle-btn.active b{color:var(--text)}
@@ -32,7 +32,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .field input.invalid,.field select.invalid{border-color:var(--red);background:var(--red-soft)}.field-error{font-size:11px;color:var(--red);font-weight:650;display:none}.field-error.show{display:block}
 .next-move{margin-top:10px;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:#f8f9fb;font-size:11px;color:#4f555d}
 .next-move strong{color:var(--text)}.next-move.overdue{border-color:#f0caca;background:var(--red-soft)}.next-move.today{border-color:#f0dfb6;background:var(--amber-soft)}
-@media(max-width:900px){.stage-toggle{width:100%}.stage-toggle-btn{flex:1}}
+@media(max-width:900px){.filter-group{width:100%;align-items:flex-start;flex-direction:column;gap:5px}.stage-toggle{width:100%}.stage-toggle-btn{flex:1}}
 .toolbar{display:flex;justify-content:space-between;gap:12px;margin-bottom:14px}.search{position:relative;flex:1}.search input{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px 10px 35px;background:#fff;outline:none}.search span{position:absolute;left:12px;top:9px;color:#9298a1}.filters{display:flex;gap:8px}.filters select{border:1px solid var(--line);border-radius:10px;padding:9px 30px 9px 10px;background:#fff}
 .board{display:grid;grid-template-columns:1.45fr .75fr;gap:18px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.panel-head{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.panel-title{font-weight:750}.panel-sub{font-size:12px;color:var(--muted);margin-top:2px}
 .clients{padding:7px}.client{display:grid;grid-template-columns:minmax(180px,1.4fr) .8fr .7fr .8fr auto;align-items:center;gap:12px;padding:13px 11px;border-bottom:1px solid #f0f1f3}.client:last-child{border-bottom:0}.person{display:flex;align-items:center;gap:10px;min-width:0}.avatar{width:35px;height:35px;border-radius:10px;background:#eef0f3;display:grid;place-items:center;font-size:12px;font-weight:750;flex:0 0 auto}.person-info{min-width:0}.name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.company{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.stage{font-size:11px;padding:5px 8px;border-radius:999px;display:inline-block;background:#f0f1f3;color:#565c65;font-weight:650}.stage.new{background:#f0f1f3}.stage.contacted{background:var(--amber-soft);color:var(--amber)}.stage.proposal{background:var(--accent-soft);color:var(--accent)}.stage.won{background:var(--green-soft);color:var(--green)}.stage.lost{background:var(--red-soft);color:var(--red)}.money{font-weight:650}.follow{font-size:12px}.follow.overdue{color:var(--red);font-weight:700}.follow.today{color:var(--amber);font-weight:700}.follow.future{color:var(--muted)}.row-actions{display:flex;gap:5px}.icon-btn{width:31px;height:31px;border:1px solid var(--line);background:#fff;border-radius:8px}.empty{padding:40px 20px;text-align:center;color:var(--muted)}
@@ -58,8 +58,8 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 @media(max-width:900px){.momentum-grid{grid-template-columns:repeat(2,1fr)}.momentum-card:nth-child(2){border-right:0}.momentum-card:nth-child(-n+2){border-bottom:1px solid var(--line)}.risk-item{grid-template-columns:1fr auto}.risk-reason{grid-column:1}.risk-item .btn{grid-column:2;grid-row:1/3}}
 @media(max-width:560px){.momentum-grid{grid-template-columns:1fr 1fr}.momentum-card{padding:12px}.risk-item{grid-template-columns:1fr}.risk-item .btn{grid-column:auto;grid-row:auto;width:100%}}
 
-.deal-drawer-backdrop{position:fixed;inset:0;background:rgba(20,25,35,.24);display:none;align-items:flex-start;justify-content:flex-end;z-index:45}.deal-drawer-backdrop.open{display:flex}.deal-drawer{width:min(430px,100%);height:100%;background:#fff;border-left:1px solid var(--line);box-shadow:-10px 0 30px rgba(20,25,35,.12);padding:20px;overflow:auto}.drawer-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.drawer-title{font-size:20px;font-weight:800;letter-spacing:-.02em}.drawer-company{color:var(--muted);font-size:12px;margin-top:2px}.drawer-close{width:36px;height:36px;border:1px solid var(--line);background:#fff;border-radius:9px;font-size:20px}.drawer-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:18px 0}.drawer-kpi{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:11px}.drawer-kpi small{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.06em}.drawer-kpi b{display:block;margin-top:3px}.drawer-section{border-top:1px solid var(--line);padding-top:15px;margin-top:15px}.drawer-label{font-size:9px;letter-spacing:.08em;font-weight:800;color:var(--muted);margin-bottom:8px}.drawer-actions{display:flex;gap:7px;flex-wrap:wrap}.drawer-actions .btn{font-size:11px}.stage-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.stage-actions button{min-height:40px}.drawer-next{background:var(--accent-soft);border:1px solid #d9e5ff;border-radius:10px;padding:11px;font-size:12px}.drawer-next strong{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--accent);margin-bottom:3px}.deal-card.selected{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
-@media(max-width:560px){.deal-drawer{width:100%;height:auto;max-height:92vh;margin-top:auto;border-left:0;border-top:1px solid var(--line);border-radius:16px 16px 0 0}.deal-drawer-backdrop{align-items:flex-end}.stage-actions{grid-template-columns:repeat(2,1fr)}}
+.pipeline-guide{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:-4px 0 14px;padding:10px;background:#fafbfc;border:1px solid var(--line);border-radius:10px}.pipeline-guide div{padding:4px 8px}.pipeline-guide strong{display:block;font-size:10px}.pipeline-guide span{display:block;color:var(--muted);font-size:10px;line-height:1.35;margin-top:2px}.deal-drawer-backdrop{position:fixed;inset:0;background:rgba(20,25,35,.24);display:none;align-items:flex-start;justify-content:flex-end;z-index:45}.deal-drawer-backdrop.open{display:flex}.deal-drawer{width:min(430px,100%);height:100%;background:#fff;border-left:1px solid var(--line);box-shadow:-10px 0 30px rgba(20,25,35,.12);padding:20px;overflow:auto}.drawer-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.drawer-title{font-size:20px;font-weight:800;letter-spacing:-.02em}.drawer-company{color:var(--muted);font-size:12px;margin-top:2px}.drawer-close{width:36px;height:36px;border:1px solid var(--line);background:#fff;border-radius:9px;font-size:20px}.drawer-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:18px 0}.drawer-kpi{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:11px}.drawer-kpi small{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.06em}.drawer-kpi b{display:block;margin-top:3px}.drawer-section{border-top:1px solid var(--line);padding-top:15px;margin-top:15px}.drawer-label{font-size:9px;letter-spacing:.08em;font-weight:800;color:var(--muted);margin-bottom:8px}.drawer-actions{display:flex;gap:7px;flex-wrap:wrap}.drawer-actions .btn{font-size:11px}.stage-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.stage-actions button{min-height:40px}.drawer-next{background:var(--accent-soft);border:1px solid #d9e5ff;border-radius:10px;padding:11px;font-size:12px}.drawer-next strong{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--accent);margin-bottom:3px}.deal-action-hint{margin-top:8px;font-size:9px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.05em}.deal-card.selected{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+@media(max-width:560px){.pipeline-guide{grid-template-columns:1fr}.deal-drawer{width:100%;height:auto;max-height:92vh;margin-top:auto;border-left:0;border-top:1px solid var(--line);border-radius:16px 16px 0 0}.pipeline-guide{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:-4px 0 14px;padding:10px;background:#fafbfc;border:1px solid var(--line);border-radius:10px}.pipeline-guide div{padding:4px 8px}.pipeline-guide strong{display:block;font-size:10px}.pipeline-guide span{display:block;color:var(--muted);font-size:10px;line-height:1.35;margin-top:2px}.deal-drawer-backdrop{align-items:flex-end}.stage-actions{grid-template-columns:repeat(2,1fr)}}
 
 .week-panel{margin-bottom:18px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}.week-grid{display:grid;grid-template-columns:repeat(5,1fr)}.week-stat{padding:15px 16px;border-right:1px solid var(--line)}.week-stat:last-child{border-right:0}.week-stat small{display:block;color:var(--muted);font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}.week-stat strong{display:block;font-size:22px;margin-top:3px}.week-stat span{display:block;color:var(--muted);font-size:10px;margin-top:2px}.streak-badge{display:inline-flex;align-items:center;gap:5px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:5px 9px;font-size:10px;font-weight:750}.shortcut-hint{font-size:10px;color:var(--muted);margin-top:7px}@media(max-width:900px){.week-grid{grid-template-columns:repeat(3,1fr)}.week-stat:nth-child(3){border-right:0}.week-stat:nth-child(-n+3){border-bottom:1px solid var(--line)}}@media(max-width:560px){.week-grid{grid-template-columns:1fr 1fr}.week-stat{border-right:0!important;border-bottom:1px solid var(--line)}.week-stat:last-child{grid-column:1/-1;border-bottom:0}}
 </style>
@@ -139,14 +139,14 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     </section>
     <div class="toolbar">
       <div class="search"><span>⌕</span><input id="search" aria-label="Search clients" placeholder="Search clients, companies, notes, or next actions…"></div>
-      <div class="stage-toggle" id="stageToggle" aria-label="Filter by stage">
+      <div class="filter-group"><span class="filter-label">FILTER BY STAGE</span><div class="stage-toggle" id="stageToggle" aria-label="Filter clients by stage">
         <button type="button" class="stage-toggle-btn active" data-stage="all">All <b id="countAll">0</b></button>
         <button type="button" class="stage-toggle-btn" data-stage="New">New <b id="countNew">0</b></button>
         <button type="button" class="stage-toggle-btn" data-stage="Contacted">Contacted <b id="countContacted">0</b></button>
         <button type="button" class="stage-toggle-btn" data-stage="Proposal">Proposal <b id="countProposal">0</b></button>
         <button type="button" class="stage-toggle-btn" data-stage="Won">Won <b id="countWon">0</b></button>
         <button type="button" class="stage-toggle-btn" data-stage="Lost">Lost <b id="countLost">0</b></button>
-      </div>
+      </div></div>
     </div>
     <div class="board">
       <section class="panel">
@@ -161,24 +161,25 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   </section>
 
   <section id="pipelineView" class="view">
-    <div class="toolbar">
-      <div><div class="panel-title">Pipeline</div><div class="panel-sub">Drag an open deal to move it between stages.</div></div>
+    <div class="toolbar pipeline-toolbar">
+      <div><div class="panel-title">Pipeline</div><div class="panel-sub">See every deal by stage. Drag open deals between columns, or click a deal to open its actions.</div></div>
       <button class="btn small" id="pipelineAdd">+ Add client</button>
     </div>
+    <div class="pipeline-guide"><div><strong>1. Find the deal</strong><span>Deals are grouped into New, Contacted, Proposal, Won, and Lost.</span></div><div><strong>2. Click a deal</strong><span>Its action drawer opens on the right.</span></div><div><strong>3. Take action</strong><span>Log contact, reschedule, edit, or move the stage.</span></div></div>
     <div class="pipeline" id="pipeline"></div>
   </section>
 
   <section id="clientsView" class="view">
     <div class="toolbar">
       <div class="search"><span>⌕</span><input id="clientSearch" aria-label="Search clients" placeholder="Search all clients…"></div>
-      <div class="stage-toggle compact" id="clientStageToggle" aria-label="Filter clients">
+      <div class="filter-group"><span class="filter-label">FILTER BY STAGE</span><div class="stage-toggle compact" id="clientStageToggle" aria-label="Filter clients by stage">
         <button type="button" class="stage-toggle-btn active" data-stage="all">All</button>
         <button type="button" class="stage-toggle-btn" data-stage="New">New</button>
         <button type="button" class="stage-toggle-btn" data-stage="Contacted">Contacted</button>
         <button type="button" class="stage-toggle-btn" data-stage="Proposal">Proposal</button>
         <button type="button" class="stage-toggle-btn" data-stage="Won">Won</button>
         <button type="button" class="stage-toggle-btn" data-stage="Lost">Lost</button>
-      </div>
+      </div></div>
     </div>
     <div class="client-grid" id="clientGrid"></div>
   </section>
@@ -594,7 +595,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
           <div class="deal-card" draggable="${stage!=="Won"&&stage!=="Lost"}" data-deal="${c.id}">
             <div class="deal-name">${esc(c.name)}</div><div class="deal-company">${esc(c.company||"Independent")}</div>
             <div class="deal-meta"><strong>${money(c.value)}</strong><span class="deal-date ${dueClass(c)}">${esc(dueLabel(c))}</span></div>
-            <div class="next-move ${dueClass(c)}"><strong>Next move:</strong> ${esc(nextMove(c))}</div>
+            <div class="next-move ${dueClass(c)}"><strong>Next move:</strong> ${esc(nextMove(c))}</div><div class="deal-action-hint">Click for actions →</div>
             ${!['Won','Lost'].includes(c.stage)?(()=>{const h=healthInfo(c);const label=h.state.charAt(0).toUpperCase()+h.state.slice(1);return `<div class="health-detail"><strong>Lead health · ${label}</strong><ul>${h.reasons.slice(0,3).map(r=>`<li>${esc(r)}</li>`).join('')}</ul></div>`})():''}
           </div>`).join(''):`<div class="lane-empty">${stage==='Won'||stage==='Lost'?'No deals yet':'Drop deals here'}</div>`}</div>
       </div>`;
@@ -616,7 +617,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       <div class="drawer-head"><div><div class="drawer-title" id="drawerTitle">${esc(c.name)}</div><div class="drawer-company">${esc(c.company||'Independent')}</div></div><button type="button" class="drawer-close" id="closeDealDrawer" aria-label="Close">×</button></div>
       <div class="drawer-kpis"><div class="drawer-kpi"><small>Stage</small><b><span class="stage ${c.stage.toLowerCase()}">${esc(c.stage)}</span></b></div><div class="drawer-kpi"><small>Deal value</small><b>${money(c.value)}</b></div><div class="drawer-kpi"><small>Follow-up</small><b>${esc(dueLabel(c))}</b></div><div class="drawer-kpi"><small>Health</small><b>${!['Won','Lost'].includes(c.stage)?healthInfo(c).state.charAt(0).toUpperCase()+healthInfo(c).state.slice(1):c.stage}</b></div></div>
       <div class="drawer-next"><strong>Next move</strong>${esc(nextMove(c))}</div>
-      <div class="drawer-section"><div class="drawer-label">QUICK ACTIVITY</div><div class="drawer-actions"><button type="button" class="btn" data-drawer-activity="Call logged">+ Call</button><button type="button" class="btn" data-drawer-activity="Email sent">+ Email</button><button type="button" class="btn" data-drawer-activity="Text sent">+ Text</button><button type="button" class="btn" data-drawer-activity="Meeting held">+ Meeting</button><button type="button" class="btn" data-drawer-followup="1">Reschedule</button></div></div>
+      <div class="drawer-section"><div class="drawer-label">QUICK ACTIVITY</div><div class="drawer-actions"><button type="button" class="btn" data-drawer-activity="Call logged">+ Call</button><button type="button" class="btn" data-drawer-activity="Email sent">+ Email</button><button type="button" class="btn" data-drawer-activity="Text sent">+ Text</button><button type="button" class="btn" data-drawer-activity="Meeting held">+ Meeting</button><button type="button" class="btn" data-drawer-followup="1">Reschedule follow-up</button></div></div>
       <div class="drawer-section"><div class="drawer-label">MOVE STAGE</div><div class="stage-actions">${stages.filter(s=>s!==c.stage).map(s=>`<button type="button" class="btn" data-drawer-stage="${s}">${s}</button>`).join('')}</div></div>
       <div class="drawer-section"><div class="drawer-label">CLIENT</div><div class="drawer-actions"><button type="button" class="btn" id="drawerOpenDetail">Open full client</button><button type="button" class="btn" id="drawerEdit">Edit</button></div></div>`;
     $("dealDrawer").classList.add('open');$("dealDrawer").setAttribute('aria-hidden','false');
@@ -686,7 +687,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
           <div class="detail-box"><small>Next action</small><b>${esc(c.nextAction||"Not set")}</b></div>
         </div>
         <div class="notes"><h3>CONTACT</h3><p>${esc(c.phone?formatPhone(c.phone):"No phone saved.")}${c.phone&&c.email?" · ":""}${esc(c.email||"")||(!c.phone?"No email saved.":"")}</p></div>
-        <div class="next-move ${dueClass(c)}"><strong>Next move:</strong> ${esc(nextMove(c))}</div>
+        <div class="next-move ${dueClass(c)}"><strong>Next move:</strong> ${esc(nextMove(c))}</div><div class="deal-action-hint">Click for actions →</div>
         <div class="notes"><h3>NOTES</h3><p>${esc(c.notes||"No notes yet.")}</p></div>
         <div class="quick-activity" aria-label="Quick activity">
           <button type="button" class="btn" data-quick-activity="Call logged">+ Call</button>
