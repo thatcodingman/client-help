@@ -17,7 +17,7 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}
 button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent-soft);outline-offset:1px}
 .app{min-height:100vh}
 .topbar{height:68px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 28px;justify-content:space-between;position:sticky;top:0;z-index:10}
-.brand{display:flex;align-items:center;gap:11px;font-weight:750;font-size:17px}.logo{width:31px;height:31px;border-radius:9px;background:var(--text);color:#fff;display:grid;place-items:center;font-size:15px}
+.brand-link{text-decoration:none;color:inherit}.brand{display:flex;align-items:center;gap:11px;font-weight:750;font-size:17px}.logo{width:31px;height:31px;border-radius:9px;background:var(--text);color:#fff;display:grid;place-items:center;font-size:15px}
 .top-actions{display:flex;gap:9px}.btn{border:1px solid var(--line);background:#fff;color:var(--text);border-radius:9px;padding:9px 13px;font-weight:600}.btn.primary{background:var(--text);color:#fff;border-color:var(--text)}.btn:hover{filter:brightness(.98)}.btn.small{padding:7px 10px;font-size:12px}
 .main{max-width:1240px;margin:0 auto;padding:30px 24px 50px}
 .hero{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:22px}.hero h1{margin:0;font-size:29px;letter-spacing:-.035em}.hero p{margin:6px 0 0;color:var(--muted)}.date-label{color:var(--muted);font-size:12px;text-align:right}
@@ -60,12 +60,14 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 
 .deal-drawer-backdrop{position:fixed;inset:0;background:rgba(20,25,35,.24);display:none;align-items:flex-start;justify-content:flex-end;z-index:45}.deal-drawer-backdrop.open{display:flex}.deal-drawer{width:min(430px,100%);height:100%;background:#fff;border-left:1px solid var(--line);box-shadow:-10px 0 30px rgba(20,25,35,.12);padding:20px;overflow:auto}.drawer-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.drawer-title{font-size:20px;font-weight:800;letter-spacing:-.02em}.drawer-company{color:var(--muted);font-size:12px;margin-top:2px}.drawer-close{width:36px;height:36px;border:1px solid var(--line);background:#fff;border-radius:9px;font-size:20px}.drawer-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:18px 0}.drawer-kpi{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:11px}.drawer-kpi small{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.06em}.drawer-kpi b{display:block;margin-top:3px}.drawer-section{border-top:1px solid var(--line);padding-top:15px;margin-top:15px}.drawer-label{font-size:9px;letter-spacing:.08em;font-weight:800;color:var(--muted);margin-bottom:8px}.drawer-actions{display:flex;gap:7px;flex-wrap:wrap}.drawer-actions .btn{font-size:11px}.stage-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.stage-actions button{min-height:40px}.drawer-next{background:var(--accent-soft);border:1px solid #d9e5ff;border-radius:10px;padding:11px;font-size:12px}.drawer-next strong{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--accent);margin-bottom:3px}.deal-card.selected{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
 @media(max-width:560px){.deal-drawer{width:100%;height:auto;max-height:92vh;margin-top:auto;border-left:0;border-top:1px solid var(--line);border-radius:16px 16px 0 0}.deal-drawer-backdrop{align-items:flex-end}.stage-actions{grid-template-columns:repeat(2,1fr)}}
+
+.week-panel{margin-bottom:18px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}.week-grid{display:grid;grid-template-columns:repeat(5,1fr)}.week-stat{padding:15px 16px;border-right:1px solid var(--line)}.week-stat:last-child{border-right:0}.week-stat small{display:block;color:var(--muted);font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}.week-stat strong{display:block;font-size:22px;margin-top:3px}.week-stat span{display:block;color:var(--muted);font-size:10px;margin-top:2px}.streak-badge{display:inline-flex;align-items:center;gap:5px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:5px 9px;font-size:10px;font-weight:750}.shortcut-hint{font-size:10px;color:var(--muted);margin-top:7px}@media(max-width:900px){.week-grid{grid-template-columns:repeat(3,1fr)}.week-stat:nth-child(3){border-right:0}.week-stat:nth-child(-n+3){border-bottom:1px solid var(--line)}}@media(max-width:560px){.week-grid{grid-template-columns:1fr 1fr}.week-stat{border-right:0!important;border-bottom:1px solid var(--line)}.week-stat:last-child{grid-column:1/-1;border-bottom:0}}
 </style>
 </head>
 <body>
 <div class="app">
 <header class="topbar">
-  <div class="brand"><div class="logo">F</div> FollowUp</div>
+  <a class="brand brand-link" href="index.html" aria-label="FollowUp home"><div class="logo">F</div><span>FollowUp</span></a>
   <div class="top-actions">
     <button class="btn hide-mobile" id="exportBtn">Export CSV</button>
     <button class="btn primary" id="addBtn">+ Add client</button>
@@ -89,6 +91,18 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     <div class="focus-copy"><div class="focus-kicker">TODAY'S FOCUS</div><strong id="focusHeadline">0 of 5 follow-ups complete</strong><span id="focusSub">Finish the people who need you today.</span></div>
     <div class="focus-progress" aria-label="Daily follow-up progress"><div class="focus-progress-bar" id="focusProgressBar"></div></div>
     <div class="focus-metrics"><span><b id="focusDone">0</b> done</span><span><b id="focusRemaining">5</b> to target</span></div>
+  </section>
+
+  <section class="week-panel" aria-label="This week">
+    <div class="today-head"><div><h2>This week</h2><p>A simple snapshot of the work you've actually completed.</p></div><span class="streak-badge">🔥 <span id="weekStreak">0 day streak</span></span></div>
+    <div class="week-grid">
+      <div class="week-stat"><small>Follow-ups</small><strong id="weekFollowups">0</strong><span>completed</span></div>
+      <div class="week-stat"><small>New leads</small><strong id="weekLeads">0</strong><span>added</span></div>
+      <div class="week-stat"><small>Proposals</small><strong id="weekProposals">0</strong><span>moved into proposal</span></div>
+      <div class="week-stat"><small>Won</small><strong id="weekWon">0</strong><span>deals closed</span></div>
+      <div class="week-stat"><small>Won revenue</small><strong id="weekRevenue">$0</strong><span>closed this week</span></div>
+    </div>
+    <div class="shortcut-hint">Shortcuts: <b>N</b> new lead · <b>/</b> search · <b>1</b>/<b>2</b>/<b>3</b> views · <b>Esc</b> close</div>
   </section>
 
   <nav class="nav" aria-label="Main views">
@@ -260,7 +274,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   ];
 
   function normalizePhone(v){
-    const digits=String(v||"").replace(/\D/g,"").slice(0,10);
+    const digits=String(v||"").replace(/\D/g,"");
     return digits;
   }
   function formatPhone(v){
@@ -333,7 +347,9 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   }
   function addActivity(c,text){
     c.activity=Array.isArray(c.activity)?c.activity:[];
-    c.activity.unshift({text,date:isoToday});
+    const entry={text,date:isoToday};
+    if(/\bwon\b/i.test(String(text||""))){entry.type="won";entry.value=Number(c.value||0);}
+    c.activity.unshift(entry);
     c.activity=c.activity.slice(0,50);
   }
   function lastActivityDate(c){
@@ -367,7 +383,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     else reasons.push("No follow-up date set");
     if(c.nextAction)reasons.push("Next action is defined");
     else reasons.push("Next action is missing");
-    if(state==="stalled"||state==="forgotten")reasons.push(`${daysBetween(last,isoToday)} days since last activity`);
+    if(state==="stalled"||state==="forgotten")reasons.push(last?`${daysBetween(last,isoToday)} days since last activity`:"No activity logged yet");
     return {state,reasons};
   }
   function renderMomentum(){
@@ -380,7 +396,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     const risk=sortClients(active.filter(c=>["stalled","forgotten"].includes(leadMomentum(c))));
     const riskValue=risk.reduce((sum,c)=>sum+Number(c.value||0),0);
     $("riskTotal").textContent=money(riskValue);
-    $("riskList").innerHTML=risk.length?risk.slice(0,6).map(c=>{const h=healthInfo(c);const quiet=daysBetween(lastActivityDate(c),isoToday);return `<div class="risk-item"><div class="risk-name"><strong>${esc(c.name)}</strong><span>${esc(c.company||"Independent")} · ${esc(c.stage)}</span></div><div class="risk-value">${money(c.value)}</div><div class="risk-reason">${quiet} days quiet</div><button class="btn small" type="button" data-risk="${c.id}">Recover</button></div>`}).join(""):`<div class="risk-empty">No open revenue is currently flagged as at risk.</div>`;
+    $("riskList").innerHTML=risk.length?risk.slice(0,6).map(c=>{const h=healthInfo(c);const last=lastActivityDate(c);const quiet=last?daysBetween(last,isoToday):null;return `<div class="risk-item"><div class="risk-name"><strong>${esc(c.name)}</strong><span>${esc(c.company||"Independent")} · ${esc(c.stage)}</span></div><div class="risk-value">${money(c.value)}</div><div class="risk-reason">${quiet===null?"No activity logged":`${quiet} days quiet`}</div><button class="btn small" type="button" data-risk="${c.id}">Recover</button></div>`}).join(""):`<div class="risk-empty">No open revenue is currently flagged as at risk.</div>`;
     document.querySelectorAll("[data-risk]").forEach(b=>b.addEventListener("click",()=>{const c=clients.find(x=>x.id===Number(b.dataset.risk));if(!c)return;c.date=isoToday;c.nextAction=c.nextAction||"Reconnect and ask for an update";addActivity(c,"Follow-up restarted from Revenue at Risk");save();renderAll();toast("Lead recovered into today's follow-ups");}));
   }
   function renderTodayQueue(){
@@ -417,6 +433,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   }
   function openFollowupAction(id){
     const c=clients.find(x=>x.id===id);if(!c)return;
+    $("actionDate").min=isoToday;
     followupActionId=id;resetFollowupModal();
     $("actionModalCopy").textContent=`${c.name} · ${nextMove(c)}`;
     $("actionModal").classList.add("open");
@@ -434,7 +451,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     const c=clients.find(x=>x.id===followupActionId);if(!c)return closeFollowupAction();
     const outcomeLabels={responded:"They responded", "no-answer":"No answer", proposal:"Proposal / info sent", meeting:"Meeting scheduled", "not-interested":"Not interested", other:"Other"};
     const outcomeText=outcomeLabels[pendingOutcome]||"Follow-up completed";
-    if(nextAction==="date"){$("actionDateWrap").classList.remove("hidden");$("actionDate").focus();return;}
+    if(nextAction==="date"){$("actionDate").min=isoToday;$("actionDateWrap").classList.remove("hidden");$("actionDate").focus();return;}
     addActivity(c,`Completed follow-up: ${outcomeText}`);
     if(nextAction==="won"){c.stage="Won";c.wonMonth=monthKey;addActivity(c,"Deal marked won from follow-up");}
     else if(nextAction==="lost"){c.stage="Lost";c.wonMonth="";addActivity(c,"Deal marked lost from follow-up");}
@@ -457,6 +474,44 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     while(days.has(d)){streak++;d=addDays(-1, d);}
     return streak;
   }
+  function startOfWeek(dateStr){
+    const d=new Date(dateStr+"T12:00:00");
+    const day=d.getDay();
+    d.setDate(d.getDate()-(day===0?6:day-1));
+    return localISODate(d);
+  }
+  function inThisWeek(dateStr){
+    if(!dateStr)return false;
+    return dateStr>=startOfWeek(isoToday)&&dateStr<=isoToday;
+  }
+  function renderWeekly(){
+    let followups=0,leads=0,proposals=0;
+    const wonMap=new Map();
+    clients.forEach(c=>{
+      const activity=Array.isArray(c.activity)?c.activity:[];
+      activity.forEach(a=>{
+        if(!a||!inThisWeek(a.date))return;
+        const text=String(a.text||"");
+        if(text.startsWith("Completed follow-up:"))followups++;
+        if(text==="Lead added")leads++;
+        if(text.includes(" to Proposal")||text==="Deal moved to Proposal")proposals++;
+        if(a.type==="won"||text.includes(" to Won")||/\bmarked won\b/i.test(text)){
+          const previous=wonMap.get(c.id);
+          if(!previous||String(a.date)>String(previous.date))wonMap.set(c.id,a);
+        }
+      });
+    });
+    const won=[...wonMap.values()];
+    const revenue=won.reduce((sum,a)=>sum+Number(a.value||0),0);
+    $("weekFollowups").textContent=followups;
+    $("weekLeads").textContent=leads;
+    $("weekProposals").textContent=proposals;
+    $("weekWon").textContent=won.length;
+    $("weekRevenue").textContent=money(revenue);
+    const streak=followupStreak();
+    $("weekStreak").textContent=`${streak} ${streak===1?"day":"days"} streak`;
+  }
+
   function renderStats(){
     const active=clients.filter(c=>!["Won","Lost"].includes(c.stage));
     const due=active.filter(c=>c.date&&c.date<=isoToday);
@@ -513,7 +568,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     $("attention").insertAdjacentHTML("beforeend",`<div class="quick"><h3>Quick actions</h3><button type="button" id="quickNew">Add a new lead</button><button type="button" id="quickToday">${todayOnly?"Show all clients":"Show today's follow-ups"}</button></div>`);
     $("quickNew").addEventListener("click",()=>openModal());
     $("quickToday").addEventListener("click",()=>{
-      todayOnly=!todayOnly;$("search").value="";stageFilter="all";$("stageToggle").querySelectorAll(".stage-toggle-btn").forEach(b=>b.classList.toggle("active",b.dataset.stage==="all"));
+      todayOnly=!todayOnly;$("search").value="";stageFilter="all";momentumFilter="all";$("stageToggle").querySelectorAll(".stage-toggle-btn").forEach(b=>b.classList.toggle("active",b.dataset.stage==="all"));
       renderList();renderAttention();window.scrollTo({top:180,behavior:"smooth"});
     });
   }
@@ -592,7 +647,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     document.querySelectorAll("[data-card]").forEach(card=>card.addEventListener("click",()=>openDetail(Number(card.dataset.card))));
   }
 
-  function renderAll(){renderStats();renderFocus();renderMomentum();renderTodayQueue();renderStale();renderList();renderAttention();renderPipeline();renderClientGrid();}
+  function renderAll(){renderStats();renderFocus();renderWeekly();renderMomentum();renderTodayQueue();renderStale();renderList();renderAttention();renderPipeline();renderClientGrid();}
   function switchView(name){
     closeDealDrawer();
     document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===name));
@@ -771,9 +826,29 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   document.querySelectorAll("[data-follow-next]").forEach(btn=>btn.addEventListener("click",()=>finishFollowup(btn.dataset.followNext)));
   $("actionDate").addEventListener("change",()=>{
     if(!followupActionId||!$("actionDate").value||!pendingOutcome)return;
+    const date=$("actionDate").value;
+    if(date<isoToday){toast("Choose today or a future date.");$("actionDate").value="";return;}
     const c=clients.find(x=>x.id===followupActionId);if(!c)return;
     const labels={responded:"They responded", "no-answer":"No answer", proposal:"Proposal / info sent", meeting:"Meeting scheduled", "not-interested":"Not interested", other:"Other"};
-    c.date=$("actionDate").value;addActivity(c,`Completed follow-up: ${labels[pendingOutcome]||"Other"}`);addActivity(c,`Follow-up rescheduled to ${dateText(c.date)}`);save();closeFollowupAction();renderAll();toast("Follow-up rescheduled");
+    c.date=date;addActivity(c,`Completed follow-up: ${labels[pendingOutcome]||"Other"}`);addActivity(c,`Follow-up rescheduled to ${dateText(c.date)}`);save();closeFollowupAction();renderAll();toast("Follow-up rescheduled");
+  });
+
+  document.addEventListener("keydown",e=>{
+    const tag=(e.target?.tagName||"").toLowerCase();
+    const typing=["input","textarea","select"].includes(tag)||e.target?.isContentEditable;
+    if(e.key==="Escape"){
+      if($("dealDrawer").classList.contains("open"))closeDealDrawer();
+      else if($("actionModal").classList.contains("open"))closeFollowupAction();
+      else if($("modal").classList.contains("open"))closeModal();
+      else if($("detailView").classList.contains("open"))closeDetail();
+      return;
+    }
+    if(typing)return;
+    if(e.key.toLowerCase()==="n"){e.preventDefault();openModal();}
+    else if(e.key==="/"){e.preventDefault();switchView("dashboard");$("search").focus();}
+    else if(e.key==="1")switchView("dashboard");
+    else if(e.key==="2")switchView("pipeline");
+    else if(e.key==="3")switchView("clients");
   });
 
   $("exportBtn").addEventListener("click",()=>{
