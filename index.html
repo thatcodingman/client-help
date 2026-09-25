@@ -3,42 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FollowUp — Client Follow-Up Board</title>
+<title>FollowUp — Simple Client CRM</title>
 <style>
 :root{
   --bg:#f4f5f7;--panel:#fff;--panel2:#fafafa;--text:#17191c;--muted:#727780;
   --line:#e2e5e9;--accent:#2f6fed;--accent-soft:#edf3ff;--green:#23855b;
-  --green-soft:#e9f7f0;--amber:#a66a00;--amber-soft:#fff4dc;--red:#c34848;--red-soft:#fff0f0;
-  --shadow:0 8px 28px rgba(20,25,35,.07);--radius:14px;
+  --green-soft:#e9f7f0;--amber:#a66a00;--amber-soft:#fff4dc;--red:#c34848;
+  --red-soft:#fff0f0;--shadow:0 8px 28px rgba(20,25,35,.07);--radius:14px;
 }
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 button,input,select,textarea{font:inherit}button{cursor:pointer}
-.app{min-height:100vh}.topbar{height:68px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 28px;justify-content:space-between;position:sticky;top:0;z-index:10}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent-soft);outline-offset:1px}
+.app{min-height:100vh}
+.topbar{height:68px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 28px;justify-content:space-between;position:sticky;top:0;z-index:10}
 .brand{display:flex;align-items:center;gap:11px;font-weight:750;font-size:17px}.logo{width:31px;height:31px;border-radius:9px;background:var(--text);color:#fff;display:grid;place-items:center;font-size:15px}
-.top-actions{display:flex;gap:9px}.btn{border:1px solid var(--line);background:#fff;color:var(--text);border-radius:9px;padding:9px 13px;font-weight:600}.btn.primary{background:var(--text);color:#fff;border-color:var(--text)}.btn:hover{filter:brightness(.98)}
-.main{max-width:1240px;margin:0 auto;padding:30px 24px 50px}.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:24px}.hero h1{margin:0;font-size:29px;letter-spacing:-.035em}.hero p{margin:6px 0 0;color:var(--muted)}.date-label{color:var(--muted);font-size:12px;text-align:right}
+.top-actions{display:flex;gap:9px}.btn{border:1px solid var(--line);background:#fff;color:var(--text);border-radius:9px;padding:9px 13px;font-weight:600}.btn.primary{background:var(--text);color:#fff;border-color:var(--text)}.btn:hover{filter:brightness(.98)}.btn.small{padding:7px 10px;font-size:12px}
+.main{max-width:1240px;margin:0 auto;padding:30px 24px 50px}
+.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:22px}.hero h1{margin:0;font-size:29px;letter-spacing:-.035em}.hero p{margin:6px 0 0;color:var(--muted)}.date-label{color:var(--muted);font-size:12px;text-align:right}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:17px;box-shadow:0 2px 8px rgba(20,25,35,.025)}.stat .label{color:var(--muted);font-size:12px;font-weight:600}.stat .value{font-size:25px;font-weight:750;margin-top:4px}.stat .hint{font-size:11px;color:var(--muted);margin-top:3px}
+.nav{display:flex;gap:4px;background:#e9ebee;border-radius:11px;padding:4px;margin-bottom:16px;width:max-content}.nav button{border:0;background:transparent;padding:8px 13px;border-radius:8px;color:#656a72;font-weight:650}.nav button.active{background:#fff;color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.view{display:none}.view.active{display:block}
 .toolbar{display:flex;justify-content:space-between;gap:12px;margin-bottom:14px}.search{position:relative;flex:1}.search input{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px 10px 35px;background:#fff;outline:none}.search span{position:absolute;left:12px;top:9px;color:#9298a1}.filters{display:flex;gap:8px}.filters select{border:1px solid var(--line);border-radius:10px;padding:9px 30px 9px 10px;background:#fff}
 .board{display:grid;grid-template-columns:1.45fr .75fr;gap:18px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.panel-head{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.panel-title{font-weight:750}.panel-sub{font-size:12px;color:var(--muted);margin-top:2px}
-.clients{padding:7px}.client{display:grid;grid-template-columns:minmax(180px,1.4fr) .8fr .7fr .7fr auto;align-items:center;gap:12px;padding:13px 11px;border-bottom:1px solid #f0f1f3}.client:last-child{border-bottom:0}.person{display:flex;align-items:center;gap:10px;min-width:0}.avatar{width:35px;height:35px;border-radius:10px;background:#eef0f3;display:grid;place-items:center;font-size:12px;font-weight:750;flex:0 0 auto}.person-info{min-width:0}.name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.company{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.stage{font-size:11px;padding:5px 8px;border-radius:999px;display:inline-block;background:#f0f1f3;color:#565c65;font-weight:650}.stage.proposal{background:var(--accent-soft);color:var(--accent)}.stage.active{background:var(--green-soft);color:var(--green)}.stage.lost{background:var(--red-soft);color:var(--red)}.money{font-weight:650}.follow{font-size:12px}.follow.overdue{color:var(--red);font-weight:700}.follow.today{color:var(--amber);font-weight:700}.row-actions{display:flex;gap:5px}.icon-btn{width:31px;height:31px;border:1px solid var(--line);background:#fff;border-radius:8px}.empty{padding:40px 20px;text-align:center;color:var(--muted)}
+.clients{padding:7px}.client{display:grid;grid-template-columns:minmax(180px,1.4fr) .8fr .7fr .8fr auto;align-items:center;gap:12px;padding:13px 11px;border-bottom:1px solid #f0f1f3}.client:last-child{border-bottom:0}.person{display:flex;align-items:center;gap:10px;min-width:0}.avatar{width:35px;height:35px;border-radius:10px;background:#eef0f3;display:grid;place-items:center;font-size:12px;font-weight:750;flex:0 0 auto}.person-info{min-width:0}.name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.company{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.stage{font-size:11px;padding:5px 8px;border-radius:999px;display:inline-block;background:#f0f1f3;color:#565c65;font-weight:650}.stage.new{background:#f0f1f3}.stage.contacted{background:var(--amber-soft);color:var(--amber)}.stage.proposal{background:var(--accent-soft);color:var(--accent)}.stage.won{background:var(--green-soft);color:var(--green)}.stage.lost{background:var(--red-soft);color:var(--red)}.money{font-weight:650}.follow{font-size:12px}.follow.overdue{color:var(--red);font-weight:700}.follow.today{color:var(--amber);font-weight:700}.follow.future{color:var(--muted)}.row-actions{display:flex;gap:5px}.icon-btn{width:31px;height:31px;border:1px solid var(--line);background:#fff;border-radius:8px}.empty{padding:40px 20px;text-align:center;color:var(--muted)}
 .side-content{padding:17px}.attention{display:flex;gap:10px;padding:11px 0;border-bottom:1px solid #f0f1f3}.attention:last-child{border-bottom:0}.attention-dot{width:8px;height:8px;background:var(--red);border-radius:50%;margin-top:6px;flex:0 0 auto}.attention strong{display:block;font-size:13px}.attention span{display:block;color:var(--muted);font-size:11px;margin-top:2px}.quick{margin-top:18px;border-top:1px solid var(--line);padding-top:16px}.quick h3{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 10px}.quick button{width:100%;text-align:left;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:10px;margin-bottom:7px;font-weight:600}
-.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(10,12,16,.42);z-index:30;align-items:center;justify-content:center;padding:18px}.modal-backdrop.open{display:flex}.modal{width:min(560px,100%);background:#fff;border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.2);overflow:hidden}.modal-head{padding:17px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.modal-head h2{font-size:17px;margin:0}.close{border:0;background:none;font-size:22px;color:var(--muted)}.form{padding:20px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:700}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px;outline:none;background:#fff}.field textarea{min-height:82px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#9db7ee;box-shadow:0 0 0 3px var(--accent-soft)}.modal-actions{display:flex;justify-content:flex-end;gap:8px;padding-top:17px}
-.detail{display:none}.detail.open{display:block}.detail-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}.detail-top{display:flex;justify-content:space-between;gap:15px}.detail-person{display:flex;gap:12px;align-items:center}.detail-avatar{width:48px;height:48px;border-radius:13px;background:#eef0f3;display:grid;place-items:center;font-weight:750}.detail-name{font-size:20px;font-weight:750}.detail-company{color:var(--muted)}.detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px}.detail-box{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px}.detail-box small{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.05em}.detail-box b{display:block;margin-top:3px}.notes{margin-top:16px;border-top:1px solid var(--line);padding-top:15px}.notes h3{font-size:12px;margin:0 0 7px}.notes p{margin:0;color:#555b63;white-space:pre-wrap}.detail-actions{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+.pipeline{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;align-items:start;overflow-x:auto;padding-bottom:8px}.lane{background:#eceef1;border:1px solid #e1e4e8;border-radius:12px;min-width:210px}.lane-head{padding:12px 12px 9px;display:flex;justify-content:space-between;align-items:center}.lane-title{font-size:12px;font-weight:750}.lane-total{font-size:11px;color:var(--muted)}.lane-body{padding:7px;min-height:110px}.deal-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:8px;box-shadow:0 2px 7px rgba(20,25,35,.035);cursor:pointer}.deal-card:last-child{margin-bottom:0}.deal-card:hover{border-color:#cbd1d9}.deal-name{font-weight:700}.deal-company{font-size:11px;color:var(--muted);margin-top:2px}.deal-meta{display:flex;justify-content:space-between;gap:8px;margin-top:10px;font-size:11px}.deal-date.overdue{color:var(--red);font-weight:700}.deal-date.today{color:var(--amber);font-weight:700}.lane-empty{color:#8b9098;font-size:11px;text-align:center;padding:22px 8px}.drop-target{outline:2px dashed #9db7ee;outline-offset:-3px}
+.client-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.client-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:15px;box-shadow:0 2px 8px rgba(20,25,35,.03);cursor:pointer}.client-card:hover{border-color:#cbd1d9}.card-top{display:flex;justify-content:space-between;gap:10px}.card-person{display:flex;gap:10px;min-width:0}.card-person .avatar{width:40px;height:40px}.card-copy{min-width:0}.card-copy .name{font-size:14px}.card-details{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.mini-box{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:9px}.mini-box small{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.05em}.mini-box b{display:block;margin-top:2px;font-size:12px}.next-action{margin-top:12px;padding:10px;border-radius:9px;background:#f7f8fa;border:1px solid #eceef1;font-size:12px}.next-action strong{display:block;font-size:10px;text-transform:uppercase;color:var(--muted);letter-spacing:.05em;margin-bottom:2px}
+.detail{display:none}.detail.open{display:block}.detail-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}.detail-top{display:flex;justify-content:space-between;gap:15px}.detail-person{display:flex;gap:12px;align-items:center}.detail-avatar{width:48px;height:48px;border-radius:13px;background:#eef0f3;display:grid;place-items:center;font-weight:750}.detail-name{font-size:20px;font-weight:750}.detail-company{color:var(--muted)}.detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}.detail-box{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px}.detail-box small{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.05em}.detail-box b{display:block;margin-top:3px}.notes{margin-top:16px;border-top:1px solid var(--line);padding-top:15px}.notes h3{font-size:12px;margin:0 0 7px}.notes p{margin:0;color:#555b63;white-space:pre-wrap}.detail-actions{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+.timeline{margin-top:18px;border-top:1px solid var(--line);padding-top:16px}.timeline-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.timeline h3{font-size:12px;margin:0}.activity{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #f0f1f3}.activity:last-child{border-bottom:0}.activity-dot{width:8px;height:8px;border-radius:50%;background:#aeb5bf;margin-top:6px;flex:0 0 auto}.activity-main{flex:1}.activity-main strong{font-size:12px}.activity-main span{display:block;color:var(--muted);font-size:11px;margin-top:2px}.activity-form{display:flex;gap:8px;margin-top:10px}.activity-form input{flex:1;border:1px solid var(--line);border-radius:8px;padding:9px}
+.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(10,12,16,.42);z-index:30;align-items:center;justify-content:center;padding:18px}.modal-backdrop.open{display:flex}.modal{width:min(600px,100%);background:#fff;border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.2);overflow:hidden;max-height:calc(100vh - 36px);overflow-y:auto}.modal-head{padding:17px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.modal-head h2{font-size:17px;margin:0}.close{border:0;background:none;font-size:22px;color:var(--muted)}.form{padding:20px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:700}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px;outline:none;background:#fff}.field textarea{min-height:82px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#9db7ee;box-shadow:0 0 0 3px var(--accent-soft)}.modal-actions{display:flex;justify-content:flex-end;gap:8px;padding-top:17px}
 .toast{position:fixed;right:20px;bottom:20px;background:#17191c;color:#fff;padding:11px 14px;border-radius:9px;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);transition:.2s;pointer-events:none;z-index:50}.toast.show{opacity:1;transform:translateY(0)}
-@media(max-width:900px){.board{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.client{grid-template-columns:1.5fr .7fr .7fr auto}.client .company-col{display:none}}
-@media(max-width:620px){.topbar{padding:0 15px}.main{padding:22px 14px 40px}.hero{align-items:flex-start;flex-direction:column}.hero h1{font-size:25px}.date-label{text-align:left}.toolbar{flex-direction:column}.filters select{flex:1}.stats{grid-template-columns:1fr 1fr}.client{grid-template-columns:1fr auto}.client .stage-col,.client .value-col{display:none}.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.detail-grid{grid-template-columns:1fr 1fr}.top-actions .hide-mobile{display:none}}
+@media(max-width:1000px){.pipeline{grid-template-columns:repeat(5,210px)}.board{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:720px){.topbar{padding:0 15px}.main{padding:22px 14px 40px}.hero{align-items:flex-start;flex-direction:column}.hero h1{font-size:25px}.date-label{text-align:left}.toolbar{flex-direction:column}.filters select{flex:1}.client-grid{grid-template-columns:1fr}.detail-grid{grid-template-columns:1fr 1fr}.top-actions .hide-mobile{display:none}}
+@media(max-width:560px){.stats{grid-template-columns:1fr 1fr}.nav{width:100%;overflow:auto}.nav button{flex:1;white-space:nowrap}.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.detail-grid{grid-template-columns:1fr 1fr}.client{grid-template-columns:1fr auto}.client .stage-col,.client .value-col{display:none}.activity-form{flex-direction:column}}
 </style>
 </head>
 <body>
 <div class="app">
 <header class="topbar">
   <div class="brand"><div class="logo">F</div> FollowUp</div>
-  <div class="top-actions"><button class="btn hide-mobile" id="exportBtn">Export CSV</button><button class="btn primary" id="addBtn">+ Add client</button></div>
+  <div class="top-actions">
+    <button class="btn hide-mobile" id="exportBtn">Export CSV</button>
+    <button class="btn primary" id="addBtn">+ Add client</button>
+  </div>
 </header>
 
 <main class="main">
   <section class="hero">
-    <div><h1>Client follow-up</h1><p>Keep your customer pipeline moving without a complicated CRM.</p></div>
+    <div><h1>Client follow-up</h1><p>Know who to contact, what happens next, and where your pipeline stands.</p></div>
     <div class="date-label" id="todayLabel"></div>
   </section>
 
@@ -49,16 +62,22 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}
     <div class="stat"><div class="label">WON THIS MONTH</div><div class="value" id="statWon">$0</div><div class="hint">Closed business</div></div>
   </section>
 
+  <nav class="nav" aria-label="Main views">
+    <button class="active" data-view="dashboard">Dashboard</button>
+    <button data-view="pipeline">Pipeline</button>
+    <button data-view="clients">Clients</button>
+  </nav>
+
   <div id="detailView" class="detail"></div>
 
-  <section id="dashboardView">
+  <section id="dashboardView" class="view active">
     <div class="toolbar">
-      <div class="search"><span>⌕</span><input id="search" placeholder="Search clients, companies, or notes…"></div>
-      <div class="filters"><select id="stageFilter"><option value="all">All stages</option><option>New</option><option>Contacted</option><option>Proposal</option><option>Won</option><option>Lost</option></select></div>
+      <div class="search"><span>⌕</span><input id="search" aria-label="Search clients" placeholder="Search clients, companies, notes, or next actions…"></div>
+      <div class="filters"><select id="stageFilter" aria-label="Filter by stage"><option value="all">All stages</option><option>New</option><option>Contacted</option><option>Proposal</option><option>Won</option><option>Lost</option></select></div>
     </div>
     <div class="board">
       <section class="panel">
-        <div class="panel-head"><div><div class="panel-title">Your clients</div><div class="panel-sub">Click a client to see details and take action.</div></div></div>
+        <div class="panel-head"><div><div class="panel-title">Your clients</div><div class="panel-sub">Sorted by who needs attention first.</div></div></div>
         <div class="clients" id="clientList"></div>
       </section>
       <aside class="panel">
@@ -67,21 +86,38 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}
       </aside>
     </div>
   </section>
+
+  <section id="pipelineView" class="view">
+    <div class="toolbar">
+      <div><div class="panel-title">Pipeline</div><div class="panel-sub">Drag an open deal to move it between stages.</div></div>
+      <button class="btn small" id="pipelineAdd">+ Add client</button>
+    </div>
+    <div class="pipeline" id="pipeline"></div>
+  </section>
+
+  <section id="clientsView" class="view">
+    <div class="toolbar">
+      <div class="search"><span>⌕</span><input id="clientSearch" aria-label="Search clients" placeholder="Search all clients…"></div>
+      <div class="filters"><select id="clientStageFilter" aria-label="Filter clients"><option value="all">All stages</option><option>New</option><option>Contacted</option><option>Proposal</option><option>Won</option><option>Lost</option></select></div>
+    </div>
+    <div class="client-grid" id="clientGrid"></div>
+  </section>
 </main>
 </div>
 
 <div class="modal-backdrop" id="modal">
   <div class="modal">
-    <div class="modal-head"><h2 id="modalTitle">Add client</h2><button class="close" id="closeModal">×</button></div>
+    <div class="modal-head"><h2 id="modalTitle">Add client</h2><button class="close" id="closeModal" aria-label="Close">×</button></div>
     <form class="form" id="clientForm">
       <div class="grid">
-        <div class="field"><label>Client name *</label><input id="fName" required maxlength="60" placeholder="Jordan Smith"></div>
-        <div class="field"><label>Company</label><input id="fCompany" maxlength="80" placeholder="Smith Plumbing"></div>
-        <div class="field"><label>Stage</label><select id="fStage"><option>New</option><option>Contacted</option><option>Proposal</option><option>Won</option><option>Lost</option></select></div>
-        <div class="field"><label>Deal value</label><input id="fValue" type="number" min="0" max="10000000" step="1" placeholder="2500"></div>
-        <div class="field"><label>Next follow-up</label><input id="fDate" type="date"></div>
-        <div class="field"><label>Phone / email</label><input id="fContact" maxlength="120" placeholder="555-123-4567"></div>
-        <div class="field full"><label>Notes</label><textarea id="fNotes" maxlength="1000" placeholder="What did you discuss? What happens next?"></textarea></div>
+        <div class="field"><label for="fName">Client name *</label><input id="fName" required maxlength="60" placeholder="Jordan Smith"></div>
+        <div class="field"><label for="fCompany">Company</label><input id="fCompany" maxlength="80" placeholder="Smith Plumbing"></div>
+        <div class="field"><label for="fStage">Stage</label><select id="fStage"><option>New</option><option>Contacted</option><option>Proposal</option><option>Won</option><option>Lost</option></select></div>
+        <div class="field"><label for="fValue">Deal value</label><input id="fValue" type="number" min="0" max="10000000" step="1" placeholder="2500"></div>
+        <div class="field"><label for="fDate">Next follow-up</label><input id="fDate" type="date"></div>
+        <div class="field"><label for="fContact">Phone / email</label><input id="fContact" maxlength="120" placeholder="555-123-4567"></div>
+        <div class="field full"><label for="fAction">Next action</label><input id="fAction" maxlength="140" placeholder="Send revised proposal"></div>
+        <div class="field full"><label for="fNotes">Notes</label><textarea id="fNotes" maxlength="1000" placeholder="What did you discuss? What happens next?"></textarea></div>
       </div>
       <div class="modal-actions"><button type="button" class="btn" id="cancelModal">Cancel</button><button class="btn primary">Save client</button></div>
     </form>
@@ -91,97 +127,213 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}
 
 <script>
 (() => {
-  const KEY = "followup-demo-data-v1";
-  const today = new Date();
-  const isoToday = today.toISOString().slice(0,10);
-  const monthKey = isoToday.slice(0,7);
+  const KEY = "followup-demo-data-v2";
+  const LEGACY_KEY = "followup-demo-data-v1";
+  const stages = ["New","Contacted","Proposal","Won","Lost"];
+  const $ = id => document.getElementById(id);
 
-  const seed = [
-    {id:1,name:"Marcus Lee",company:"Lee Landscaping",stage:"Proposal",value:4200,date:isoToday,contact:"marcus@example.com",notes:"Wants a quote for weekly commercial landscaping. Follow up after he reviews the proposal."},
-    {id:2,name:"Sarah Carter",company:"Carter Dental",stage:"Contacted",value:1800,date:isoToday,contact:"404-555-0192",notes:"Interested in monthly office cleaning. Asked for pricing options."},
-    {id:3,name:"Mike Torres",company:"Torres Auto",stage:"Won",value:3200,date:addDays(7),contact:"mike@torresauto.com",notes:"Signed annual service package." ,wonMonth:monthKey},
-    {id:4,name:"Avery Brooks",company:"Brooks Realty",stage:"New",value:6500,date:addDays(3),contact:"avery@brooksrealty.com",notes:"New inbound lead from website."},
-    {id:5,name:"Nina Patel",company:"Patel Events",stage:"Contacted",value:2750,date:addDays(-2),contact:"404-555-0144",notes:"Asked for availability for three upcoming events."},
-    {id:6,name:"Chris Walker",company:"Walker Fitness",stage:"Lost",value:1900,date:addDays(-8),contact:"chris@walkerfitness.com",notes:"Chose another vendor for now."}
+  function localISODate(d=new Date()){
+    const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");
+    return `${y}-${m}-${day}`;
+  }
+  function addDays(n){
+    const d=new Date(); d.setHours(12,0,0,0); d.setDate(d.getDate()+n); return localISODate(d);
+  }
+  const isoToday=localISODate();
+  const monthKey=isoToday.slice(0,7);
+  $("todayLabel").textContent=new Date().toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"});
+
+  const seed=[
+    {id:1,name:"Marcus Lee",company:"Lee Landscaping",stage:"Proposal",value:4200,date:isoToday,contact:"marcus@example.com",nextAction:"Follow up after proposal review",notes:"Wants a quote for weekly commercial landscaping.",activity:[{text:"Lead added",date:isoToday}]},
+    {id:2,name:"Sarah Carter",company:"Carter Dental",stage:"Contacted",value:1800,date:isoToday,contact:"404-555-0192",nextAction:"Send pricing options",notes:"Interested in monthly office cleaning.",activity:[{text:"Initial contact",date:isoToday}]},
+    {id:3,name:"Mike Torres",company:"Torres Auto",stage:"Won",value:3200,date:addDays(7),contact:"mike@torresauto.com",nextAction:"",notes:"Signed annual service package.",wonMonth:monthKey,activity:[{text:"Deal won",date:isoToday}]},
+    {id:4,name:"Avery Brooks",company:"Brooks Realty",stage:"New",value:6500,date:addDays(3),contact:"avery@brooksrealty.com",nextAction:"Qualify project needs",notes:"New inbound lead from website.",activity:[{text:"Lead added",date:isoToday}]},
+    {id:5,name:"Nina Patel",company:"Patel Events",stage:"Contacted",value:2750,date:addDays(-2),contact:"404-555-0144",nextAction:"Confirm event availability",notes:"Asked for availability for three upcoming events.",activity:[{text:"Availability requested",date:addDays(-2)}]},
+    {id:6,name:"Chris Walker",company:"Walker Fitness",stage:"Lost",value:1900,date:addDays(-8),contact:"chris@walkerfitness.com",nextAction:"",notes:"Chose another vendor for now.",activity:[{text:"Deal marked lost",date:addDays(-8)}]}
   ];
 
-  let clients = load();
-  let editingId = null;
+  function normalizeClient(c,i){
+    if(!c||typeof c!=="object")return null;
+    const stage=stages.includes(c.stage)?c.stage:"New";
+    const activity=Array.isArray(c.activity)?c.activity.filter(a=>a&&typeof a.text==="string").slice(0,50):[];
+    return {
+      id:Number(c.id)||Date.now()+i,name:String(c.name||"Unnamed client").slice(0,60),
+      company:String(c.company||"").slice(0,80),stage,value:Math.max(0,Math.min(10000000,Number(c.value)||0)),
+      date:/^\d{4}-\d{2}-\d{2}$/.test(c.date||"")?c.date:"",contact:String(c.contact||"").slice(0,120),
+      nextAction:String(c.nextAction||"").slice(0,140),notes:String(c.notes||"").slice(0,1000),
+      wonMonth:typeof c.wonMonth==="string"?c.wonMonth:"",activity
+    };
+  }
+  function load(){
+    try{
+      let raw=localStorage.getItem(KEY);
+      if(!raw) raw=localStorage.getItem(LEGACY_KEY);
+      const parsed=raw?JSON.parse(raw):null;
+      const list=Array.isArray(parsed)?parsed.map(normalizeClient).filter(Boolean):seed.map(normalizeClient);
+      return list.length?list:seed.map(normalizeClient);
+    }catch(e){return seed.map(normalizeClient);}
+  }
+  let clients=load(),editingId=null,todayOnly=false,toastTimer;
 
-  const $ = id => document.getElementById(id);
-  $("todayLabel").textContent = today.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"});
-
-  function addDays(n){ const d=new Date(); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10); }
-  function load(){ try{ const x=JSON.parse(localStorage.getItem(KEY)); return Array.isArray(x)?x:seed; }catch(e){return seed;} }
-  function save(){ localStorage.setItem(KEY,JSON.stringify(clients)); }
-  function esc(v){ return String(v ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
-  function money(v){ return "$"+Number(v||0).toLocaleString(); }
-  function dateText(v){ if(!v)return "No date"; const d=new Date(v+"T00:00:00"); return d.toLocaleDateString(undefined,{month:"short",day:"numeric"}); }
-  function dueClass(c){ if(c.stage==="Won"||c.stage==="Lost"||!c.date)return ""; if(c.date<isoToday)return "overdue"; if(c.date===isoToday)return "today"; return ""; }
-  function initials(n){return n.split(/\s+/).slice(0,2).map(x=>x[0]).join("").toUpperCase();}
-
+  function save(){
+    try{localStorage.setItem(KEY,JSON.stringify(clients));return true;}
+    catch(e){toast("Could not save changes in this browser.");return false;}
+  }
+  function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+  function money(v){return "$"+Number(v||0).toLocaleString();}
+  function dateText(v){
+    if(!v)return "No date";
+    return new Date(v+"T12:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
+  }
+  function initials(n){return n.trim().split(/\s+/).slice(0,2).map(x=>x[0]||"").join("").toUpperCase();}
+  function dueClass(c){
+    if(["Won","Lost"].includes(c.stage)||!c.date)return "";
+    if(c.date<isoToday)return "overdue";
+    if(c.date===isoToday)return "today";
+    return "future";
+  }
+  function dueLabel(c){
+    if(["Won","Lost"].includes(c.stage))return "Closed";
+    if(!c.date)return "Set date";
+    if(c.date<isoToday)return "Overdue";
+    if(c.date===isoToday)return "Today";
+    return dateText(c.date);
+  }
+  function addActivity(c,text){
+    c.activity=Array.isArray(c.activity)?c.activity:[];
+    c.activity.unshift({text,date:isoToday});
+    c.activity=c.activity.slice(0,50);
+  }
   function renderStats(){
     const active=clients.filter(c=>!["Won","Lost"].includes(c.stage));
-    const due=active.filter(c=>c.date && c.date<=isoToday);
+    const due=active.filter(c=>c.date&&c.date<=isoToday);
     const pipeline=active.reduce((s,c)=>s+Number(c.value||0),0);
-    const won=clients.filter(c=>c.stage==="Won" && c.wonMonth===monthKey).reduce((s,c)=>s+Number(c.value||0),0);
+    const won=clients.filter(c=>c.stage==="Won"&&c.wonMonth===monthKey).reduce((s,c)=>s+Number(c.value||0),0);
     $("statActive").textContent=active.length;
     $("statDue").textContent=due.length;
     $("statPipeline").textContent=money(pipeline);
     $("statWon").textContent=money(won);
   }
 
-  function renderList(){
-    const q=$("search").value.trim().toLowerCase(), filter=$("stageFilter").value;
-    const list=clients.filter(c=>{
-      const hay=(c.name+" "+c.company+" "+c.notes+" "+c.contact).toLowerCase();
-      return (!q||hay.includes(q)) && (filter==="all"||c.stage===filter);
-    }).sort((a,b)=>{
-      const ad=a.date||"9999",bd=b.date||"9999";
-      if(["Won","Lost"].includes(a.stage)!==["Won","Lost"].includes(b.stage)) return ["Won","Lost"].includes(a.stage)?1:-1;
-      return ad.localeCompare(bd);
+  function filteredClients(search,filter){
+    const q=(search||"").trim().toLowerCase();
+    return clients.filter(c=>{
+      const hay=[c.name,c.company,c.notes,c.contact,c.nextAction].join(" ").toLowerCase();
+      return (!q||hay.includes(q))&&(filter==="all"||c.stage===filter)&&(!todayOnly||(!["Won","Lost"].includes(c.stage)&&c.date&&c.date<=isoToday));
     });
+  }
+  function sortClients(list){
+    return [...list].sort((a,b)=>{
+      const ac=["Won","Lost"].includes(a.stage),bc=["Won","Lost"].includes(b.stage);
+      if(ac!==bc)return ac?1:-1;
+      const ad=a.date||"9999-12-31",bd=b.date||"9999-12-31";
+      if(ad!==bd)return ad.localeCompare(bd);
+      return a.name.localeCompare(b.name);
+    });
+  }
 
+  function renderList(){
+    const list=sortClients(filteredClients($("search").value,$("stageFilter").value));
     $("clientList").innerHTML=list.length?list.map(c=>`
       <div class="client">
-        <div class="person">
-          <div class="avatar">${esc(initials(c.name))}</div>
-          <div class="person-info"><div class="name">${esc(c.name)}</div><div class="company">${esc(c.company||"Independent")}</div></div>
-        </div>
+        <div class="person"><div class="avatar">${esc(initials(c.name))}</div><div class="person-info"><div class="name">${esc(c.name)}</div><div class="company">${esc(c.company||"Independent")}</div></div></div>
         <div class="stage-col"><span class="stage ${c.stage.toLowerCase()}">${esc(c.stage)}</span></div>
         <div class="value-col money">${money(c.value)}</div>
-        <div class="follow ${dueClass(c)}">${c.stage==="Won"?"Closed":c.stage==="Lost"?"Closed":c.date?(c.date<=isoToday?(c.date===isoToday?"Today":"Overdue"):dateText(c.date)):"Set date"}</div>
+        <div class="follow ${dueClass(c)}">${esc(dueLabel(c))}</div>
         <div class="row-actions"><button class="icon-btn" title="Open client" aria-label="Open ${esc(c.name)}" data-open="${c.id}">→</button></div>
-      </div>`).join(""):`<div class="empty">No clients match your filters.</div>`;
+      </div>`).join(""):`<div class="empty">${todayOnly?"No follow-ups are due.":"No clients match your filters."}</div>`;
     document.querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>openDetail(Number(b.dataset.open))));
   }
 
   function renderAttention(){
-    const due=clients.filter(c=>!["Won","Lost"].includes(c.stage)&&c.date&&c.date<=isoToday).sort((a,b)=>a.date.localeCompare(b.date));
+    const due=sortClients(clients.filter(c=>!["Won","Lost"].includes(c.stage)&&c.date&&c.date<=isoToday));
     $("attention").innerHTML=due.length?due.slice(0,6).map(c=>`
       <button type="button" class="attention" style="width:100%;text-align:left;background:none;border:0" data-attn="${c.id}">
         <span class="attention-dot"></span><span><strong>${esc(c.name)}</strong><span>${c.date<isoToday?"Overdue":"Due today"} · ${money(c.value)}</span></span>
       </button>`).join(""):`<div style="padding:10px 0;color:var(--green);font-weight:650">You're caught up. No follow-ups are due.</div>`;
     document.querySelectorAll("[data-attn]").forEach(b=>b.addEventListener("click",()=>openDetail(Number(b.dataset.attn))));
-    $("attention").insertAdjacentHTML("beforeend",`<div class="quick"><h3>Quick actions</h3><button type="button" id="quickNew">Add a new lead</button><button type="button" id="quickToday">Show today's follow-ups</button></div>`);
+    $("attention").insertAdjacentHTML("beforeend",`<div class="quick"><h3>Quick actions</h3><button type="button" id="quickNew">Add a new lead</button><button type="button" id="quickToday">${todayOnly?"Show all clients":"Show today's follow-ups"}</button></div>`);
     $("quickNew").addEventListener("click",()=>openModal());
-    $("quickToday").addEventListener("click",()=>{ $("search").value=""; $("stageFilter").value="all"; renderList(); window.scrollTo({top:180,behavior:"smooth"}); });
+    $("quickToday").addEventListener("click",()=>{
+      todayOnly=!todayOnly;$("search").value="";$("stageFilter").value="all";
+      renderList();renderAttention();window.scrollTo({top:180,behavior:"smooth"});
+    });
   }
 
-  function render(){renderStats();renderList();renderAttention();}
+  function renderPipeline(){
+    const totals={};stages.forEach(s=>totals[s]={count:0,value:0});
+    clients.forEach(c=>{totals[c.stage].count++;totals[c.stage].value+=Number(c.value||0);});
+    $("pipeline").innerHTML=stages.map(stage=>{
+      const cards=sortClients(clients.filter(c=>c.stage===stage));
+      return `<div class="lane" data-lane="${stage}">
+        <div class="lane-head"><div class="lane-title">${stage}</div><div class="lane-total">${totals[stage].count} · ${money(totals[stage].value)}</div></div>
+        <div class="lane-body">${cards.length?cards.map(c=>`
+          <div class="deal-card" draggable="${stage!=="Won"&&stage!=="Lost"}" data-deal="${c.id}">
+            <div class="deal-name">${esc(c.name)}</div><div class="deal-company">${esc(c.company||"Independent")}</div>
+            <div class="deal-meta"><strong>${money(c.value)}</strong><span class="deal-date ${dueClass(c)}">${esc(dueLabel(c))}</span></div>
+            ${c.nextAction?`<div class="next-action"><strong>Next</strong>${esc(c.nextAction)}</div>`:""}
+          </div>`).join(""):`<div class="lane-empty">Drop deals here</div>`}</div>
+      </div>`;
+    }).join("");
+    document.querySelectorAll("[data-deal]").forEach(card=>{
+      card.addEventListener("click",e=>{if(!draggedId)openDetail(Number(card.dataset.deal));});
+      card.addEventListener("dragstart",e=>{draggedId=Number(card.dataset.deal);e.dataTransfer.effectAllowed="move";});
+      card.addEventListener("dragend",()=>{draggedId=null;document.querySelectorAll(".drop-target").forEach(x=>x.classList.remove("drop-target"));});
+    });
+    document.querySelectorAll("[data-lane]").forEach(lane=>{
+      lane.addEventListener("dragover",e=>{e.preventDefault();lane.classList.add("drop-target");});
+      lane.addEventListener("dragleave",()=>lane.classList.remove("drop-target"));
+      lane.addEventListener("drop",e=>{
+        e.preventDefault();lane.classList.remove("drop-target");
+        if(!draggedId)return;
+        const c=clients.find(x=>x.id===draggedId);if(!c)return;
+        const next=lane.dataset.lane;if(c.stage===next)return;
+        const old=c.stage;c.stage=next;
+        if(next==="Won"){c.wonMonth=monthKey;addActivity(c,"Deal moved to Won");}
+        else {if(old==="Won")c.wonMonth="";addActivity(c,`Moved from ${old} to ${next}`);}
+        save();renderAll();toast(`${c.name} moved to ${next}`);
+      });
+    });
+  }
+  let draggedId=null;
+
+  function renderClientGrid(){
+    const list=sortClients(filteredClients($("clientSearch").value,$("clientStageFilter").value));
+    $("clientGrid").innerHTML=list.length?list.map(c=>`
+      <article class="client-card" data-card="${c.id}">
+        <div class="card-top"><div class="card-person"><div class="avatar">${esc(initials(c.name))}</div><div class="card-copy"><div class="name">${esc(c.name)}</div><div class="company">${esc(c.company||"Independent")}</div></div></div><span class="stage ${c.stage.toLowerCase()}">${esc(c.stage)}</span></div>
+        <div class="card-details">
+          <div class="mini-box"><small>Value</small><b>${money(c.value)}</b></div>
+          <div class="mini-box"><small>Follow-up</small><b>${esc(dueLabel(c))}</b></div>
+          <div class="mini-box"><small>Contact</small><b>${esc(c.contact||"—")}</b></div>
+        </div>
+        ${c.nextAction?`<div class="next-action"><strong>Next action</strong>${esc(c.nextAction)}</div>`:""}
+      </article>`).join(""):`<div class="empty">No clients match your filters.</div>`;
+    document.querySelectorAll("[data-card]").forEach(card=>card.addEventListener("click",()=>openDetail(Number(card.dataset.card))));
+  }
+
+  function renderAll(){renderStats();renderList();renderAttention();renderPipeline();renderClientGrid();}
+  function switchView(name){
+    document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===name));
+    document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===name+"View"));
+    window.scrollTo({top:120,behavior:"smooth"});
+  }
 
   function openModal(id=null){
     editingId=id;
     $("modalTitle").textContent=id?"Edit client":"Add client";
     const c=id?clients.find(x=>x.id===id):null;
-    $("fName").value=c?.name||"";$("fCompany").value=c?.company||"";$("fStage").value=c?.stage||"New";$("fValue").value=c?.value||"";$("fDate").value=c?.date||isoToday;$("fContact").value=c?.contact||"";$("fNotes").value=c?.notes||"";
-    $("modal").classList.add("open"); $("fName").focus();
+    $("fName").value=c?.name||"";$("fCompany").value=c?.company||"";$("fStage").value=c?.stage||"New";
+    $("fValue").value=c?.value||"";$("fDate").value=c?.date||isoToday;$("fContact").value=c?.contact||"";
+    $("fAction").value=c?.nextAction||"";$("fNotes").value=c?.notes||"";
+    $("modal").classList.add("open");$("fName").focus();
   }
-  function closeModal(){ $("modal").classList.remove("open"); editingId=null; }
+  function closeModal(){$("modal").classList.remove("open");editingId=null;}
 
   function openDetail(id){
-    const c=clients.find(x=>x.id===id); if(!c)return;
-    $("dashboardView").style.display="none";$("detailView").classList.add("open");
+    const c=clients.find(x=>x.id===id);if(!c)return;
+    document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+    $("detailView").classList.add("open");
     $("detailView").innerHTML=`
       <div class="detail-card">
         <div class="detail-top">
@@ -191,46 +343,82 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}
         <div class="detail-grid">
           <div class="detail-box"><small>Stage</small><b><span class="stage ${c.stage.toLowerCase()}">${esc(c.stage)}</span></b></div>
           <div class="detail-box"><small>Deal value</small><b>${money(c.value)}</b></div>
-          <div class="detail-box"><small>Follow-up</small><b>${c.date?dateText(c.date):"Not scheduled"}</b></div>
+          <div class="detail-box"><small>Follow-up</small><b>${esc(c.date?dateText(c.date):"Not scheduled")}</b></div>
+          <div class="detail-box"><small>Next action</small><b>${esc(c.nextAction||"Not set")}</b></div>
         </div>
         <div class="notes"><h3>CONTACT</h3><p>${esc(c.contact||"No phone or email saved.")}</p></div>
         <div class="notes"><h3>NOTES</h3><p>${esc(c.notes||"No notes yet.")}</p></div>
+        <div class="timeline">
+          <div class="timeline-head"><h3>ACTIVITY</h3></div>
+          <div>${(c.activity||[]).slice(0,8).map(a=>`<div class="activity"><span class="activity-dot"></span><div class="activity-main"><strong>${esc(a.text)}</strong><span>${esc(dateText(a.date))}</span></div></div>`).join("")||`<div class="empty" style="padding:15px 0">No activity yet.</div>`}</div>
+          <form class="activity-form" id="activityForm"><input id="activityInput" maxlength="160" placeholder="Log a call, email, meeting, or note…"><button class="btn small">Add</button></form>
+        </div>
         <div class="detail-actions">
           ${!["Won","Lost"].includes(c.stage)?`<button class="btn primary" id="completeBtn">Mark won</button><button class="btn" id="todayBtn">Follow up today</button>`:""}
           <button class="btn" id="editBtn">Edit</button><button class="btn" id="deleteBtn">Delete</button>
         </div>
       </div>`;
     $("backBtn").addEventListener("click",closeDetail);
-    $("editBtn").addEventListener("click",()=>{openModal(c.id);});
-    $("deleteBtn").addEventListener("click",()=>{if(confirm("Delete this client?")){clients=clients.filter(x=>x.id!==c.id);save();closeDetail();render();toast("Client deleted");}});
-    const complete=$("completeBtn"); if(complete)complete.addEventListener("click",()=>{c.stage="Won";c.wonMonth=monthKey;save();openDetail(c.id);render();toast("Marked as won");});
-    const todayBtn=$("todayBtn"); if(todayBtn)todayBtn.addEventListener("click",()=>{c.date=isoToday;save();openDetail(c.id);render();toast("Follow-up set for today");});
+    $("editBtn").addEventListener("click",()=>openModal(c.id));
+    $("deleteBtn").addEventListener("click",()=>{
+      if(confirm("Delete this client?")){clients=clients.filter(x=>x.id!==c.id);save();closeDetail();renderAll();toast("Client deleted");}
+    });
+    const complete=$("completeBtn");
+    if(complete)complete.addEventListener("click",()=>{c.stage="Won";c.wonMonth=monthKey;addActivity(c,"Deal marked won");save();openDetail(c.id);renderAll();toast("Marked as won");});
+    const todayBtn=$("todayBtn");
+    if(todayBtn)todayBtn.addEventListener("click",()=>{c.date=isoToday;addActivity(c,"Follow-up moved to today");save();openDetail(c.id);renderAll();toast("Follow-up set for today");});
+    $("activityForm").addEventListener("submit",e=>{
+      e.preventDefault();const input=$("activityInput"),text=input.value.trim();if(!text)return;
+      addActivity(c,text);save();openDetail(c.id);renderAll();toast("Activity added");
+    });
     window.scrollTo({top:120,behavior:"smooth"});
   }
-  function closeDetail(){ $("detailView").classList.remove("open");$("detailView").innerHTML="";$("dashboardView").style.display="block";render(); }
+  function closeDetail(){
+    $("detailView").classList.remove("open");$("detailView").innerHTML="";
+    switchView("dashboard");renderAll();
+  }
 
   $("addBtn").addEventListener("click",()=>openModal());
+  $("pipelineAdd").addEventListener("click",()=>openModal());
   $("closeModal").addEventListener("click",closeModal);$("cancelModal").addEventListener("click",closeModal);
   $("modal").addEventListener("click",e=>{if(e.target===$("modal"))closeModal();});
-  $("search").addEventListener("input",renderList);$("stageFilter").addEventListener("change",renderList);
+  $("search").addEventListener("input",()=>{todayOnly=false;renderList();renderAttention();});
+  $("stageFilter").addEventListener("change",()=>{todayOnly=false;renderList();renderAttention();});
+  $("clientSearch").addEventListener("input",renderClientGrid);
+  $("clientStageFilter").addEventListener("change",renderClientGrid);
+  document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>switchView(b.dataset.view)));
 
   $("clientForm").addEventListener("submit",e=>{
     e.preventDefault();
-    const name=$("fName").value.trim(); if(!name)return;
-    const data={name,company:$("fCompany").value.trim(),stage:$("fStage").value,value:Math.max(0,Math.min(10000000,Number($("fValue").value)||0)),date:$("fDate").value,contact:$("fContact").value.trim(),notes:$("fNotes").value.trim()};
-    if(editingId){const c=clients.find(x=>x.id===editingId);Object.assign(c,data);if(c.stage==="Won"&&!c.wonMonth)c.wonMonth=monthKey;toast("Client updated");}
-    else{data.id=Date.now();if(data.stage==="Won")data.wonMonth=monthKey;clients.unshift(data);toast("Client added");}
-    save();closeModal();render();
+    const name=$("fName").value.trim();if(!name)return;
+    const stage=$("fStage").value;
+    const data={
+      name,company:$("fCompany").value.trim(),stage,value:Math.max(0,Math.min(10000000,Number($("fValue").value)||0)),
+      date:$("fDate").value,contact:$("fContact").value.trim(),nextAction:$("fAction").value.trim(),notes:$("fNotes").value.trim()
+    };
+    if(editingId){
+      const c=clients.find(x=>x.id===editingId),old=c.stage;Object.assign(c,data);
+      if(old!=="Won"&&stage==="Won"){c.wonMonth=monthKey;addActivity(c,"Deal marked won");}
+      else if(old==="Won"&&stage!=="Won")c.wonMonth="";
+      else if(old!==stage)addActivity(c,`Stage changed from ${old} to ${stage}`);
+      save();closeModal();renderAll();toast("Client updated");
+    }else{
+      data.id=Date.now();data.activity=[{text:"Lead added",date:isoToday}];if(stage==="Won")data.wonMonth=monthKey;
+      clients.unshift(normalizeClient(data,0));save();closeModal();renderAll();toast("Client added");
+    }
   });
 
   $("exportBtn").addEventListener("click",()=>{
-    const rows=[["Name","Company","Stage","Deal Value","Follow-up","Contact","Notes"],...clients.map(c=>[c.name,c.company,c.stage,c.value,c.date,c.contact,c.notes])];
-    const csv=rows.map(r=>r.map(v=>`"${String(v??"").replace(/"/g,'""')}"`).join(",")).join("\n");
-    const blob=new Blob([csv],{type:"text/csv"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="followup-clients.csv";a.click();URL.revokeObjectURL(url);toast("CSV exported");
+    const rows=[["Name","Company","Stage","Deal Value","Follow-up","Contact","Next Action","Notes"],...clients.map(c=>[c.name,c.company,c.stage,c.value,c.date,c.contact,c.nextAction,c.notes])];
+    const dangerous=/^[=+\-@]/;
+    const safe=v=>{let s=String(v??"");if(dangerous.test(s))s="'"+s;return `"${s.replace(/"/g,'""')}"`;};
+    const csv=rows.map(r=>r.map(safe).join(",")).join("\n");
+    const blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+    a.href=url;a.download="followup-clients.csv";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);toast("CSV exported");
   });
 
-  let toastTimer;function toast(msg){clearTimeout(toastTimer);$("toast").textContent=msg;$("toast").classList.add("show");toastTimer=setTimeout(()=>$("toast").classList.remove("show"),1800);}
-  render();
+  function toast(msg){clearTimeout(toastTimer);$("toast").textContent=msg;$("toast").classList.add("show");toastTimer=setTimeout(()=>$("toast").classList.remove("show"),1800);}
+  renderAll();
 })();
 </script>
 </body>
