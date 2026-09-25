@@ -53,6 +53,13 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 
 .focus-strip{display:grid;grid-template-columns:1.2fr 2fr auto;align-items:center;gap:18px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;margin:-8px 0 22px;box-shadow:0 2px 8px rgba(20,25,35,.025)}.focus-copy{min-width:0}.focus-kicker,.action-section-label{font-size:9px;letter-spacing:.08em;font-weight:800;color:var(--muted)}.focus-copy strong{display:block;font-size:13px;margin-top:2px}.focus-copy span{display:block;font-size:11px;color:var(--muted);margin-top:1px}.focus-progress{height:8px;background:#eef0f3;border-radius:99px;overflow:hidden}.focus-progress-bar{height:100%;width:0;background:var(--green);border-radius:99px;transition:width .2s ease}.focus-metrics{display:flex;gap:12px;font-size:10px;color:var(--muted);white-space:nowrap}.focus-metrics b{color:var(--text);font-size:12px}.action-section-label{margin-bottom:8px}.outcome-options button{min-height:42px}.quick-activity{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.quick-activity .btn{font-size:11px;padding:7px 9px}.detail-actions{align-items:center}
 @media(max-width:720px){.focus-strip{grid-template-columns:1fr;gap:9px}.focus-metrics{justify-content:space-between}.focus-progress{width:100%}}
+
+.momentum-panel{margin-bottom:18px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}.momentum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}.momentum-card{padding:15px 16px;border-right:1px solid var(--line);cursor:pointer;background:#fff;text-align:left;border-top:0;border-bottom:0;border-left:0}.momentum-card:last-child{border-right:0}.momentum-card:hover{background:#fafbfc}.momentum-card.active{background:#f7f8fa;box-shadow:inset 0 -2px 0 var(--accent)}.momentum-icon{font-size:17px}.momentum-label{display:block;font-size:11px;font-weight:750;margin-top:6px}.momentum-count{display:block;font-size:23px;font-weight:800;margin-top:2px}.momentum-sub{display:block;color:var(--muted);font-size:10px;margin-top:1px}.risk-panel{margin-bottom:18px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}.risk-list{padding:0 10px}.risk-item{display:grid;grid-template-columns:minmax(170px,1.4fr) .7fr .9fr auto;align-items:center;gap:12px;padding:12px 8px;border-bottom:1px solid #f0f1f3}.risk-item:last-child{border-bottom:0}.risk-name strong{display:block}.risk-name span{display:block;color:var(--muted);font-size:10px;margin-top:2px}.risk-reason{font-size:11px;color:var(--red);font-weight:700}.risk-value{font-weight:750}.health{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:750}.health-dot{width:7px;height:7px;border-radius:50%;background:#999}.health.moving .health-dot{background:var(--green)}.health.waiting .health-dot{background:var(--amber)}.health.stalled .health-dot,.health.forgotten .health-dot{background:var(--red)}.health-detail{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:9px;background:#fafbfc}.health-detail strong{font-size:10px;text-transform:uppercase;letter-spacing:.05em}.health-detail ul{margin:6px 0 0;padding-left:17px;color:var(--muted);font-size:11px}.health-detail li{margin:2px 0}.card-health{margin-top:10px}.risk-empty{padding:18px;text-align:center;color:var(--green);font-weight:650}
+@media(max-width:900px){.momentum-grid{grid-template-columns:repeat(2,1fr)}.momentum-card:nth-child(2){border-right:0}.momentum-card:nth-child(-n+2){border-bottom:1px solid var(--line)}.risk-item{grid-template-columns:1fr auto}.risk-reason{grid-column:1}.risk-item .btn{grid-column:2;grid-row:1/3}}
+@media(max-width:560px){.momentum-grid{grid-template-columns:1fr 1fr}.momentum-card{padding:12px}.risk-item{grid-template-columns:1fr}.risk-item .btn{grid-column:auto;grid-row:auto;width:100%}}
+
+.deal-drawer-backdrop{position:fixed;inset:0;background:rgba(20,25,35,.24);display:none;align-items:flex-start;justify-content:flex-end;z-index:45}.deal-drawer-backdrop.open{display:flex}.deal-drawer{width:min(430px,100%);height:100%;background:#fff;border-left:1px solid var(--line);box-shadow:-10px 0 30px rgba(20,25,35,.12);padding:20px;overflow:auto}.drawer-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.drawer-title{font-size:20px;font-weight:800;letter-spacing:-.02em}.drawer-company{color:var(--muted);font-size:12px;margin-top:2px}.drawer-close{width:36px;height:36px;border:1px solid var(--line);background:#fff;border-radius:9px;font-size:20px}.drawer-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:18px 0}.drawer-kpi{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:11px}.drawer-kpi small{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.06em}.drawer-kpi b{display:block;margin-top:3px}.drawer-section{border-top:1px solid var(--line);padding-top:15px;margin-top:15px}.drawer-label{font-size:9px;letter-spacing:.08em;font-weight:800;color:var(--muted);margin-bottom:8px}.drawer-actions{display:flex;gap:7px;flex-wrap:wrap}.drawer-actions .btn{font-size:11px}.stage-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.stage-actions button{min-height:40px}.drawer-next{background:var(--accent-soft);border:1px solid #d9e5ff;border-radius:10px;padding:11px;font-size:12px}.drawer-next strong{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--accent);margin-bottom:3px}.deal-card.selected{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+@media(max-width:560px){.deal-drawer{width:100%;height:auto;max-height:92vh;margin-top:auto;border-left:0;border-top:1px solid var(--line);border-radius:16px 16px 0 0}.deal-drawer-backdrop{align-items:flex-end}.stage-actions{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -97,6 +104,20 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     <section class="today-panel">
       <div class="today-head"><div><h2>Today</h2><p>Work the next follow-up instead of hunting through your client list.</p></div><span class="today-count" id="todayQueueCount">0 items</span></div>
       <div class="today-list" id="todayQueue"></div>
+    </section>
+
+    <section class="momentum-panel" id="momentumPanel">
+      <div class="today-head"><div><h2>Pipeline momentum</h2><p>See which active leads are moving and which are slipping.</p></div><span class="today-count" id="momentumTotal">0 active</span></div>
+      <div class="momentum-grid">
+        <button type="button" class="momentum-card" data-momentum="moving"><span class="momentum-icon">🟢</span><span class="momentum-label">Moving</span><span class="momentum-count" id="momentumMoving">0</span><span class="momentum-sub">Recent activity + next step</span></button>
+        <button type="button" class="momentum-card" data-momentum="waiting"><span class="momentum-icon">🟡</span><span class="momentum-label">Waiting</span><span class="momentum-count" id="momentumWaiting">0</span><span class="momentum-sub">Scheduled follow-up</span></button>
+        <button type="button" class="momentum-card" data-momentum="stalled"><span class="momentum-icon">🔴</span><span class="momentum-label">Stalled</span><span class="momentum-count" id="momentumStalled">0</span><span class="momentum-sub">7+ days quiet</span></button>
+        <button type="button" class="momentum-card" data-momentum="forgotten"><span class="momentum-icon">⚫</span><span class="momentum-label">Forgotten</span><span class="momentum-count" id="momentumForgotten">0</span><span class="momentum-sub">14+ days quiet</span></button>
+      </div>
+    </section>
+    <section class="risk-panel" id="riskPanel">
+      <div class="today-head"><div><h2>Revenue at risk</h2><p>Open opportunities that need attention before they go cold.</p></div><span class="today-count" id="riskTotal">$0</span></div>
+      <div class="risk-list" id="riskList"></div>
     </section>
     <section class="stale-panel" id="stalePanel" style="display:none">
       <div class="today-head"><div><h2>Quiet leads</h2><p>Open leads with no logged activity in 7+ days.</p></div><span class="today-count" id="staleCount">0 leads</span></div>
@@ -202,6 +223,13 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   </div>
 </div>
 
+
+<div class="modal-backdrop deal-drawer-backdrop" id="dealDrawer" aria-hidden="true">
+  <aside class="deal-drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+    <div id="dealDrawerContent"></div>
+  </aside>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -277,7 +305,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       return list.length?list:seed.map(normalizeClient);
     }catch(e){return seed.map(normalizeClient);}
   }
-  let clients=load(),editingId=null,followupActionId=null,todayOnly=false,stageFilter="all",clientStageFilter="all",toastTimer;
+  let clients=load(),editingId=null,followupActionId=null,todayOnly=false,stageFilter="all",clientStageFilter="all",momentumFilter="all",toastTimer;
 
   function save(){
     try{localStorage.setItem(KEY,JSON.stringify(clients));return true;}
@@ -320,6 +348,40 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     if(["Won","Lost"].includes(c.stage))return false;
     const last=lastActivityDate(c);
     return !!last&&daysBetween(last,isoToday)>=7;
+  }
+  function leadMomentum(c){
+    if(["Won","Lost"].includes(c.stage))return "closed";
+    const last=lastActivityDate(c);
+    const quiet=last?daysBetween(last,isoToday):999;
+    if(quiet>=14)return "forgotten";
+    if(quiet>=7)return "stalled";
+    if(c.date&&c.date<=isoToday)return "moving";
+    return "waiting";
+  }
+  function healthInfo(c){
+    const state=leadMomentum(c);
+    const last=lastActivityDate(c);
+    const reasons=[];
+    if(last&&daysBetween(last,isoToday)<=2)reasons.push("Activity logged recently");
+    if(c.date)reasons.push(c.date<=isoToday?"Follow-up is due now":"Follow-up is scheduled");
+    else reasons.push("No follow-up date set");
+    if(c.nextAction)reasons.push("Next action is defined");
+    else reasons.push("Next action is missing");
+    if(state==="stalled"||state==="forgotten")reasons.push(`${daysBetween(last,isoToday)} days since last activity`);
+    return {state,reasons};
+  }
+  function renderMomentum(){
+    const active=clients.filter(c=>!["Won","Lost"].includes(c.stage));
+    const counts={moving:0,waiting:0,stalled:0,forgotten:0};
+    active.forEach(c=>counts[leadMomentum(c)]++);
+    $("momentumTotal").textContent=`${active.length} active`;
+    Object.keys(counts).forEach(k=>$("momentum"+k[0].toUpperCase()+k.slice(1)).textContent=counts[k]);
+    document.querySelectorAll("[data-momentum]").forEach(b=>b.classList.toggle("active",momentumFilter===b.dataset.momentum));
+    const risk=sortClients(active.filter(c=>["stalled","forgotten"].includes(leadMomentum(c))));
+    const riskValue=risk.reduce((sum,c)=>sum+Number(c.value||0),0);
+    $("riskTotal").textContent=money(riskValue);
+    $("riskList").innerHTML=risk.length?risk.slice(0,6).map(c=>{const h=healthInfo(c);const quiet=daysBetween(lastActivityDate(c),isoToday);return `<div class="risk-item"><div class="risk-name"><strong>${esc(c.name)}</strong><span>${esc(c.company||"Independent")} · ${esc(c.stage)}</span></div><div class="risk-value">${money(c.value)}</div><div class="risk-reason">${quiet} days quiet</div><button class="btn small" type="button" data-risk="${c.id}">Recover</button></div>`}).join(""):`<div class="risk-empty">No open revenue is currently flagged as at risk.</div>`;
+    document.querySelectorAll("[data-risk]").forEach(b=>b.addEventListener("click",()=>{const c=clients.find(x=>x.id===Number(b.dataset.risk));if(!c)return;c.date=isoToday;c.nextAction=c.nextAction||"Reconnect and ask for an update";addActivity(c,"Follow-up restarted from Revenue at Risk");save();renderAll();toast("Lead recovered into today's follow-ups");}));
   }
   function renderTodayQueue(){
     const due=sortClients(clients.filter(c=>!['Won','Lost'].includes(c.stage)&&c.date&&c.date<=isoToday));
@@ -415,7 +477,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     const q=(search||"").trim().toLowerCase();
     return clients.filter(c=>{
       const hay=[c.name,c.company,c.notes,c.phone,c.email,c.nextAction].join(" ").toLowerCase();
-      return (!q||hay.includes(q))&&(filter==="all"||c.stage===filter)&&(!todayOnly||(!["Won","Lost"].includes(c.stage)&&c.date&&c.date<=isoToday));
+      return (!q||hay.includes(q))&&(filter==="all"||c.stage===filter)&&(momentumFilter==="all"||leadMomentum(c)===momentumFilter)&&(!todayOnly||(!["Won","Lost"].includes(c.stage)&&c.date&&c.date<=isoToday));
     });
   }
   function sortClients(list){
@@ -456,9 +518,19 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     });
   }
 
+  function moveStage(id,next,reason="") {
+    const c=clients.find(x=>x.id===id); if(!c || !stages.includes(next) || c.stage===next)return;
+    const old=c.stage;
+    if(next==="Lost" && !reason){ reason=window.prompt("Why was this deal lost? (optional)")||""; }
+    c.stage=next;
+    if(next==="Won"){c.wonMonth=monthKey;addActivity(c,`Moved from ${old} to Won`);}
+    else {if(old==="Won")c.wonMonth="";addActivity(c,`Moved from ${old} to ${next}`);}
+    if(next==="Lost" && reason.trim())addActivity(c,`Lost reason: ${reason.trim()}`);
+    save();renderAll();openDealActions(c.id);toast(`${c.name} moved to ${next}`);
+  }
   function renderPipeline(){
     const totals={};stages.forEach(s=>totals[s]={count:0,value:0});
-    clients.forEach(c=>{totals[c.stage].count++;totals[c.stage].value+=Number(c.value||0);});
+    clients.forEach(c=>{if(!totals[c.stage])totals[c.stage]={count:0,value:0};totals[c.stage].count++;totals[c.stage].value+=Number(c.value||0);});
     $("pipeline").innerHTML=stages.map(stage=>{
       const cards=sortClients(clients.filter(c=>c.stage===stage));
       return `<div class="lane" data-lane="${stage}">
@@ -468,29 +540,40 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
             <div class="deal-name">${esc(c.name)}</div><div class="deal-company">${esc(c.company||"Independent")}</div>
             <div class="deal-meta"><strong>${money(c.value)}</strong><span class="deal-date ${dueClass(c)}">${esc(dueLabel(c))}</span></div>
             <div class="next-move ${dueClass(c)}"><strong>Next move:</strong> ${esc(nextMove(c))}</div>
-          </div>`).join(""):`<div class="lane-empty">Drop deals here</div>`}</div>
+            ${!['Won','Lost'].includes(c.stage)?(()=>{const h=healthInfo(c);const label=h.state.charAt(0).toUpperCase()+h.state.slice(1);return `<div class="health-detail"><strong>Lead health · ${label}</strong><ul>${h.reasons.slice(0,3).map(r=>`<li>${esc(r)}</li>`).join('')}</ul></div>`})():''}
+          </div>`).join(''):`<div class="lane-empty">${stage==='Won'||stage==='Lost'?'No deals yet':'Drop deals here'}</div>`}</div>
       </div>`;
-    }).join("");
-    document.querySelectorAll("[data-deal]").forEach(card=>{
-      card.addEventListener("click",e=>{if(!draggedId)openDetail(Number(card.dataset.deal));});
-      card.addEventListener("dragstart",e=>{draggedId=Number(card.dataset.deal);e.dataTransfer.effectAllowed="move";});
-      card.addEventListener("dragend",()=>{draggedId=null;document.querySelectorAll(".drop-target").forEach(x=>x.classList.remove("drop-target"));});
+    }).join('');
+    document.querySelectorAll('[data-deal]').forEach(card=>{
+      card.addEventListener('click',e=>{if(!draggedId)openDealActions(Number(card.dataset.deal));});
+      card.addEventListener('dragstart',e=>{draggedId=Number(card.dataset.deal);e.dataTransfer.effectAllowed='move';card.classList.add('selected');});
+      card.addEventListener('dragend',()=>{draggedId=null;card.classList.remove('selected');document.querySelectorAll('.drop-target').forEach(x=>x.classList.remove('drop-target'));});
     });
-    document.querySelectorAll("[data-lane]").forEach(lane=>{
-      lane.addEventListener("dragover",e=>{e.preventDefault();lane.classList.add("drop-target");});
-      lane.addEventListener("dragleave",()=>lane.classList.remove("drop-target"));
-      lane.addEventListener("drop",e=>{
-        e.preventDefault();lane.classList.remove("drop-target");
-        if(!draggedId)return;
-        const c=clients.find(x=>x.id===draggedId);if(!c)return;
-        const next=lane.dataset.lane;if(c.stage===next)return;
-        const old=c.stage;c.stage=next;
-        if(next==="Won"){c.wonMonth=monthKey;addActivity(c,"Deal moved to Won");}
-        else {if(old==="Won")c.wonMonth="";addActivity(c,`Moved from ${old} to ${next}`);}
-        save();renderAll();toast(`${c.name} moved to ${next}`);
-      });
+    document.querySelectorAll('[data-lane]').forEach(lane=>{
+      lane.addEventListener('dragover',e=>{e.preventDefault();if(draggedId)lane.classList.add('drop-target');});
+      lane.addEventListener('dragleave',()=>lane.classList.remove('drop-target'));
+      lane.addEventListener('drop',e=>{e.preventDefault();lane.classList.remove('drop-target');if(!draggedId)return;const id=draggedId;draggedId=null;moveStage(id,lane.dataset.lane);});
     });
   }
+  function openDealActions(id){
+    const c=clients.find(x=>x.id===id);if(!c)return;
+    $("dealDrawerContent").innerHTML=`
+      <div class="drawer-head"><div><div class="drawer-title" id="drawerTitle">${esc(c.name)}</div><div class="drawer-company">${esc(c.company||'Independent')}</div></div><button type="button" class="drawer-close" id="closeDealDrawer" aria-label="Close">×</button></div>
+      <div class="drawer-kpis"><div class="drawer-kpi"><small>Stage</small><b><span class="stage ${c.stage.toLowerCase()}">${esc(c.stage)}</span></b></div><div class="drawer-kpi"><small>Deal value</small><b>${money(c.value)}</b></div><div class="drawer-kpi"><small>Follow-up</small><b>${esc(dueLabel(c))}</b></div><div class="drawer-kpi"><small>Health</small><b>${!['Won','Lost'].includes(c.stage)?healthInfo(c).state.charAt(0).toUpperCase()+healthInfo(c).state.slice(1):c.stage}</b></div></div>
+      <div class="drawer-next"><strong>Next move</strong>${esc(nextMove(c))}</div>
+      <div class="drawer-section"><div class="drawer-label">QUICK ACTIVITY</div><div class="drawer-actions"><button type="button" class="btn" data-drawer-activity="Call logged">+ Call</button><button type="button" class="btn" data-drawer-activity="Email sent">+ Email</button><button type="button" class="btn" data-drawer-activity="Text sent">+ Text</button><button type="button" class="btn" data-drawer-activity="Meeting held">+ Meeting</button><button type="button" class="btn" data-drawer-followup="1">Reschedule</button></div></div>
+      <div class="drawer-section"><div class="drawer-label">MOVE STAGE</div><div class="stage-actions">${stages.filter(s=>s!==c.stage).map(s=>`<button type="button" class="btn" data-drawer-stage="${s}">${s}</button>`).join('')}</div></div>
+      <div class="drawer-section"><div class="drawer-label">CLIENT</div><div class="drawer-actions"><button type="button" class="btn" id="drawerOpenDetail">Open full client</button><button type="button" class="btn" id="drawerEdit">Edit</button></div></div>`;
+    $("dealDrawer").classList.add('open');$("dealDrawer").setAttribute('aria-hidden','false');
+    $("closeDealDrawer").addEventListener('click',closeDealDrawer);
+    $("dealDrawer").addEventListener('click',e=>{if(e.target===$("dealDrawer"))closeDealDrawer();},{once:true});
+    document.querySelectorAll('[data-drawer-stage]').forEach(b=>b.addEventListener('click',()=>moveStage(c.id,b.dataset.drawerStage)));
+    document.querySelectorAll('[data-drawer-activity]').forEach(b=>b.addEventListener('click',()=>{addActivity(c,b.dataset.drawerActivity);save();renderAll();openDealActions(c.id);toast(b.dataset.drawerActivity);}));
+    const follow=$("dealDrawer").querySelector('[data-drawer-followup]'); if(follow)follow.addEventListener('click',()=>{closeDealDrawer();openFollowupAction(c.id);});
+    $("drawerOpenDetail").addEventListener('click',()=>{closeDealDrawer();openDetail(c.id);});
+    $("drawerEdit").addEventListener('click',()=>{closeDealDrawer();openModal(c.id);});
+  }
+  function closeDealDrawer(){ $("dealDrawer").classList.remove('open');$("dealDrawer").setAttribute('aria-hidden','true'); }
   let draggedId=null;
 
   function renderClientGrid(){
@@ -504,12 +587,14 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
           <div class="mini-box"><small>Contact</small><b>${esc(c.phone?formatPhone(c.phone):(c.email||"—"))}</b></div>
         </div>
         ${c.nextAction?`<div class="next-action"><strong>Next action</strong>${esc(c.nextAction)}</div>`:""}
+        ${!["Won","Lost"].includes(c.stage)?(()=>{const h=healthInfo(c);const label=h.state.charAt(0).toUpperCase()+h.state.slice(1);return `<div class="card-health health ${h.state}"><span class="health-dot"></span>${label}</div>`})():""}
       </article>`).join(""):`<div class="empty">No clients match your filters.</div>`;
     document.querySelectorAll("[data-card]").forEach(card=>card.addEventListener("click",()=>openDetail(Number(card.dataset.card))));
   }
 
-  function renderAll(){renderStats();renderFocus();renderTodayQueue();renderStale();renderList();renderAttention();renderPipeline();renderClientGrid();}
+  function renderAll(){renderStats();renderFocus();renderMomentum();renderTodayQueue();renderStale();renderList();renderAttention();renderPipeline();renderClientGrid();}
   function switchView(name){
+    closeDealDrawer();
     document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===name));
     document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===name+"View"));
     window.scrollTo({top:120,behavior:"smooth"});
@@ -529,6 +614,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   function closeModal(){$("modal").classList.remove("open");editingId=null;}
 
   function openDetail(id){
+    closeDealDrawer();
     const c=clients.find(x=>x.id===id);if(!c)return;
     document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
     $("detailView").classList.add("open");
@@ -602,6 +688,14 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     btn.classList.add("active");
     clientStageFilter=btn.dataset.stage;
     renderClientGrid();
+  }));
+  document.querySelectorAll("[data-momentum]").forEach(btn=>btn.addEventListener("click",()=>{
+    momentumFilter=momentumFilter===btn.dataset.momentum?"all":btn.dataset.momentum;
+    todayOnly=false;stageFilter="all";
+    $("search").value="";
+    $("stageToggle").querySelectorAll(".stage-toggle-btn").forEach(b=>b.classList.toggle("active",b.dataset.stage==="all"));
+    renderMomentum();renderList();renderAttention();
+    window.scrollTo({top:120,behavior:"smooth"});
   }));
   document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>switchView(b.dataset.view)));
 
