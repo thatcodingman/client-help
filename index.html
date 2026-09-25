@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FollowUp — Simple Client CRM</title>
+<title>FollowUp — Daily Client Follow-Up</title>
 <style>
 :root{
   --bg:#f4f5f7;--panel:#fff;--panel2:#fafafa;--text:#17191c;--muted:#727780;
@@ -50,6 +50,9 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .today-panel{margin-bottom:18px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}.today-head{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px}.today-head h2{font-size:15px;margin:0}.today-head p{margin:3px 0 0;color:var(--muted);font-size:12px}.today-count{font-size:11px;color:var(--muted);white-space:nowrap}.today-list{padding:8px}.today-item{display:grid;grid-template-columns:10px minmax(180px,1fr) minmax(180px,1.1fr) auto;align-items:center;gap:13px;padding:12px 10px;border-bottom:1px solid #f0f1f3}.today-item:last-child{border-bottom:0}.today-item-dot{width:8px;height:8px;border-radius:50%;background:var(--amber)}.today-item.overdue .today-item-dot{background:var(--red)}.today-person strong{display:block}.today-person span{display:block;font-size:11px;color:var(--muted);margin-top:2px}.today-move{font-size:12px}.today-move strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:2px}.today-actions{display:flex;gap:6px;justify-content:flex-end}.today-empty{padding:20px 12px;text-align:center;color:var(--green);font-weight:650}.stale-panel{margin-bottom:18px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}.stale-panel .today-head{border-bottom:1px solid var(--line)}.stale-item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 10px;border-bottom:1px solid #f0f1f3}.stale-item:last-child{border-bottom:0}.stale-meta{font-size:11px;color:var(--muted)}.stale-meta strong{color:var(--text)}.action-modal-copy{font-size:12px;color:var(--muted);margin:-4px 0 15px}.action-options{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.action-options button{text-align:left}.action-options .wide{grid-column:1/-1}.action-date{margin-top:12px}.action-date input{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 10px;background:#fff}.action-date.hidden{display:none}
 @media(max-width:900px){.today-item{grid-template-columns:10px 1fr}.today-move{grid-column:2}.today-actions{grid-column:2;justify-content:flex-start}.stale-item{align-items:flex-start;flex-direction:column}.action-options{grid-template-columns:1fr}}
 
+
+.focus-strip{display:grid;grid-template-columns:1.2fr 2fr auto;align-items:center;gap:18px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;margin:-8px 0 22px;box-shadow:0 2px 8px rgba(20,25,35,.025)}.focus-copy{min-width:0}.focus-kicker,.action-section-label{font-size:9px;letter-spacing:.08em;font-weight:800;color:var(--muted)}.focus-copy strong{display:block;font-size:13px;margin-top:2px}.focus-copy span{display:block;font-size:11px;color:var(--muted);margin-top:1px}.focus-progress{height:8px;background:#eef0f3;border-radius:99px;overflow:hidden}.focus-progress-bar{height:100%;width:0;background:var(--green);border-radius:99px;transition:width .2s ease}.focus-metrics{display:flex;gap:12px;font-size:10px;color:var(--muted);white-space:nowrap}.focus-metrics b{color:var(--text);font-size:12px}.action-section-label{margin-bottom:8px}.outcome-options button{min-height:42px}.quick-activity{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.quick-activity .btn{font-size:11px;padding:7px 9px}.detail-actions{align-items:center}
+@media(max-width:720px){.focus-strip{grid-template-columns:1fr;gap:9px}.focus-metrics{justify-content:space-between}.focus-progress{width:100%}}
 </style>
 </head>
 <body>
@@ -64,7 +67,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 
 <main class="main">
   <section class="hero">
-    <div><h1>Client follow-up</h1><p>Know who to contact, what happens next, and where your pipeline stands.</p></div>
+    <div><h1>Client follow-up</h1><p>Your workday starts with the people who need you next.</p></div>
     <div class="date-label" id="todayLabel"></div>
   </section>
 
@@ -73,6 +76,12 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     <div class="stat"><div class="label">NEEDS FOLLOW-UP</div><div class="value" id="statDue">0</div><div class="hint">Due today or overdue</div></div>
     <div class="stat"><div class="label">OPEN PIPELINE</div><div class="value" id="statPipeline">$0</div><div class="hint">Potential revenue</div></div>
     <div class="stat"><div class="label">WON THIS MONTH</div><div class="value" id="statWon">$0</div><div class="hint">Closed business</div></div>
+  </section>
+
+  <section class="focus-strip">
+    <div class="focus-copy"><div class="focus-kicker">TODAY'S FOCUS</div><strong id="focusHeadline">0 of 5 follow-ups complete</strong><span id="focusSub">Finish the people who need you today.</span></div>
+    <div class="focus-progress" aria-label="Daily follow-up progress"><div class="focus-progress-bar" id="focusProgressBar"></div></div>
+    <div class="focus-metrics"><span><b id="focusDone">0</b> done</span><span><b id="focusRemaining">5</b> to target</span></div>
   </section>
 
   <nav class="nav" aria-label="Main views">
@@ -163,18 +172,32 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 
 <div class="modal-backdrop" id="actionModal">
   <div class="modal">
-    <div class="modal-head"><h2>What happens next?</h2><button class="close" id="closeActionModal" aria-label="Close">×</button></div>
+    <div class="modal-head"><h2 id="actionModalTitle">What happened?</h2><button class="close" id="closeActionModal" aria-label="Close">×</button></div>
     <div style="padding:18px">
-      <p class="action-modal-copy" id="actionModalCopy">Choose the next step for this follow-up.</p>
-      <div class="action-options">
-        <button type="button" class="btn" data-follow-action="tomorrow">Follow up tomorrow</button>
-        <button type="button" class="btn" data-follow-action="three">Follow up in 3 days</button>
-        <button type="button" class="btn" data-follow-action="date">Pick a date</button>
-        <button type="button" class="btn" data-follow-action="won">Mark won</button>
-        <button type="button" class="btn" data-follow-action="lost">Mark lost</button>
-        <button type="button" class="btn wide" data-follow-action="open">Open client instead</button>
+      <p class="action-modal-copy" id="actionModalCopy">Tell FollowUp what happened so it can set the next move.</p>
+      <div id="outcomeStep">
+        <div class="action-section-label">RESULT OF THIS FOLLOW-UP</div>
+        <div class="action-options outcome-options">
+          <button type="button" class="btn" data-follow-outcome="responded">They responded</button>
+          <button type="button" class="btn" data-follow-outcome="no-answer">No answer</button>
+          <button type="button" class="btn" data-follow-outcome="proposal">Proposal / info sent</button>
+          <button type="button" class="btn" data-follow-outcome="meeting">Meeting scheduled</button>
+          <button type="button" class="btn" data-follow-outcome="not-interested">Not interested</button>
+          <button type="button" class="btn" data-follow-outcome="other">Other</button>
+        </div>
       </div>
-      <div class="action-date hidden" id="actionDateWrap"><label for="actionDate" style="display:block;font-size:11px;font-weight:700;margin-bottom:5px">NEXT FOLLOW-UP DATE</label><input id="actionDate" type="date"></div>
+      <div id="nextStep" style="display:none">
+        <div class="action-section-label">NEXT MOVE</div>
+        <div class="action-options">
+          <button type="button" class="btn" data-follow-next="tomorrow">Follow up tomorrow</button>
+          <button type="button" class="btn" data-follow-next="three">Follow up in 3 days</button>
+          <button type="button" class="btn" data-follow-next="date">Pick a date</button>
+          <button type="button" class="btn" data-follow-next="won">Mark won</button>
+          <button type="button" class="btn" data-follow-next="lost">Mark lost</button>
+          <button type="button" class="btn wide" data-follow-next="none">No further action</button>
+        </div>
+        <div class="action-date hidden" id="actionDateWrap"><label for="actionDate" style="display:block;font-size:11px;font-weight:700;margin-bottom:5px">NEXT FOLLOW-UP DATE</label><input id="actionDate" type="date"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -192,8 +215,8 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");
     return `${y}-${m}-${day}`;
   }
-  function addDays(n){
-    const d=new Date(); d.setHours(12,0,0,0); d.setDate(d.getDate()+n); return localISODate(d);
+  function addDays(n,base){
+    const d=new Date((base||localISODate())+"T12:00:00"); d.setDate(d.getDate()+n); return localISODate(d);
   }
   const isoToday=localISODate();
   const monthKey=isoToday.slice(0,7);
@@ -321,23 +344,56 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     }).join("");
     document.querySelectorAll("[data-stale]").forEach(b=>b.addEventListener("click",()=>{const c=clients.find(x=>x.id===Number(b.dataset.stale));if(c){c.date=isoToday;c.nextAction=c.nextAction||"Reconnect and ask for an update";addActivity(c,"Follow-up restarted after a quiet period");save();renderAll();toast("Follow-up added for today");}}));
   }
+  let pendingOutcome=null;
+  function resetFollowupModal(){
+    pendingOutcome=null;
+    $("actionModalTitle").textContent="What happened?";
+    $("actionModalCopy").textContent="Tell FollowUp what happened so it can set the next move.";
+    $("outcomeStep").style.display="block";
+    $("nextStep").style.display="none";
+    $("actionDateWrap").classList.add("hidden");
+  }
   function openFollowupAction(id){
     const c=clients.find(x=>x.id===id);if(!c)return;
-    followupActionId=id;
+    followupActionId=id;resetFollowupModal();
     $("actionModalCopy").textContent=`${c.name} · ${nextMove(c)}`;
-    $("actionDate").value=addDays(1);
-    $("actionDateWrap").classList.add("hidden");
     $("actionModal").classList.add("open");
   }
-  function closeFollowupAction(){followupActionId=null;$("actionModal").classList.remove("open");}
-  function resolveFollowup(action){
+  function closeFollowupAction(){followupActionId=null;pendingOutcome=null;$("actionModal").classList.remove("open");}
+  function recordFollowupOutcome(outcome){
+    const labels={responded:"They responded", "no-answer":"No answer", proposal:"Proposal / info sent", meeting:"Meeting scheduled", "not-interested":"Not interested", other:"Other"};
+    pendingOutcome=outcome;
+    $("actionModalTitle").textContent="What's next?";
+    $("actionModalCopy").textContent=`Result: ${labels[outcome]||"Follow-up completed"}`;
+    $("outcomeStep").style.display="none";
+    $("nextStep").style.display="block";
+  }
+  function finishFollowup(nextAction){
     const c=clients.find(x=>x.id===followupActionId);if(!c)return closeFollowupAction();
-    if(action==="open"){closeFollowupAction();openDetail(c.id);return;}
-    if(action==="date"){$("actionDateWrap").classList.remove("hidden");$("actionDate").focus();return;}
-    if(action==="won"){c.stage="Won";c.wonMonth=monthKey;addActivity(c,"Deal marked won from follow-up");}
-    else if(action==="lost"){c.stage="Lost";c.wonMonth="";addActivity(c,"Deal marked lost from follow-up");}
-    else {const next=action==="tomorrow"?addDays(1):addDays(3);c.date=next;addActivity(c,`Follow-up rescheduled to ${dateText(next)}`);}
-    save();closeFollowupAction();renderAll();toast(action==="won"?"Deal marked won":action==="lost"?"Deal marked lost":"Follow-up updated");
+    const outcomeLabels={responded:"They responded", "no-answer":"No answer", proposal:"Proposal / info sent", meeting:"Meeting scheduled", "not-interested":"Not interested", other:"Other"};
+    const outcomeText=outcomeLabels[pendingOutcome]||"Follow-up completed";
+    if(nextAction==="date"){$("actionDateWrap").classList.remove("hidden");$("actionDate").focus();return;}
+    addActivity(c,`Completed follow-up: ${outcomeText}`);
+    if(nextAction==="won"){c.stage="Won";c.wonMonth=monthKey;addActivity(c,"Deal marked won from follow-up");}
+    else if(nextAction==="lost"){c.stage="Lost";c.wonMonth="";addActivity(c,"Deal marked lost from follow-up");}
+    else if(nextAction==="none"){c.date="";c.nextAction="No further action";addActivity(c,"No further follow-up scheduled");}
+    else {const next=nextAction==="tomorrow"?addDays(1):addDays(3);c.date=next;addActivity(c,`Follow-up rescheduled to ${dateText(next)}`);}
+    save();closeFollowupAction();renderAll();toast(nextAction==="won"?"Deal marked won":nextAction==="lost"?"Deal marked lost":"Follow-up completed");
+  }
+  function renderFocus(){
+    const target=5;
+    const done=clients.reduce((n,c)=>n+(Array.isArray(c.activity)?c.activity.filter(a=>a&&a.date===isoToday&&String(a.text||"").startsWith("Completed follow-up:")).length:0),0);
+    const capped=Math.min(done,target),remaining=Math.max(target-done,0),pct=Math.min(done/target*100,100);
+    $("focusDone").textContent=done;$("focusRemaining").textContent=remaining;$("focusHeadline").textContent=`${done} of ${target} follow-ups complete`;
+    $("focusSub").textContent=done>=target?"Daily target complete. Keep momentum going.":`${remaining} ${remaining===1?"follow-up":"follow-ups"} left to hit today's target.`;
+    $("focusProgressBar").style.width=pct+"%";
+  }
+  function followupStreak(){
+    const days=new Set();
+    clients.forEach(c=>(Array.isArray(c.activity)?c.activity:[]).forEach(a=>{if(a&&a.date&&String(a.text||"").startsWith("Completed follow-up:"))days.add(a.date);}));
+    let streak=0,d=isoToday;
+    while(days.has(d)){streak++;d=addDays(-1, d);}
+    return streak;
   }
   function renderStats(){
     const active=clients.filter(c=>!["Won","Lost"].includes(c.stage));
@@ -452,7 +508,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     document.querySelectorAll("[data-card]").forEach(card=>card.addEventListener("click",()=>openDetail(Number(card.dataset.card))));
   }
 
-  function renderAll(){renderStats();renderTodayQueue();renderStale();renderList();renderAttention();renderPipeline();renderClientGrid();}
+  function renderAll(){renderStats();renderFocus();renderTodayQueue();renderStale();renderList();renderAttention();renderPipeline();renderClientGrid();}
   function switchView(name){
     document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===name));
     document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===name+"View"));
@@ -491,6 +547,12 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
         <div class="notes"><h3>CONTACT</h3><p>${esc(c.phone?formatPhone(c.phone):"No phone saved.")}${c.phone&&c.email?" · ":""}${esc(c.email||"")||(!c.phone?"No email saved.":"")}</p></div>
         <div class="next-move ${dueClass(c)}"><strong>Next move:</strong> ${esc(nextMove(c))}</div>
         <div class="notes"><h3>NOTES</h3><p>${esc(c.notes||"No notes yet.")}</p></div>
+        <div class="quick-activity" aria-label="Quick activity">
+          <button type="button" class="btn" data-quick-activity="Call logged">+ Call</button>
+          <button type="button" class="btn" data-quick-activity="Email sent">+ Email</button>
+          <button type="button" class="btn" data-quick-activity="Text sent">+ Text</button>
+          <button type="button" class="btn" data-quick-activity="Meeting held">+ Meeting</button>
+        </div>
         <div class="timeline">
           <div class="timeline-head"><h3>ACTIVITY</h3></div>
           <div>${(c.activity||[]).slice(0,8).map(a=>`<div class="activity"><span class="activity-dot"></span><div class="activity-main"><strong>${esc(a.text)}</strong><span>${esc(dateText(a.date))}</span></div></div>`).join("")||`<div class="empty" style="padding:15px 0">No activity yet.</div>`}</div>
@@ -514,6 +576,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       e.preventDefault();const input=$("activityInput"),text=input.value.trim();if(!text)return;
       addActivity(c,text);save();openDetail(c.id);renderAll();toast("Activity added");
     });
+    document.querySelectorAll("[data-quick-activity]").forEach(b=>b.addEventListener("click",()=>{addActivity(c,b.dataset.quickActivity);save();openDetail(c.id);renderAll();toast(b.dataset.quickActivity);}));
     window.scrollTo({top:120,behavior:"smooth"});
   }
   function closeDetail(){
@@ -610,11 +673,13 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 
   $("closeActionModal").addEventListener("click",closeFollowupAction);
   $("actionModal").addEventListener("click",e=>{if(e.target===$("actionModal"))closeFollowupAction();});
-  document.querySelectorAll("[data-follow-action]").forEach(btn=>btn.addEventListener("click",()=>resolveFollowup(btn.dataset.followAction)));
+  document.querySelectorAll("[data-follow-outcome]").forEach(btn=>btn.addEventListener("click",()=>recordFollowupOutcome(btn.dataset.followOutcome)));
+  document.querySelectorAll("[data-follow-next]").forEach(btn=>btn.addEventListener("click",()=>finishFollowup(btn.dataset.followNext)));
   $("actionDate").addEventListener("change",()=>{
-    if(!followupActionId||!$("actionDate").value)return;
+    if(!followupActionId||!$("actionDate").value||!pendingOutcome)return;
     const c=clients.find(x=>x.id===followupActionId);if(!c)return;
-    c.date=$("actionDate").value;addActivity(c,`Follow-up rescheduled to ${dateText(c.date)}`);save();closeFollowupAction();renderAll();toast("Follow-up rescheduled");
+    const labels={responded:"They responded", "no-answer":"No answer", proposal:"Proposal / info sent", meeting:"Meeting scheduled", "not-interested":"Not interested", other:"Other"};
+    c.date=$("actionDate").value;addActivity(c,`Completed follow-up: ${labels[pendingOutcome]||"Other"}`);addActivity(c,`Follow-up rescheduled to ${dateText(c.date)}`);save();closeFollowupAction();renderAll();toast("Follow-up rescheduled");
   });
 
   $("exportBtn").addEventListener("click",()=>{
