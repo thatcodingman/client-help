@@ -1143,7 +1143,14 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     if(tutorialOptional && tutorialIndex===4){tutorialIndex=5;tutorialRender();return;}
     if(tutorialOptional && tutorialIndex===5){showTutorialComplete();return;}
   }
-  $("tutorialNext").addEventListener("click",()=>advanceTutorial());
+  $("tutorialNext").addEventListener("click",()=>{
+    if(lessonActive){
+      if($("tutorialNext").disabled)return;
+      advanceLesson();
+      return;
+    }
+    advanceTutorial();
+  });
   $("tutorialSkip").addEventListener("click",skipTutorial);
   document.addEventListener("click",e=>{
     if(!tutorialActive || tutorialIndex<0)return;
@@ -1179,7 +1186,9 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     $("tutorialCard").classList.remove("tutorial-welcome");
     $("tutorialKicker").textContent=step.kicker;$("tutorialTitle").textContent=step.title;$("tutorialText").textContent=step.text;
     $("tutorialProgressBar").style.width=((lessonIndex+1)/def.steps.length*100)+"%";
-    $("tutorialNext").style.display="none";
+    $("tutorialNext").style.display="inline-flex";
+    $("tutorialNext").disabled=true;
+    $("tutorialNext").textContent="Click the highlighted control";
     requestAnimationFrame(positionLesson);
   }
   function lessonTarget(){const def=lessonDefs[lessonKey];return def?.steps[lessonIndex]?.target?.()||null;}
@@ -1198,7 +1207,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     lessonPreviousDemoMode=demoMode;lessonDemo=true;lessonActive=true;lessonKey=key;lessonIndex=0;
     demoMode=true;clients=tutorialSeed.map(normalizeClient);renderAll();switchView("dashboard");
     $("tutorialLayer").hidden=false;$("tutorialLayer").setAttribute("aria-hidden","false");
-    $("tutorialSkip").textContent="Exit lesson";$("tutorialNext").style.display="none";
+    $("tutorialSkip").textContent="Exit lesson";
     renderLesson();
   }
   function finishLesson(){
@@ -1215,7 +1224,13 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   document.addEventListener("click",e=>{
     if(!lessonActive)return;
     const target=lessonTarget();if(!target)return;
-    if(target===e.target||target.contains(e.target))setTimeout(advanceLesson,140);
+    if(target===e.target||target.contains(e.target)){
+      setTimeout(()=>{
+        if(!lessonActive)return;
+        $("tutorialNext").disabled=false;
+        $("tutorialNext").textContent=lessonIndex===lessonDefs[lessonKey].steps.length-1?"Finish step":"Next";
+      },180);
+    }
   },true);
   window.addEventListener("resize",positionLesson);window.addEventListener("scroll",positionLesson,true);
   document.querySelectorAll("[data-lesson]").forEach(b=>b.addEventListener("click",()=>startLesson(b.dataset.lesson)));
