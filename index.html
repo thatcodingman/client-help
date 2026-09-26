@@ -982,17 +982,15 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   $("helpModal").addEventListener("click",e=>{if(e.target===$("helpModal"))closeHelp();});
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("helpModal").classList.contains("open"))closeHelp();});
   const tutorialSteps=[
-    {kicker:"MISSION 1 OF 8",title:"Start on Dashboard",text:"This is your home base. Click Dashboard so you know where today's work starts.",target:()=>document.querySelector('.nav button[data-view="dashboard"]')},
-    {kicker:"MISSION 2 OF 8",title:"Work today's follow-up",text:"This demo lead needs you today. Click Done to record the follow-up.",target:()=>document.querySelector('[data-done="9001"]')},
-    {kicker:"MISSION 3 OF 8",title:"Record what happened",text:"Choose what happened. For this demo, click They responded.",target:()=>document.querySelector('[data-follow-outcome="responded"]')},
-    {kicker:"MISSION 4 OF 8",title:"Schedule the next move",text:"Keep the conversation moving. Click Follow up tomorrow.",target:()=>document.querySelector('[data-follow-next="tomorrow"]')},
-    {kicker:"MISSION 5 OF 8",title:"Open Pipeline",text:"Now let's look at where your opportunities stand. Click Pipeline.",target:()=>document.querySelector('.nav button[data-view="pipeline"]')},
-    {kicker:"MISSION 6 OF 8",title:"Open a deal",text:"Click Marcus Lee's deal to open its action center.",target:()=>document.querySelector('[data-deal="9001"]'),requiresView:"pipeline"},
-    {kicker:"MISSION 7 OF 8",title:"Log the work",text:"This drawer is your action center. Click + Call to record what you just did.",target:()=>document.querySelector('[data-drawer-activity="Call logged"]')},
-    {kicker:"MISSION 8 OF 8",title:"Find the leads slipping",text:"Back on Dashboard, click Stalled. FollowUp will show you the actual clients behind that number.",target:()=>document.querySelector('[data-momentum="stalled"]'),requiresView:"dashboard"}
+    {kicker:"STEP 1 OF 4",title:"Work today's follow-up",text:"This demo lead needs you today. Click Done to record the follow-up.",target:()=>document.querySelector('[data-done="9001"]'),requiresView:"dashboard"},
+    {kicker:"STEP 2 OF 4",title:"Record what happened",text:"Choose what happened. For this demo, click They responded.",target:()=>document.querySelector('[data-follow-outcome="responded"]')},
+    {kicker:"STEP 3 OF 4",title:"Schedule the next move",text:"Keep the conversation moving. Click Follow up tomorrow.",target:()=>document.querySelector('[data-follow-next="tomorrow"]')},
+    {kicker:"STEP 4 OF 4",title:"See the pipeline",text:"Nice. Now you know the daily workflow. Click Pipeline if you want to see where your opportunities stand.",target:()=>document.querySelector('.nav button[data-view="pipeline"]'),requiresView:"dashboard"},
+    {kicker:"OPTIONAL · 1 OF 2",title:"Open a real deal",text:"Click Marcus Lee's deal to open its action center.",target:()=>document.querySelector('[data-deal="9001"]'),requiresView:"pipeline"},
+    {kicker:"OPTIONAL · 2 OF 2",title:"That's the action center",text:"You can log a call, email, text, meeting, or reschedule from here. Click + Call to try it.",target:()=>document.querySelector('[data-drawer-activity="Call logged"]')}
   ];
-  let tutorialIndex=0,tutorialActive=false,tutorialStarted=false,tutorialBackup=null;
-  function tutorialTarget(){return tutorialSteps[tutorialIndex]?.target?.()||null;}
+  let tutorialIndex=0,tutorialActive=false,tutorialStarted=false,tutorialBackup=null,tutorialOptional=false;
+  function tutorialTarget(){return tutorialIndex>=0?tutorialSteps[tutorialIndex]?.target?.()||null:null;}
   function positionTutorial(){
     if(!tutorialActive)return;
     const target=tutorialTarget();
@@ -1009,16 +1007,48 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     card.style.left=left+"px";card.style.top=top+"px";
   }
   function tutorialRender(){
-    const step=tutorialSteps[tutorialIndex];if(!step)return;
-    $("tutorialKicker").textContent=step.kicker;$("tutorialTitle").textContent=step.title;$("tutorialText").textContent=step.text;
-    $("tutorialProgressBar").style.width=((tutorialIndex+1)/tutorialSteps.length*100)+"%";
-    $("tutorialNext").textContent=tutorialIndex===0?"Start":"Waiting for you…";
-    $("tutorialNext").disabled=true;
-    if(tutorialIndex===0)$("tutorialNext").disabled=false;
+    const step=tutorialSteps[tutorialIndex];
+    if(!step)return;
+    $("tutorialKicker").textContent=step.kicker;
+    $("tutorialTitle").textContent=step.title;
+    $("tutorialText").textContent=step.text;
+    const coreCount=4;
+    const progressIndex=tutorialOptional?Math.max(0,tutorialIndex-coreCount):tutorialIndex;
+    const progressTotal=tutorialOptional?2:coreCount;
+    $("tutorialProgressBar").style.width=((progressIndex+1)/progressTotal*100)+"%";
+    $("tutorialNext").style.display="none";
     requestAnimationFrame(positionTutorial);
   }
+  function showTutorialWelcome(){
+    tutorialIndex=-1;tutorialOptional=false;
+    $("tutorialKicker").textContent="WELCOME";
+    $("tutorialTitle").textContent="Let's get you up to speed";
+    $("tutorialText").textContent="You'll do one real follow-up with a demo customer. It takes about 30 seconds, and you'll actually click through the workflow.";
+    $("tutorialProgressBar").style.width="0%";
+    $("tutorialNext").style.display="inline-flex";
+    $("tutorialNext").disabled=false;
+    $("tutorialNext").textContent="Start";
+    $("tutorialCard").classList.add("tutorial-welcome");
+    $("tutorialSpotlight").style.display="none";
+    $("tutorialCard").style.left="50%";$("tutorialCard").style.top="50%";$("tutorialCard").style.transform="translate(-50%,-50%)";
+  }
+  function showTutorialComplete(){
+    tutorialIndex=-2;
+    $("tutorialKicker").textContent="YOU'VE GOT IT";
+    $("tutorialTitle").textContent="That's the FollowUp workflow";
+    $("tutorialText").textContent="Find who needs attention, record what happened, and decide what happens next. Start with a clean workspace or take a quick optional look at Pipeline.";
+    $("tutorialProgressBar").style.width="100%";
+    $("tutorialSpotlight").style.display="none";
+    $("tutorialCard").classList.add("tutorial-welcome");
+    $("tutorialCard").style.left="50%";$("tutorialCard").style.top="50%";$("tutorialCard").style.transform="translate(-50%,-50%)";
+    const actions=$("tutorialCard").querySelector(".tutorial-actions");
+    actions.innerHTML='<button class="tutorial-skip" id="tutorialKeepDemo">Keep demo data</button><button class="btn" id="tutorialPipeline">Show me Pipeline</button><button class="btn primary" id="tutorialFresh">Start using FollowUp</button>';
+    $("tutorialKeepDemo").addEventListener("click",()=>finishTutorial(false));
+    $("tutorialFresh").addEventListener("click",()=>finishTutorial(true));
+    $("tutorialPipeline").addEventListener("click",()=>{tutorialOptional=true;tutorialIndex=3;switchView("dashboard");tutorialRender();});
+  }
   function startTutorial(){
-    tutorialActive=true;tutorialStarted=true;tutorialIndex=0;
+    tutorialActive=true;tutorialStarted=true;tutorialOptional=false;tutorialIndex=0;
     demoMode=true;persistOnboarding("in_progress");save();
     $("tutorialLayer").hidden=false;$("tutorialLayer").setAttribute("aria-hidden","false");
     $("tutorialCard").classList.remove("tutorial-welcome");
@@ -1029,22 +1059,19 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     $("tutorialLayer").hidden=true;$("tutorialLayer").setAttribute("aria-hidden","true");
     const restoringBackup=!!tutorialBackup;
     if(tutorialBackup){
-      clients=tutorialBackup;
-      tutorialBackup=null;
-      demoMode=false;
-      save();
+      clients=tutorialBackup;tutorialBackup=null;demoMode=false;save();
     }else if(fresh){
       clients=[];demoMode=false;save();
     }else{demoMode=true;save();}
     persistOnboarding("completed");
-    renderAll();
-    switchView("dashboard");
+    renderAll();switchView("dashboard");
     if(fresh && !restoringBackup)setTimeout(()=>openModal(),250);
+    else if(!fresh)toast("Demo data kept — you can explore before starting fresh.");
   }
   function skipTutorial(){
     if(!tutorialActive)return;
     if(tutorialBackup){
-      if(confirm("Exit the tutorial and return to your real workspace?")) finishTutorial(true);
+      if(confirm("Exit the tutorial and return to your real workspace?"))finishTutorial(true);
       return;
     }
     const keep=confirm("Skip the tutorial and start with a clean workspace?\n\nOK = Start Fresh\nCancel = Keep Demo Data");
@@ -1052,21 +1079,24 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   }
   function advanceTutorial(){
     if(!tutorialActive)return;
-    tutorialIndex++;
-    if(tutorialIndex>=tutorialSteps.length){finishTutorial(true);toast("You're ready — let's add your first client.");return;}
-    const step=tutorialSteps[tutorialIndex];
-    if(step.requiresView)switchView(step.requiresView);
-    tutorialRender();
+    if(tutorialIndex===-1){tutorialIndex=0;$("tutorialCard").classList.remove("tutorial-welcome");tutorialRender();return;}
+    if(tutorialIndex<3){tutorialIndex++;if(tutorialIndex===3){showTutorialComplete();return;}tutorialRender();return;}
+    if(tutorialOptional && tutorialIndex===3){tutorialIndex=4;tutorialRender();return;}
+    if(tutorialOptional && tutorialIndex===4){tutorialIndex=5;tutorialRender();return;}
+    if(tutorialOptional && tutorialIndex===5){showTutorialComplete();return;}
   }
-  $("tutorialNext").addEventListener("click",()=>{if(tutorialIndex===0)advanceTutorial();});
+  $("tutorialNext").addEventListener("click",()=>advanceTutorial());
   $("tutorialSkip").addEventListener("click",skipTutorial);
   document.addEventListener("click",e=>{
-    if(!tutorialActive)return;
+    if(!tutorialActive || tutorialIndex<0)return;
     const target=tutorialTarget();
     if(!target)return;
     if(target===e.target||target.contains(e.target)){
-      if(tutorialIndex===0){advanceTutorial();return;}
-      setTimeout(()=>advanceTutorial(),120);
+      setTimeout(()=>{
+        if(!tutorialActive)return;
+        if(tutorialOptional && tutorialIndex===5){showTutorialComplete();return;}
+        advanceTutorial();
+      },140);
     }
   },true);
   window.addEventListener("resize",positionTutorial);window.addEventListener("scroll",positionTutorial,true);
@@ -1074,7 +1104,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     tutorialBackup=clients.map(c=>JSON.parse(JSON.stringify(c)));
     demoMode=true;clients=tutorialSeed.map(normalizeClient);save();renderAll();switchView("dashboard");startTutorial();
   }
-  const oldHelpClick=$('helpBtn').onclick;
+
   $('helpBtn').addEventListener('contextmenu',e=>e.preventDefault());
   // Add replay action without changing the existing help modal layout.
   const helpFooter=$('helpModal').querySelector('.help-footer');
@@ -1082,7 +1112,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 
   renderAll();
   try{
-    if(firstRun || localStorage.getItem(ONBOARDING_KEY)==="in_progress") setTimeout(startTutorial,450);
+    if(firstRun || localStorage.getItem(ONBOARDING_KEY)==="in_progress") setTimeout(()=>{startTutorial();showTutorialWelcome();},450);
     else if(localStorage.getItem(HELP_SEEN_KEY)!=="1") setTimeout(()=>openHelp(true),450);
   }catch(e){if(firstRun)setTimeout(startTutorial,450);}
 })();
