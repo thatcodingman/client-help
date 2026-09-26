@@ -1008,36 +1008,41 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   ];
   const lessonDefs={
     dashboard:{title:"Dashboard",intro:"Learn where your workday starts and how FollowUp points you to the next person.",steps:[
-      {kicker:"1 OF 2",title:"Start on Dashboard",text:"Dashboard is your home base. Click Dashboard.",target:()=>document.querySelector('.nav button[data-view="dashboard"]'),requiresView:"dashboard"},
-      {kicker:"2 OF 2",title:"Find today's work",text:"FollowUp puts the people who need attention at the top. Click Done on the highlighted demo follow-up.",target:()=>document.querySelector('[data-done="9001"]'),requiresView:"dashboard"}
+      {kicker:"1 OF 2",title:"Open Dashboard",text:"This is your home base. Click Dashboard.",target:()=>document.querySelector('.nav button[data-view="dashboard"]')},
+      {kicker:"2 OF 2",title:"Find today's work",text:"Now click Done on the highlighted demo follow-up. This is where your daily work begins.",target:()=>document.querySelector('[data-done="9001"]'),requiresView:"dashboard"}
     ]},
     followups:{title:"Follow-ups",intro:"Practice the core loop: record what happened, then decide what happens next.",steps:[
-      {kicker:"1 OF 2",title:"Record the result",text:"Click Done, then choose They responded.",target:()=>document.querySelector('[data-done="9001"]'),requiresView:"dashboard"},
-      {kicker:"2 OF 2",title:"Schedule the next move",text:"Now click Follow up tomorrow. That's the whole FollowUp loop.",target:()=>document.querySelector('[data-follow-next="tomorrow"]')}
+      {kicker:"1 OF 3",title:"Open Dashboard",text:"Start where today's work lives. Click Dashboard.",target:()=>document.querySelector('.nav button[data-view="dashboard"]')},
+      {kicker:"2 OF 3",title:"Record the result",text:"Now click Done, then choose They responded.",target:()=>document.querySelector('[data-done="9001"]'),requiresView:"dashboard"},
+      {kicker:"3 OF 3",title:"Schedule the next move",text:"Now click Follow up tomorrow. That's the core FollowUp loop.",target:()=>document.querySelector('[data-follow-next="tomorrow"]')}
     ]},
     pipeline:{title:"Pipeline",intro:"See where opportunities stand and open a deal's action center.",steps:[
-      {kicker:"1 OF 3",title:"Open Pipeline",text:"Click Pipeline to see your deals grouped by stage.",target:()=>document.querySelector('.nav button[data-view="pipeline"]'),requiresView:"dashboard"},
+      {kicker:"1 OF 3",title:"Open Pipeline",text:"Click Pipeline to see your deals grouped by stage.",target:()=>document.querySelector('.nav button[data-view="pipeline"]')},
       {kicker:"2 OF 3",title:"Open a deal",text:"Click Marcus Lee's deal to open its action center.",target:()=>document.querySelector('[data-deal="9001"]'),requiresView:"pipeline"},
       {kicker:"3 OF 3",title:"Take an action",text:"Click + Email to record contact without leaving the pipeline.",target:()=>document.querySelector('[data-drawer-activity="Email sent"]')}
     ]},
     momentum:{title:"Pipeline Momentum",intro:"Use Momentum to find leads that are moving, waiting, stalled, or forgotten.",steps:[
-      {kicker:"1 OF 2",title:"Open Momentum",text:"Go back to Dashboard and click Stalled.",target:()=>document.querySelector('.nav button[data-view="dashboard"]'),requiresView:"dashboard"},
-      {kicker:"2 OF 2",title:"See the actual leads",text:"Now click Open client for the highlighted stalled lead. Momentum shows you who is behind the number.",target:()=>document.querySelector('[data-momentum-open="9004"]')}
+      {kicker:"1 OF 3",title:"Open Dashboard",text:"Pipeline Momentum lives on Dashboard. Click Dashboard to get there.",target:()=>document.querySelector('.nav button[data-view="dashboard"]')},
+      {kicker:"2 OF 3",title:"Find Stalled leads",text:"Now click Stalled. FollowUp will show the actual clients behind that number.",target:()=>document.querySelector('[data-momentum="stalled"]'),requiresView:"dashboard"},
+      {kicker:"3 OF 3",title:"Open the lead",text:"Click Open client for the highlighted stalled lead to see the full record.",target:()=>document.querySelector('[data-momentum-open="9004"]')}
     ]},
     clients:{title:"Clients",intro:"Learn how to find a specific customer and open their full record.",steps:[
-      {kicker:"1 OF 2",title:"Open Clients",text:"Click Clients to switch to the customer list.",target:()=>document.querySelector('.nav button[data-view="clients"]'),requiresView:"dashboard"},
+      {kicker:"1 OF 2",title:"Open Clients",text:"Click Clients to switch to the customer list.",target:()=>document.querySelector('.nav button[data-view="clients"]')},
       {kicker:"2 OF 2",title:"Open a client",text:"Click Sarah Carter's card to open her full record.",target:()=>document.querySelector('[data-card="9002"]'),requiresView:"clients"}
     ]},
     activities:{title:"Activities",intro:"Log the work you actually did so FollowUp can keep the record current.",steps:[
-      {kicker:"1 OF 2",title:"Open the action center",text:"Go to Pipeline and click Marcus Lee's deal.",target:()=>document.querySelector('[data-deal="9001"]'),requiresView:"pipeline"},
-      {kicker:"2 OF 2",title:"Log contact",text:"Click + Call to add the activity to the deal history.",target:()=>document.querySelector('[data-drawer-activity="Call logged"]')}
+      {kicker:"1 OF 3",title:"Open Pipeline",text:"Activities are available from a deal's action center. Click Pipeline.",target:()=>document.querySelector('.nav button[data-view="pipeline"]')},
+      {kicker:"2 OF 3",title:"Open a deal",text:"Click Marcus Lee's deal to open the action center.",target:()=>document.querySelector('[data-deal="9001"]'),requiresView:"pipeline"},
+      {kicker:"3 OF 3",title:"Log contact",text:"Click + Call to add the activity to the deal history.",target:()=>document.querySelector('[data-drawer-activity="Call logged"]')}
     ]},
     weekly:{title:"This week",intro:"See a simple snapshot of what you've actually completed this week.",steps:[
-      {kicker:"1 OF 1",title:"Open This week",text:"This panel summarizes completed follow-ups, new leads, proposals, wins, revenue, and your streak. Click the panel to finish this lesson.",target:()=>document.querySelector('[data-learn-week="1"]'),requiresView:"dashboard"}
+      {kicker:"1 OF 2",title:"Open Dashboard",text:"This weekly snapshot lives on Dashboard. Click Dashboard.",target:()=>document.querySelector('.nav button[data-view="dashboard"]')},
+      {kicker:"2 OF 2",title:"See your week",text:"Click the This week panel to finish this lesson. It summarizes completed follow-ups, leads, proposals, wins, revenue, and your streak.",target:()=>document.querySelector('[data-learn-week="1"]'),requiresView:"dashboard"}
     ]},
     closed:{title:"Closed deals",intro:"Won and Lost are protected so an accidental click can't reopen a closed deal.",steps:[
-      {kicker:"1 OF 2",title:"Open a closed deal",text:"Go to Pipeline and click the highlighted Won deal.",target:()=>document.querySelector('[data-deal="9006"]'),requiresView:"pipeline"},
-      {kicker:"2 OF 2",title:"See the protection",text:"The status area tells you the deal is locked. Closed deals can only be corrected with Undo status change when a previous stage exists.",target:()=>document.querySelector('[data-closed-lock="1"]')}
+      {kicker:"1 OF 3",title:"Open Pipeline",text:"Closed deals live in the Pipeline. Click Pipeline.",target:()=>document.querySelector('.nav button[data-view="pipeline"]')},
+      {kicker:"2 OF 3",title:"Open a closed deal",text:"Click the highlighted Won deal to open its action center.",target:()=>document.querySelector('[data-deal="9006"]'),requiresView:"pipeline"},
+      {kicker:"3 OF 3",title:"See the protection",text:"The status area tells you the deal is locked. If a closed status was a mistake, Undo status change is the correction path.",target:()=>document.querySelector('[data-closed-lock="1"]')}
     ]}
   };
   let tutorialIndex=0,tutorialActive=false,tutorialStarted=false,tutorialBackup=null,tutorialOptional=false;
