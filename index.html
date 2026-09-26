@@ -63,6 +63,19 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 @media(max-width:560px){.pipeline-guide{grid-template-columns:1fr}.deal-drawer{width:100%;height:auto;max-height:92vh;margin-top:auto;border-left:0;border-top:1px solid var(--line);border-radius:16px 16px 0 0}.pipeline-guide{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:-4px 0 14px;padding:10px;background:#fafbfc;border:1px solid var(--line);border-radius:10px}.pipeline-guide div{padding:4px 8px}.pipeline-guide strong{display:block;font-size:10px}.pipeline-guide span{display:block;color:var(--muted);font-size:10px;line-height:1.35;margin-top:2px}.deal-drawer-backdrop{align-items:flex-end}.stage-actions{grid-template-columns:repeat(2,1fr)}}
 
 .week-panel{margin-bottom:18px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}.week-grid{display:grid;grid-template-columns:repeat(5,1fr)}.week-stat{padding:15px 16px;border-right:1px solid var(--line)}.week-stat:last-child{border-right:0}.week-stat small{display:block;color:var(--muted);font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}.week-stat strong{display:block;font-size:22px;margin-top:3px}.week-stat span{display:block;color:var(--muted);font-size:10px;margin-top:2px}.streak-badge{display:inline-flex;align-items:center;gap:5px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:5px 9px;font-size:10px;font-weight:750}.shortcut-hint{display:flex;align-items:center;flex-wrap:wrap;gap:7px 10px;padding:10px 16px 12px;border-top:1px solid var(--line);font-size:10px;color:var(--muted);line-height:1.4}.shortcut-hint>span{display:inline-flex;align-items:center;gap:4px;white-space:nowrap}.shortcut-hint .shortcut-title{font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:2px}.shortcut-hint b{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 5px;border:1px solid var(--line);border-radius:6px;background:#f7f8fa;color:var(--text);font-size:9px}@media(max-width:900px){.week-grid{grid-template-columns:repeat(3,1fr)}.week-stat:nth-child(3){border-right:0}.week-stat:nth-child(-n+3){border-bottom:1px solid var(--line)}}@media(max-width:560px){.week-grid{grid-template-columns:1fr 1fr}.week-stat{border-right:0!important;border-bottom:1px solid var(--line)}.week-stat:last-child{grid-column:1/-1;border-bottom:0}}
+
+/* INTERACTIVE ONBOARDING */
+.tutorial-layer{position:fixed;inset:0;z-index:100;pointer-events:none}
+.tutorial-spotlight{position:fixed;border:2px solid var(--accent);border-radius:12px;box-shadow:0 0 0 9999px rgba(14,18,24,.62),0 0 0 4px rgba(47,103,246,.14);transition:all .18s ease;pointer-events:none}
+.tutorial-card{position:fixed;width:min(360px,calc(100vw - 28px));background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.2);padding:16px;pointer-events:auto;transition:top .18s ease,left .18s ease}
+.tutorial-kicker{font-size:9px;font-weight:850;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.tutorial-card h2{font-size:18px;margin:0 0 5px;letter-spacing:-.02em}.tutorial-card p{font-size:12px;line-height:1.55;color:var(--muted);margin:0}.tutorial-progress{height:4px;background:#edf0f4;border-radius:99px;overflow:hidden;margin:13px 0}.tutorial-progress-bar{height:100%;background:var(--accent);width:0;transition:width .2s ease}.tutorial-actions{display:flex;align-items:center;justify-content:space-between;gap:8px}.tutorial-actions .btn{font-size:11px}.tutorial-skip{border:0;background:none;color:var(--muted);font-size:10px;cursor:pointer;padding:6px}.tutorial-welcome{width:min(440px,calc(100vw - 28px));text-align:center;padding:24px}.tutorial-welcome .tutorial-icon{width:44px;height:44px;border-radius:12px;background:var(--text);color:#fff;display:grid;place-items:center;font-weight:900;font-size:20px;margin:0 auto 12px}.tutorial-welcome h2{font-size:24px}.tutorial-welcome p{font-size:13px}.tutorial-welcome .tutorial-actions{justify-content:center;margin-top:15px}.demo-badge{display:inline-flex;align-items:center;border:1px solid #cfd5de;border-radius:999px;padding:2px 6px;font-size:8px;font-weight:850;letter-spacing:.07em;color:#68717d;background:#f7f8fa;margin-left:5px;vertical-align:middle}
+.help-modal{width:min(720px,100%)}
+.help-intro{padding:20px 20px 8px}.help-intro h3{margin:0 0 6px;font-size:20px}.help-intro p{margin:0;color:var(--muted);font-size:12px;line-height:1.6}
+.help-steps{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 20px 20px}
+.help-step{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fafbfc}.help-step .num{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:var(--text);color:#fff;font-size:10px;font-weight:800;margin-bottom:8px}.help-step h4{margin:0 0 4px;font-size:13px}.help-step p{margin:0;color:var(--muted);font-size:11px;line-height:1.5}.help-step strong{color:var(--text)}
+.help-tip{margin:0 20px 16px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);font-size:11px;color:var(--muted);line-height:1.5}.help-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 20px 18px;border-top:1px solid var(--line)}.help-footer label{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--muted);cursor:pointer}.help-footer input{accent-color:#17191c}
+@media(max-width:620px){.help-steps{grid-template-columns:1fr}.help-footer{align-items:flex-start;flex-direction:column}.help-footer .btn{width:100%}}
 </style>
 </head>
 <body>
@@ -70,6 +83,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 <header class="topbar">
   <a class="brand brand-link" href="index.html" aria-label="FollowUp home"><div class="logo">F</div><span>FollowUp</span></a>
   <div class="top-actions">
+    <button class="btn" id="helpBtn" aria-label="How FollowUp works">? Help</button>
     <button class="btn hide-mobile" id="exportBtn">Export CSV</button>
     <button class="btn primary" id="addBtn">+ Add client</button>
   </div>
@@ -194,6 +208,37 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 </main>
 </div>
 
+<div class="tutorial-layer" id="tutorialLayer" hidden aria-hidden="true">
+  <div class="tutorial-spotlight" id="tutorialSpotlight"></div>
+  <div class="tutorial-card" id="tutorialCard" role="dialog" aria-live="polite">
+    <div class="tutorial-kicker" id="tutorialKicker">WELCOME</div>
+    <h2 id="tutorialTitle">Let's learn FollowUp</h2>
+    <p id="tutorialText">We'll walk through the real workflow in about a minute.</p>
+    <div class="tutorial-progress"><div class="tutorial-progress-bar" id="tutorialProgressBar"></div></div>
+    <div class="tutorial-actions"><button class="tutorial-skip" id="tutorialSkip">Skip tutorial</button><button class="btn primary" id="tutorialNext">Start</button></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="helpModal" aria-hidden="true">
+  <div class="modal help-modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+    <div class="modal-head"><h2 id="helpTitle">How FollowUp works</h2><button class="close" id="closeHelp" aria-label="Close help">×</button></div>
+    <div class="help-intro">
+      <h3>Use FollowUp as your daily follow-up command center.</h3>
+      <p>Start on Dashboard, work today's follow-ups, then use Pipeline when you want to manage deals by stage.</p>
+    </div>
+    <div class="help-steps">
+      <div class="help-step"><div class="num">1</div><h4>Start on Dashboard</h4><p><strong>Today</strong> shows the clients you need to contact now. Open a client or complete the follow-up from this area.</p></div>
+      <div class="help-step"><div class="num">2</div><h4>Complete a follow-up</h4><p>When you finish a scheduled follow-up, choose <strong>Done</strong>, tell FollowUp what happened, then choose the next move.</p></div>
+      <div class="help-step"><div class="num">3</div><h4>Use Pipeline for deals</h4><p>Click <strong>Pipeline</strong> at the top to see New, Contacted, Proposal, Won and Lost. Click a deal card to open its actions.</p></div>
+      <div class="help-step"><div class="num">4</div><h4>Understand Pipeline momentum</h4><p>On Dashboard, click <strong>Moving, Waiting, Stalled, or Forgotten</strong>. The matching clients will appear so you can see exactly who makes up that number.</p></div>
+      <div class="help-step"><div class="num">5</div><h4>Reschedule or log activity</h4><p>Use the deal drawer or client detail for <strong>Call, Email, Text, Meeting</strong>, or <strong>Reschedule follow-up</strong>.</p></div>
+      <div class="help-step"><div class="num">6</div><h4>Closed deals stay protected</h4><p><strong>Won</strong> and <strong>Lost</strong> are locked to prevent accidental changes. If you made a mistake, use <strong>Undo status change</strong>.</p></div>
+    </div>
+    <div class="help-tip"><strong>Quick rule:</strong> Dashboard = what should I do today? &nbsp;·&nbsp; Pipeline = where are my deals? &nbsp;·&nbsp; Clients = find and manage a specific client.</div>
+    <div class="help-footer"><label><input type="checkbox" id="dontShowHelp"> Don't show this automatically again</label><button class="btn primary" id="closeHelpBtn">Got it</button></div>
+  </div>
+</div>
+
 <div class="modal-backdrop" id="modal">
   <div class="modal">
     <div class="modal-head"><h2 id="modalTitle">Add client</h2><button class="close" id="closeModal" aria-label="Close">×</button></div>
@@ -282,6 +327,14 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     {id:6,name:"Chris Walker",company:"Walker Fitness",stage:"Lost",value:1900,date:addDays(-8),contact:"chris@walkerfitness.com",nextAction:"",notes:"Chose another vendor for now.",activity:[{text:"Deal marked lost",date:addDays(-8)}]}
   ];
 
+  const tutorialSeed=[
+    {id:9001,name:"Marcus Lee",company:"Lee Landscaping",stage:"Proposal",value:4200,date:isoToday,phone:"404-555-0101",nextAction:"Follow up after proposal review",notes:"Demo lead — proposal is ready for a follow-up.",activity:[{text:"Lead added",date:isoToday}]},
+    {id:9002,name:"Sarah Carter",company:"Carter Dental",stage:"Contacted",value:1800,date:addDays(2),phone:"404-555-0192",nextAction:"Send pricing options",notes:"Demo lead — recent conversation.",activity:[{text:"Initial contact",date:addDays(-1)}]},
+    {id:9003,name:"Avery Brooks",company:"Brooks Realty",stage:"New",value:6500,date:addDays(3),email:"avery@brooksrealty.com",nextAction:"Qualify project needs",notes:"Demo lead — new inbound inquiry.",activity:[{text:"Lead added",date:isoToday}]},
+    {id:9004,name:"Nina Patel",company:"Patel Events",stage:"Contacted",value:2750,date:addDays(4),phone:"404-555-0144",nextAction:"Reconnect and ask for an update",notes:"Demo lead — quiet opportunity used to demonstrate stalled leads.",activity:[{text:"Availability requested",date:addDays(-8)}]},
+    {id:9005,name:"Chris Walker",company:"Walker Fitness",stage:"Proposal",value:3100,date:addDays(5),email:"chris@walkerfitness.com",nextAction:"Check whether they reviewed the proposal",notes:"Demo lead — proposal follow-up.",activity:[{text:"Proposal sent",date:addDays(-2)}]}
+  ];
+
   function normalizePhone(v){
     const digits=String(v||"").replace(/\D/g,"");
     return digits;
@@ -319,21 +372,31 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       wonMonth:typeof c.wonMonth==="string"?c.wonMonth:"",activity
     };
   }
+  const ONBOARDING_KEY="followup-onboarding-v1";
+  const DEMO_KEY="followup-demo-mode-v1";
+  let firstRun=false;
+  let demoMode=false;
   function load(){
     try{
       let raw=localStorage.getItem(KEY);
       if(!raw) raw=localStorage.getItem(LEGACY_KEY);
-      const parsed=raw?JSON.parse(raw):null;
-      const list=Array.isArray(parsed)?parsed.map(normalizeClient).filter(Boolean):seed.map(normalizeClient);
-      return list.length?list:seed.map(normalizeClient);
-    }catch(e){return seed.map(normalizeClient);}
+      if(!raw){firstRun=true;demoMode=true;return tutorialSeed.map(normalizeClient);}
+      const parsed=JSON.parse(raw);
+      const list=Array.isArray(parsed)?parsed.map(normalizeClient).filter(Boolean):[];
+      const status=localStorage.getItem(ONBOARDING_KEY);
+      demoMode=localStorage.getItem(DEMO_KEY)==="1";
+      if(!status && list.length) localStorage.setItem(ONBOARDING_KEY,"completed");
+      return list;
+    }catch(e){firstRun=true;demoMode=true;return tutorialSeed.map(normalizeClient);}
   }
   let clients=load(),editingId=null,followupActionId=null,todayOnly=false,stageFilter="all",clientStageFilter="all",momentumFilter="all",toastTimer;
+  const HELP_SEEN_KEY="followup-help-seen-v1";
 
   function save(){
     try{localStorage.setItem(KEY,JSON.stringify(clients));return true;}
     catch(e){toast("Could not save changes in this browser.");return false;}
   }
+  function persistOnboarding(state){try{localStorage.setItem(ONBOARDING_KEY,state);localStorage.setItem(DEMO_KEY,demoMode?"1":"0");}catch(e){}}
   function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
   function money(v){return "$"+Number(v||0).toLocaleString();}
   function dateText(v){
@@ -426,7 +489,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     $("todayQueue").innerHTML=due.length?due.slice(0,8).map(c=>`
       <div class="today-item ${dueClass(c)}">
         <span class="today-item-dot"></span>
-        <div class="today-person"><strong>${esc(c.name)}</strong><span>${esc(c.company||"Independent")} · ${money(c.value)} · ${c.date<isoToday?"Overdue":"Due today"}</span></div>
+        <div class="today-person"><strong>${esc(c.name)}${demoMode?`<span class="demo-badge">DEMO</span>`:""}</strong><span>${esc(c.company||"Independent")} · ${money(c.value)} · ${c.date<isoToday?"Overdue":"Due today"}</span></div>
         <div class="today-move"><strong>Next move</strong>${esc(nextMove(c))}</div>
         <div class="today-actions"><button class="btn small" type="button" data-done="${c.id}">Done</button><button class="btn small" type="button" data-open-today="${c.id}">Open</button></div>
       </div>`).join(""):`<div class="today-empty">You're caught up. No follow-ups need attention.</div>`;
@@ -570,7 +633,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     const list=sortClients(filteredClients($("search").value,stageFilter));
     $("clientList").innerHTML=list.length?list.map(c=>`
       <div class="client">
-        <div class="person"><div class="avatar">${esc(initials(c.name))}</div><div class="person-info"><div class="name">${esc(c.name)}</div><div class="company">${esc(c.company||"Independent")}</div></div></div>
+        <div class="person"><div class="avatar">${esc(initials(c.name))}</div><div class="person-info"><div class="name">${esc(c.name)}${demoMode?`<span class="demo-badge">DEMO</span>`:""}</div><div class="company">${esc(c.company||"Independent")}</div></div></div>
         <div class="stage-col"><span class="stage ${c.stage.toLowerCase()}">${esc(c.stage)}</span></div>
         <div class="value-col money">${money(c.value)}</div>
         <div class="follow ${dueClass(c)}">${esc(dueLabel(c))}</div>
@@ -670,7 +733,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     const list=sortClients(filteredClients($("clientSearch").value,clientStageFilter));
     $("clientGrid").innerHTML=list.length?list.map(c=>`
       <article class="client-card" data-card="${c.id}">
-        <div class="card-top"><div class="card-person"><div class="avatar">${esc(initials(c.name))}</div><div class="card-copy"><div class="name">${esc(c.name)}</div><div class="company">${esc(c.company||"Independent")}</div></div></div><span class="stage ${c.stage.toLowerCase()}">${esc(c.stage)}</span></div>
+        <div class="card-top"><div class="card-person"><div class="avatar">${esc(initials(c.name))}</div><div class="card-copy"><div class="name">${esc(c.name)}${demoMode?`<span class="demo-badge">DEMO</span>`:""}</div><div class="company">${esc(c.company||"Independent")}</div></div></div><span class="stage ${c.stage.toLowerCase()}">${esc(c.stage)}</span></div>
         <div class="card-details">
           <div class="mini-box"><small>Value</small><b>${money(c.value)}</b></div>
           <div class="mini-box"><small>Follow-up</small><b>${esc(dueLabel(c))}</b></div>
@@ -904,7 +967,124 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   });
 
   function toast(msg){clearTimeout(toastTimer);$("toast").textContent=msg;$("toast").classList.add("show");toastTimer=setTimeout(()=>$("toast").classList.remove("show"),1800);}
+  function openHelp(auto=false){
+    $("helpModal").classList.add("open");$("helpModal").setAttribute("aria-hidden","false");
+    if(auto)$("dontShowHelp").checked=localStorage.getItem(HELP_SEEN_KEY)==="1";
+  }
+  function closeHelp(){
+    if($("dontShowHelp").checked){try{localStorage.setItem(HELP_SEEN_KEY,"1");}catch(e){}}
+    $("helpModal").classList.remove("open");$("helpModal").setAttribute("aria-hidden","true");
+  }
+
+  $("helpBtn").addEventListener("click",()=>openHelp(false));
+  $("closeHelp").addEventListener("click",closeHelp);
+  $("closeHelpBtn").addEventListener("click",closeHelp);
+  $("helpModal").addEventListener("click",e=>{if(e.target===$("helpModal"))closeHelp();});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("helpModal").classList.contains("open"))closeHelp();});
+  const tutorialSteps=[
+    {kicker:"MISSION 1 OF 8",title:"Start on Dashboard",text:"This is your home base. Click Dashboard so you know where today's work starts.",target:()=>document.querySelector('.nav button[data-view="dashboard"]')},
+    {kicker:"MISSION 2 OF 8",title:"Work today's follow-up",text:"This demo lead needs you today. Click Done to record the follow-up.",target:()=>document.querySelector('[data-done="9001"]')},
+    {kicker:"MISSION 3 OF 8",title:"Record what happened",text:"Choose what happened. For this demo, click They responded.",target:()=>document.querySelector('[data-follow-outcome="responded"]')},
+    {kicker:"MISSION 4 OF 8",title:"Schedule the next move",text:"Keep the conversation moving. Click Follow up tomorrow.",target:()=>document.querySelector('[data-follow-next="tomorrow"]')},
+    {kicker:"MISSION 5 OF 8",title:"Open Pipeline",text:"Now let's look at where your opportunities stand. Click Pipeline.",target:()=>document.querySelector('.nav button[data-view="pipeline"]')},
+    {kicker:"MISSION 6 OF 8",title:"Open a deal",text:"Click Marcus Lee's deal to open its action center.",target:()=>document.querySelector('[data-deal="9001"]'),requiresView:"pipeline"},
+    {kicker:"MISSION 7 OF 8",title:"Log the work",text:"This drawer is your action center. Click + Call to record what you just did.",target:()=>document.querySelector('[data-drawer-activity="Call logged"]')},
+    {kicker:"MISSION 8 OF 8",title:"Find the leads slipping",text:"Back on Dashboard, click Stalled. FollowUp will show you the actual clients behind that number.",target:()=>document.querySelector('[data-momentum="stalled"]'),requiresView:"dashboard"}
+  ];
+  let tutorialIndex=0,tutorialActive=false,tutorialStarted=false,tutorialBackup=null;
+  function tutorialTarget(){return tutorialSteps[tutorialIndex]?.target?.()||null;}
+  function positionTutorial(){
+    if(!tutorialActive)return;
+    const target=tutorialTarget();
+    const spot=$("tutorialSpotlight"),card=$("tutorialCard");
+    if(!target){spot.style.display="none";card.style.left="50%";card.style.top="50%";card.style.transform="translate(-50%,-50%)";return;}
+    target.scrollIntoView({block:"center",inline:"center",behavior:"instant"});
+    const r=target.getBoundingClientRect(),pad=6;
+    spot.style.display="block";spot.style.left=(r.left-pad)+"px";spot.style.top=(r.top-pad)+"px";spot.style.width=(r.width+pad*2)+"px";spot.style.height=(r.height+pad*2)+"px";
+    card.style.transform="none";
+    const cw=Math.min(360,window.innerWidth-28),ch=card.offsetHeight||170;
+    let left=Math.min(Math.max(14,r.left),window.innerWidth-cw-14);
+    let top=r.bottom+14;
+    if(top+ch>window.innerHeight-14)top=Math.max(14,r.top-ch-14);
+    card.style.left=left+"px";card.style.top=top+"px";
+  }
+  function tutorialRender(){
+    const step=tutorialSteps[tutorialIndex];if(!step)return;
+    $("tutorialKicker").textContent=step.kicker;$("tutorialTitle").textContent=step.title;$("tutorialText").textContent=step.text;
+    $("tutorialProgressBar").style.width=((tutorialIndex+1)/tutorialSteps.length*100)+"%";
+    $("tutorialNext").textContent=tutorialIndex===0?"Start":"Waiting for you…";
+    $("tutorialNext").disabled=true;
+    if(tutorialIndex===0)$("tutorialNext").disabled=false;
+    requestAnimationFrame(positionTutorial);
+  }
+  function startTutorial(){
+    tutorialActive=true;tutorialStarted=true;tutorialIndex=0;
+    demoMode=true;persistOnboarding("in_progress");save();
+    $("tutorialLayer").hidden=false;$("tutorialLayer").setAttribute("aria-hidden","false");
+    $("tutorialCard").classList.remove("tutorial-welcome");
+    tutorialRender();
+  }
+  function finishTutorial(fresh=true){
+    tutorialActive=false;
+    $("tutorialLayer").hidden=true;$("tutorialLayer").setAttribute("aria-hidden","true");
+    const restoringBackup=!!tutorialBackup;
+    if(tutorialBackup){
+      clients=tutorialBackup;
+      tutorialBackup=null;
+      demoMode=false;
+      save();
+    }else if(fresh){
+      clients=[];demoMode=false;save();
+    }else{demoMode=true;save();}
+    persistOnboarding("completed");
+    renderAll();
+    switchView("dashboard");
+    if(fresh && !restoringBackup)setTimeout(()=>openModal(),250);
+  }
+  function skipTutorial(){
+    if(!tutorialActive)return;
+    if(tutorialBackup){
+      if(confirm("Exit the tutorial and return to your real workspace?")) finishTutorial(true);
+      return;
+    }
+    const keep=confirm("Skip the tutorial and start with a clean workspace?\n\nOK = Start Fresh\nCancel = Keep Demo Data");
+    finishTutorial(keep);
+  }
+  function advanceTutorial(){
+    if(!tutorialActive)return;
+    tutorialIndex++;
+    if(tutorialIndex>=tutorialSteps.length){finishTutorial(true);toast("You're ready — let's add your first client.");return;}
+    const step=tutorialSteps[tutorialIndex];
+    if(step.requiresView)switchView(step.requiresView);
+    tutorialRender();
+  }
+  $("tutorialNext").addEventListener("click",()=>{if(tutorialIndex===0)advanceTutorial();});
+  $("tutorialSkip").addEventListener("click",skipTutorial);
+  document.addEventListener("click",e=>{
+    if(!tutorialActive)return;
+    const target=tutorialTarget();
+    if(!target)return;
+    if(target===e.target||target.contains(e.target)){
+      if(tutorialIndex===0){advanceTutorial();return;}
+      setTimeout(()=>advanceTutorial(),120);
+    }
+  },true);
+  window.addEventListener("resize",positionTutorial);window.addEventListener("scroll",positionTutorial,true);
+  function replayTutorial(){
+    tutorialBackup=clients.map(c=>JSON.parse(JSON.stringify(c)));
+    demoMode=true;clients=tutorialSeed.map(normalizeClient);save();renderAll();switchView("dashboard");startTutorial();
+  }
+  const oldHelpClick=$('helpBtn').onclick;
+  $('helpBtn').addEventListener('contextmenu',e=>e.preventDefault());
+  // Add replay action without changing the existing help modal layout.
+  const helpFooter=$('helpModal').querySelector('.help-footer');
+  if(helpFooter){const b=document.createElement('button');b.type='button';b.className='btn';b.textContent='Replay Tutorial';b.addEventListener('click',()=>{closeHelp();replayTutorial();});helpFooter.insertBefore(b,helpFooter.lastElementChild);}
+
   renderAll();
+  try{
+    if(firstRun || localStorage.getItem(ONBOARDING_KEY)==="in_progress") setTimeout(startTutorial,450);
+    else if(localStorage.getItem(HELP_SEEN_KEY)!=="1") setTimeout(()=>openHelp(true),450);
+  }catch(e){if(firstRun)setTimeout(startTutorial,450);}
 })();
 </script>
 </body>
