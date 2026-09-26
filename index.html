@@ -66,7 +66,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 
 /* INTERACTIVE ONBOARDING */
 .tutorial-layer{position:fixed;inset:0;z-index:100;pointer-events:none}
-.tutorial-spotlight{position:fixed;border:2px solid var(--accent);border-radius:12px;box-shadow:0 0 0 9999px rgba(14,18,24,.62),0 0 0 4px rgba(47,103,246,.14);transition:all .18s ease;pointer-events:none}
+.tutorial-spotlight{position:fixed;border:2px solid var(--accent);border-radius:12px;box-shadow:0 0 0 9999px rgba(14,18,24,.62),0 0 0 4px rgba(47,103,246,.14);transition:all .18s ease;pointer-events:none}.tutorial-pointer{position:fixed;z-index:102;display:none;align-items:center;gap:7px;background:var(--text);color:#fff;border-radius:999px;padding:7px 10px;font-size:10px;font-weight:850;letter-spacing:.06em;box-shadow:0 8px 22px rgba(0,0,0,.24);pointer-events:none;white-space:nowrap;animation:tutorialPulse 1.2s ease-in-out infinite}.tutorial-pointer .arrow{font-size:17px;line-height:1;animation:tutorialBounce .7s ease-in-out infinite alternate}.tutorial-pointer .label{line-height:1}@keyframes tutorialPulse{50%{transform:scale(1.04)}}@keyframes tutorialBounce{from{transform:translateX(0)}to{transform:translateX(4px)}}
 .tutorial-card{position:fixed;width:min(360px,calc(100vw - 28px));background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.2);padding:16px;pointer-events:auto;transition:top .18s ease,left .18s ease}
 .tutorial-kicker{font-size:9px;font-weight:850;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
 .tutorial-card h2{font-size:18px;margin:0 0 5px;letter-spacing:-.02em}.tutorial-card p{font-size:12px;line-height:1.55;color:var(--muted);margin:0}.tutorial-progress{height:4px;background:#edf0f4;border-radius:99px;overflow:hidden;margin:13px 0}.tutorial-progress-bar{height:100%;background:var(--accent);width:0;transition:width .2s ease}.tutorial-actions{display:flex;align-items:center;justify-content:space-between;gap:8px}.tutorial-actions .btn{font-size:11px}.tutorial-skip{border:0;background:none;color:var(--muted);font-size:10px;cursor:pointer;padding:6px}.tutorial-welcome{width:min(440px,calc(100vw - 28px));text-align:center;padding:24px}.tutorial-welcome .tutorial-icon{width:44px;height:44px;border-radius:12px;background:var(--text);color:#fff;display:grid;place-items:center;font-weight:900;font-size:20px;margin:0 auto 12px}.tutorial-welcome h2{font-size:24px}.tutorial-welcome p{font-size:13px}.tutorial-welcome .tutorial-actions{justify-content:center;margin-top:15px}.demo-badge{display:inline-flex;align-items:center;border:1px solid #cfd5de;border-radius:999px;padding:2px 6px;font-size:8px;font-weight:850;letter-spacing:.07em;color:#68717d;background:#f7f8fa;margin-left:5px;vertical-align:middle}
@@ -212,6 +212,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 
 <div class="tutorial-layer" id="tutorialLayer" hidden aria-hidden="true">
   <div class="tutorial-spotlight" id="tutorialSpotlight"></div>
+  <div class="tutorial-pointer" id="tutorialPointer"><span class="arrow">➜</span><span class="label">CLICK HERE</span></div>
   <div class="tutorial-card" id="tutorialCard" role="dialog" aria-live="polite">
     <div class="tutorial-kicker" id="tutorialKicker">WELCOME</div>
     <h2 id="tutorialTitle">Let's learn FollowUp</h2>
@@ -1048,14 +1049,28 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   let tutorialIndex=0,tutorialActive=false,tutorialStarted=false,tutorialBackup=null,tutorialOptional=false;
   let lessonActive=false,lessonKey=null,lessonIndex=0,lessonBackup=null,lessonDemo=false,lessonPreviousDemoMode=false;
   function tutorialTarget(){return tutorialIndex>=0?tutorialSteps[tutorialIndex]?.target?.()||null:null;}
+
+  function positionTutorialPointer(target){
+    const pointer=$("tutorialPointer");
+    if(!target){pointer.style.display="none";return;}
+    pointer.style.display="flex";
+    const r=target.getBoundingClientRect(),pw=pointer.offsetWidth||105,ph=pointer.offsetHeight||30;
+    pointer.querySelector(".arrow").textContent="➜";
+    let left=r.left-pw-12,top=r.top+(r.height/2)-(ph/2);
+    if(left<10){left=r.right+12;pointer.querySelector(".arrow").textContent="←";}
+    if(left+pw>window.innerWidth-10){left=Math.max(10,Math.min(window.innerWidth-pw-10,r.left+(r.width-pw)/2));top=r.bottom+12;pointer.querySelector(".arrow").textContent="↓";}
+    if(top<10)top=Math.min(window.innerHeight-ph-10,r.bottom+12);
+    pointer.style.left=left+"px";pointer.style.top=top+"px";
+  }
   function positionTutorial(){
     if(!tutorialActive)return;
     const target=tutorialTarget();
     const spot=$("tutorialSpotlight"),card=$("tutorialCard");
-    if(!target){spot.style.display="none";card.style.left="50%";card.style.top="50%";card.style.transform="translate(-50%,-50%)";return;}
+    if(!target){spot.style.display="none";positionTutorialPointer(null);card.style.left="50%";card.style.top="50%";card.style.transform="translate(-50%,-50%)";return;}
     target.scrollIntoView({block:"center",inline:"center",behavior:"instant"});
     const r=target.getBoundingClientRect(),pad=6;
     spot.style.display="block";spot.style.left=(r.left-pad)+"px";spot.style.top=(r.top-pad)+"px";spot.style.width=(r.width+pad*2)+"px";spot.style.height=(r.height+pad*2)+"px";
+    positionTutorialPointer(target);
     card.style.transform="none";
     const cw=Math.min(360,window.innerWidth-28),ch=card.offsetHeight||170;
     let left=Math.min(Math.max(14,r.left),window.innerWidth-cw-14);
@@ -1086,7 +1101,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     $("tutorialNext").disabled=false;
     $("tutorialNext").textContent="Start";
     $("tutorialCard").classList.add("tutorial-welcome");
-    $("tutorialSpotlight").style.display="none";
+    $("tutorialSpotlight").style.display="none";$('tutorialPointer').style.display="none";
     $("tutorialCard").style.left="50%";$("tutorialCard").style.top="50%";$("tutorialCard").style.transform="translate(-50%,-50%)";
   }
   function showTutorialComplete(){
@@ -1095,7 +1110,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     $("tutorialTitle").textContent="That's the FollowUp workflow";
     $("tutorialText").textContent="Find who needs attention, record what happened, and decide what happens next. Start with a clean workspace or take a quick optional look at Pipeline.";
     $("tutorialProgressBar").style.width="100%";
-    $("tutorialSpotlight").style.display="none";
+    $("tutorialSpotlight").style.display="none";$('tutorialPointer').style.display="none";
     $("tutorialCard").classList.add("tutorial-welcome");
     $("tutorialCard").style.left="50%";$("tutorialCard").style.top="50%";$("tutorialCard").style.transform="translate(-50%,-50%)";
     const actions=$("tutorialCard").querySelector(".tutorial-actions");
@@ -1172,7 +1187,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     $("tutorialTitle").textContent=def.title+" — got it";
     $("tutorialText").textContent="Nice. You can replay any lesson from ? Help whenever you need a refresher.";
     $("tutorialProgressBar").style.width="100%";
-    $("tutorialSpotlight").style.display="none";
+    $("tutorialSpotlight").style.display="none";$('tutorialPointer').style.display="none";
     $("tutorialCard").classList.add("tutorial-welcome");
     $("tutorialCard").style.left="50%";$("tutorialCard").style.top="50%";$("tutorialCard").style.transform="translate(-50%,-50%)";
     const actions=$("tutorialCard").querySelector(".tutorial-actions");
@@ -1195,9 +1210,10 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   function positionLesson(){
     if(!lessonActive)return;
     const target=lessonTarget(),spot=$("tutorialSpotlight"),card=$("tutorialCard");
-    if(!target){spot.style.display="none";card.style.left="50%";card.style.top="50%";card.style.transform="translate(-50%,-50%)";return;}
+    if(!target){spot.style.display="none";positionTutorialPointer(null);card.style.left="50%";card.style.top="50%";card.style.transform="translate(-50%,-50%)";return;}
     target.scrollIntoView({block:"center",inline:"center",behavior:"instant"});
     const r=target.getBoundingClientRect(),pad=6;spot.style.display="block";spot.style.left=(r.left-pad)+"px";spot.style.top=(r.top-pad)+"px";spot.style.width=(r.width+pad*2)+"px";spot.style.height=(r.height+pad*2)+"px";
+    positionTutorialPointer(target);
     card.style.transform="none";const cw=Math.min(360,window.innerWidth-28),ch=card.offsetHeight||170;let left=Math.min(Math.max(14,r.left),window.innerWidth-cw-14),top=r.bottom+14;if(top+ch>window.innerHeight-14)top=Math.max(14,r.top-ch-14);card.style.left=left+"px";card.style.top=top+"px";
   }
   function startLesson(key){
