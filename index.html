@@ -74,7 +74,9 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .help-intro{padding:20px 20px 8px}.help-intro h3{margin:0 0 6px;font-size:20px}.help-intro p{margin:0;color:var(--muted);font-size:12px;line-height:1.6}
 .help-steps{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 20px 20px}
 .help-step{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fafbfc}.help-step .num{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:7px;background:var(--text);color:#fff;font-size:10px;font-weight:800;margin-bottom:8px}.help-step h4{margin:0 0 4px;font-size:13px}.help-step p{margin:0;color:var(--muted);font-size:11px;line-height:1.5}.help-step strong{color:var(--text)}
-.help-tip{margin:0 20px 16px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);font-size:11px;color:var(--muted);line-height:1.5}.help-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 20px 18px;border-top:1px solid var(--line)}.help-footer label{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--muted);cursor:pointer}.help-footer input{accent-color:#17191c}
+.help-tip{margin:0 20px 16px;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);font-size:11px;color:var(--muted);line-height:1.5}.learn-divider{margin:4px 20px 10px;padding-top:14px;border-top:1px solid var(--line)}.learn-divider>div{display:flex;flex-direction:column;gap:2px}.learn-divider strong{font-size:12px}.learn-divider span{font-size:10px;color:var(--muted)}.learn-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:0 20px 14px}.learn-card{border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:10px;text-align:left;cursor:pointer;display:grid;grid-template-columns:25px 1fr;column-gap:8px;row-gap:2px}.learn-card:hover{border-color:#b9c3d2;background:#fff}.learn-card>span{grid-row:1/3;font-size:15px}.learn-card strong{font-size:11px}.learn-card small{font-size:9px;color:var(--muted)}
+@media(max-width:620px){.learn-grid{grid-template-columns:1fr}}
+.help-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 20px 18px;border-top:1px solid var(--line)}.help-footer label{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--muted);cursor:pointer}.help-footer input{accent-color:#17191c}
 @media(max-width:620px){.help-steps{grid-template-columns:1fr}.help-footer{align-items:flex-start;flex-direction:column}.help-footer .btn{width:100%}}
 </style>
 </head>
@@ -108,7 +110,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     <div class="focus-metrics"><span><b id="focusDone">0</b> done</span><span><b id="focusRemaining">5</b> to target</span></div>
   </section>
 
-  <section class="week-panel" aria-label="This week">
+  <section class="week-panel" id="weekPanel" aria-label="This week" data-learn-week="1">
     <div class="today-head"><div><h2>This week</h2><p>A simple snapshot of the work you've actually completed.</p></div><span class="streak-badge">🔥 <span id="weekStreak">0 day streak</span></span></div>
     <div class="week-grid">
       <div class="week-stat"><small>Follow-ups</small><strong id="weekFollowups">0</strong><span>completed</span></div>
@@ -235,6 +237,17 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       <div class="help-step"><div class="num">6</div><h4>Closed deals stay protected</h4><p><strong>Won</strong> and <strong>Lost</strong> are locked to prevent accidental changes. If you made a mistake, use <strong>Undo status change</strong>.</p></div>
     </div>
     <div class="help-tip"><strong>Quick rule:</strong> Dashboard = what should I do today? &nbsp;·&nbsp; Pipeline = where are my deals? &nbsp;·&nbsp; Clients = find and manage a specific client.</div>
+    <div class="learn-divider"><div><strong>Learn FollowUp</strong><span>Short hands-on lessons. You click the real controls — no fake screens.</span></div></div>
+    <div class="learn-grid" id="learnGrid">
+      <button type="button" class="learn-card" data-lesson="dashboard"><span>🏠</span><strong>Dashboard</strong><small>Where your day starts</small></button>
+      <button type="button" class="learn-card" data-lesson="followups"><span>✓</span><strong>Follow-ups</strong><small>Find → record → schedule</small></button>
+      <button type="button" class="learn-card" data-lesson="pipeline"><span>▥</span><strong>Pipeline</strong><small>See deals by stage</small></button>
+      <button type="button" class="learn-card" data-lesson="momentum"><span>⚡</span><strong>Momentum</strong><small>Find stalled leads</small></button>
+      <button type="button" class="learn-card" data-lesson="clients"><span>👥</span><strong>Clients</strong><small>Open and manage a record</small></button>
+      <button type="button" class="learn-card" data-lesson="activities"><span>✎</span><strong>Activities</strong><small>Log calls, email & more</small></button>
+      <button type="button" class="learn-card" data-lesson="weekly"><span>▣</span><strong>This week</strong><small>Understand your activity</small></button>
+      <button type="button" class="learn-card" data-lesson="closed"><span>🔒</span><strong>Closed deals</strong><small>Won & Lost protection</small></button>
+    </div>
     <div class="help-footer"><label><input type="checkbox" id="dontShowHelp"> Don't show this automatically again</label><button class="btn primary" id="closeHelpBtn">Got it</button></div>
   </div>
 </div>
@@ -332,7 +345,9 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     {id:9002,name:"Sarah Carter",company:"Carter Dental",stage:"Contacted",value:1800,date:addDays(2),phone:"404-555-0192",nextAction:"Send pricing options",notes:"Demo lead — recent conversation.",activity:[{text:"Initial contact",date:addDays(-1)}]},
     {id:9003,name:"Avery Brooks",company:"Brooks Realty",stage:"New",value:6500,date:addDays(3),email:"avery@brooksrealty.com",nextAction:"Qualify project needs",notes:"Demo lead — new inbound inquiry.",activity:[{text:"Lead added",date:isoToday}]},
     {id:9004,name:"Nina Patel",company:"Patel Events",stage:"Contacted",value:2750,date:addDays(4),phone:"404-555-0144",nextAction:"Reconnect and ask for an update",notes:"Demo lead — quiet opportunity used to demonstrate stalled leads.",activity:[{text:"Availability requested",date:addDays(-8)}]},
-    {id:9005,name:"Chris Walker",company:"Walker Fitness",stage:"Proposal",value:3100,date:addDays(5),email:"chris@walkerfitness.com",nextAction:"Check whether they reviewed the proposal",notes:"Demo lead — proposal follow-up.",activity:[{text:"Proposal sent",date:addDays(-2)}]}
+    {id:9005,name:"Chris Walker",company:"Walker Fitness",stage:"Proposal",value:3100,date:addDays(5),email:"chris@walkerfitness.com",nextAction:"Check whether they reviewed the proposal",notes:"Demo lead — proposal follow-up.",activity:[{text:"Proposal sent",date:addDays(-2)}]},
+    {id:9006,name:"Mike Torres",company:"Torres Auto",stage:"Won",value:3200,date:addDays(7),email:"mike@torresauto.com",nextAction:"",notes:"Demo customer — closed deal.",wonMonth:monthKey,activity:[{text:"Deal won",date:isoToday}]},
+    {id:9007,name:"Chris Walker",company:"Walker Fitness",stage:"Lost",value:1900,date:addDays(-2),email:"chris@walkerfitness.com",nextAction:"",notes:"Demo customer — closed lost deal.",activity:[{text:"Deal marked lost",date:addDays(-2)}]}
   ];
 
   function normalizePhone(v){
@@ -393,6 +408,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
   const HELP_SEEN_KEY="followup-help-seen-v1";
 
   function save(){
+    if(lessonActive)return true;
     try{localStorage.setItem(KEY,JSON.stringify(clients));return true;}
     catch(e){toast("Could not save changes in this browser.");return false;}
   }
@@ -704,7 +720,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
       <div class="drawer-kpis"><div class="drawer-kpi"><small>Stage</small><b><span class="stage ${c.stage.toLowerCase()}">${esc(c.stage)}</span></b></div><div class="drawer-kpi"><small>Deal value</small><b>${money(c.value)}</b></div><div class="drawer-kpi"><small>Follow-up</small><b>${esc(dueLabel(c))}</b></div><div class="drawer-kpi"><small>Health</small><b>${!['Won','Lost'].includes(c.stage)?healthInfo(c).state.charAt(0).toUpperCase()+healthInfo(c).state.slice(1):c.stage}</b></div></div>
       <div class="drawer-next"><strong>Next move</strong>${esc(nextMove(c))}</div>
       <div class="drawer-section"><div class="drawer-label">QUICK ACTIVITY</div><div class="drawer-actions"><button type="button" class="btn" data-drawer-activity="Call logged">+ Call</button><button type="button" class="btn" data-drawer-activity="Email sent">+ Email</button><button type="button" class="btn" data-drawer-activity="Text sent">+ Text</button><button type="button" class="btn" data-drawer-activity="Meeting held">+ Meeting</button><button type="button" class="btn" data-drawer-followup="1">Reschedule follow-up</button></div></div>
-      ${["Won","Lost"].includes(c.stage) ? `<div class="drawer-section"><div class="drawer-label">STATUS</div><div class="drawer-next"><strong>${c.stage === "Won" ? "Deal completed" : "Deal closed"}</strong>This status is locked so it cannot be changed accidentally.</div>${c.previousStage ? `<div class="drawer-actions" style="margin-top:8px"><button type="button" class="btn" id="undoStatus">Undo status change</button></div>` : ""}</div>` : `<div class="drawer-section"><div class="drawer-label">MOVE STAGE</div><div class="stage-actions">${stages.filter(s=>s!==c.stage && !["Won","Lost"].includes(s)).map(s=>`<button type="button" class="btn" data-drawer-stage="${s}">${s}</button>`).join('')}<button type="button" class="btn primary" data-drawer-stage="Won">Won</button><button type="button" class="btn" data-drawer-stage="Lost">Lost</button></div></div>`}
+      ${["Won","Lost"].includes(c.stage) ? `<div class="drawer-section"><div class="drawer-label">STATUS</div><div class="drawer-next" data-closed-lock="1"><strong>${c.stage === "Won" ? "Deal completed" : "Deal closed"}</strong>This status is locked so it cannot be changed accidentally.</div>${c.previousStage ? `<div class="drawer-actions" style="margin-top:8px"><button type="button" class="btn" id="undoStatus">Undo status change</button></div>` : ""}</div>` : `<div class="drawer-section"><div class="drawer-label">MOVE STAGE</div><div class="stage-actions">${stages.filter(s=>s!==c.stage && !["Won","Lost"].includes(s)).map(s=>`<button type="button" class="btn" data-drawer-stage="${s}">${s}</button>`).join('')}<button type="button" class="btn primary" data-drawer-stage="Won">Won</button><button type="button" class="btn" data-drawer-stage="Lost">Lost</button></div></div>`}
       <div class="drawer-section"><div class="drawer-label">CLIENT</div><div class="drawer-actions"><button type="button" class="btn" id="drawerOpenDetail">Open full client</button><button type="button" class="btn" id="drawerEdit">Edit</button></div></div>`;
     $("dealDrawer").classList.add('open');$("dealDrawer").setAttribute('aria-hidden','false');
     $("closeDealDrawer").addEventListener('click',closeDealDrawer);
@@ -943,6 +959,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     const tag=(e.target?.tagName||"").toLowerCase();
     const typing=["input","textarea","select"].includes(tag)||e.target?.isContentEditable;
     if(e.key==="Escape"){
+      if(lessonActive){finishLesson();return;}
       if($("dealDrawer").classList.contains("open"))closeDealDrawer();
       else if($("actionModal").classList.contains("open"))closeFollowupAction();
       else if($("modal").classList.contains("open"))closeModal();
@@ -989,7 +1006,42 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     {kicker:"OPTIONAL · 1 OF 2",title:"Open a real deal",text:"Click Marcus Lee's deal to open its action center.",target:()=>document.querySelector('[data-deal="9001"]'),requiresView:"pipeline"},
     {kicker:"OPTIONAL · 2 OF 2",title:"That's the action center",text:"You can log a call, email, text, meeting, or reschedule from here. Click + Call to try it.",target:()=>document.querySelector('[data-drawer-activity="Call logged"]')}
   ];
+  const lessonDefs={
+    dashboard:{title:"Dashboard",intro:"Learn where your workday starts and how FollowUp points you to the next person.",steps:[
+      {kicker:"1 OF 2",title:"Start on Dashboard",text:"Dashboard is your home base. Click Dashboard.",target:()=>document.querySelector('.nav button[data-view="dashboard"]'),requiresView:"dashboard"},
+      {kicker:"2 OF 2",title:"Find today's work",text:"FollowUp puts the people who need attention at the top. Click Done on the highlighted demo follow-up.",target:()=>document.querySelector('[data-done="9001"]'),requiresView:"dashboard"}
+    ]},
+    followups:{title:"Follow-ups",intro:"Practice the core loop: record what happened, then decide what happens next.",steps:[
+      {kicker:"1 OF 2",title:"Record the result",text:"Click Done, then choose They responded.",target:()=>document.querySelector('[data-done="9001"]'),requiresView:"dashboard"},
+      {kicker:"2 OF 2",title:"Schedule the next move",text:"Now click Follow up tomorrow. That's the whole FollowUp loop.",target:()=>document.querySelector('[data-follow-next="tomorrow"]')}
+    ]},
+    pipeline:{title:"Pipeline",intro:"See where opportunities stand and open a deal's action center.",steps:[
+      {kicker:"1 OF 3",title:"Open Pipeline",text:"Click Pipeline to see your deals grouped by stage.",target:()=>document.querySelector('.nav button[data-view="pipeline"]'),requiresView:"dashboard"},
+      {kicker:"2 OF 3",title:"Open a deal",text:"Click Marcus Lee's deal to open its action center.",target:()=>document.querySelector('[data-deal="9001"]'),requiresView:"pipeline"},
+      {kicker:"3 OF 3",title:"Take an action",text:"Click + Email to record contact without leaving the pipeline.",target:()=>document.querySelector('[data-drawer-activity="Email sent"]')}
+    ]},
+    momentum:{title:"Pipeline Momentum",intro:"Use Momentum to find leads that are moving, waiting, stalled, or forgotten.",steps:[
+      {kicker:"1 OF 2",title:"Open Momentum",text:"Go back to Dashboard and click Stalled.",target:()=>document.querySelector('.nav button[data-view="dashboard"]'),requiresView:"dashboard"},
+      {kicker:"2 OF 2",title:"See the actual leads",text:"Now click Open client for the highlighted stalled lead. Momentum shows you who is behind the number.",target:()=>document.querySelector('[data-momentum-open="9004"]')}
+    ]},
+    clients:{title:"Clients",intro:"Learn how to find a specific customer and open their full record.",steps:[
+      {kicker:"1 OF 2",title:"Open Clients",text:"Click Clients to switch to the customer list.",target:()=>document.querySelector('.nav button[data-view="clients"]'),requiresView:"dashboard"},
+      {kicker:"2 OF 2",title:"Open a client",text:"Click Sarah Carter's card to open her full record.",target:()=>document.querySelector('[data-card="9002"]'),requiresView:"clients"}
+    ]},
+    activities:{title:"Activities",intro:"Log the work you actually did so FollowUp can keep the record current.",steps:[
+      {kicker:"1 OF 2",title:"Open the action center",text:"Go to Pipeline and click Marcus Lee's deal.",target:()=>document.querySelector('[data-deal="9001"]'),requiresView:"pipeline"},
+      {kicker:"2 OF 2",title:"Log contact",text:"Click + Call to add the activity to the deal history.",target:()=>document.querySelector('[data-drawer-activity="Call logged"]')}
+    ]},
+    weekly:{title:"This week",intro:"See a simple snapshot of what you've actually completed this week.",steps:[
+      {kicker:"1 OF 1",title:"Open This week",text:"This panel summarizes completed follow-ups, new leads, proposals, wins, revenue, and your streak. Click the panel to finish this lesson.",target:()=>document.querySelector('[data-learn-week="1"]'),requiresView:"dashboard"}
+    ]},
+    closed:{title:"Closed deals",intro:"Won and Lost are protected so an accidental click can't reopen a closed deal.",steps:[
+      {kicker:"1 OF 2",title:"Open a closed deal",text:"Go to Pipeline and click the highlighted Won deal.",target:()=>document.querySelector('[data-deal="9006"]'),requiresView:"pipeline"},
+      {kicker:"2 OF 2",title:"See the protection",text:"The status area tells you the deal is locked. Closed deals can only be corrected with Undo status change when a previous stage exists.",target:()=>document.querySelector('[data-closed-lock="1"]')}
+    ]}
+  };
   let tutorialIndex=0,tutorialActive=false,tutorialStarted=false,tutorialBackup=null,tutorialOptional=false;
+  let lessonActive=false,lessonKey=null,lessonIndex=0,lessonBackup=null,lessonDemo=false,lessonPreviousDemoMode=false;
   function tutorialTarget(){return tutorialIndex>=0?tutorialSteps[tutorialIndex]?.target?.()||null:null;}
   function positionTutorial(){
     if(!tutorialActive)return;
@@ -1069,6 +1121,7 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     else if(!fresh)toast("Demo data kept — you can explore before starting fresh.");
   }
   function skipTutorial(){
+    if(lessonActive){finishLesson();return;}
     if(!tutorialActive)return;
     if(tutorialBackup){
       if(confirm("Exit the tutorial and return to your real workspace?"))finishTutorial(true);
@@ -1100,6 +1153,68 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
     }
   },true);
   window.addEventListener("resize",positionTutorial);window.addEventListener("scroll",positionTutorial,true);
+  function showLessonComplete(){
+    const def=lessonDefs[lessonKey];
+    tutorialIndex=-2;
+    $("tutorialKicker").textContent="LESSON COMPLETE";
+    $("tutorialTitle").textContent=def.title+" — got it";
+    $("tutorialText").textContent="Nice. You can replay any lesson from ? Help whenever you need a refresher.";
+    $("tutorialProgressBar").style.width="100%";
+    $("tutorialSpotlight").style.display="none";
+    $("tutorialCard").classList.add("tutorial-welcome");
+    $("tutorialCard").style.left="50%";$("tutorialCard").style.top="50%";$("tutorialCard").style.transform="translate(-50%,-50%)";
+    const actions=$("tutorialCard").querySelector(".tutorial-actions");
+    actions.innerHTML='<button class="btn primary" id="lessonDone">Done</button>';
+    $("lessonDone").addEventListener("click",finishLesson);
+  }
+  function renderLesson(){
+    const def=lessonDefs[lessonKey],step=def?.steps[lessonIndex];
+    if(!step)return showLessonComplete();
+    if(step.requiresView)switchView(step.requiresView);
+    $("tutorialCard").classList.remove("tutorial-welcome");
+    $("tutorialKicker").textContent=step.kicker;$("tutorialTitle").textContent=step.title;$("tutorialText").textContent=step.text;
+    $("tutorialProgressBar").style.width=((lessonIndex+1)/def.steps.length*100)+"%";
+    $("tutorialNext").style.display="none";
+    requestAnimationFrame(positionLesson);
+  }
+  function lessonTarget(){const def=lessonDefs[lessonKey];return def?.steps[lessonIndex]?.target?.()||null;}
+  function positionLesson(){
+    if(!lessonActive)return;
+    const target=lessonTarget(),spot=$("tutorialSpotlight"),card=$("tutorialCard");
+    if(!target){spot.style.display="none";card.style.left="50%";card.style.top="50%";card.style.transform="translate(-50%,-50%)";return;}
+    target.scrollIntoView({block:"center",inline:"center",behavior:"instant"});
+    const r=target.getBoundingClientRect(),pad=6;spot.style.display="block";spot.style.left=(r.left-pad)+"px";spot.style.top=(r.top-pad)+"px";spot.style.width=(r.width+pad*2)+"px";spot.style.height=(r.height+pad*2)+"px";
+    card.style.transform="none";const cw=Math.min(360,window.innerWidth-28),ch=card.offsetHeight||170;let left=Math.min(Math.max(14,r.left),window.innerWidth-cw-14),top=r.bottom+14;if(top+ch>window.innerHeight-14)top=Math.max(14,r.top-ch-14);card.style.left=left+"px";card.style.top=top+"px";
+  }
+  function startLesson(key){
+    const def=lessonDefs[key];if(!def)return;
+    closeHelp();
+    lessonBackup=clients.map(c=>JSON.parse(JSON.stringify(c)));
+    lessonPreviousDemoMode=demoMode;lessonDemo=true;lessonActive=true;lessonKey=key;lessonIndex=0;
+    demoMode=true;clients=tutorialSeed.map(normalizeClient);renderAll();switchView("dashboard");
+    $("tutorialLayer").hidden=false;$("tutorialLayer").setAttribute("aria-hidden","false");
+    $("tutorialSkip").textContent="Exit lesson";$("tutorialNext").style.display="none";
+    renderLesson();
+  }
+  function finishLesson(){
+    lessonActive=false;lessonKey=null;lessonIndex=0;
+    $("tutorialLayer").hidden=true;$("tutorialLayer").setAttribute("aria-hidden","true");
+    if(lessonBackup){clients=lessonBackup;lessonBackup=null;demoMode=lessonPreviousDemoMode;lessonPreviousDemoMode=false;save();}
+    $("tutorialSkip").textContent="Skip tutorial";renderAll();switchView("dashboard");toast("Lesson complete");
+  }
+  function advanceLesson(){
+    if(!lessonActive)return;
+    lessonIndex++;
+    if(lessonIndex>=lessonDefs[lessonKey].steps.length)showLessonComplete();else renderLesson();
+  }
+  document.addEventListener("click",e=>{
+    if(!lessonActive)return;
+    const target=lessonTarget();if(!target)return;
+    if(target===e.target||target.contains(e.target))setTimeout(advanceLesson,140);
+  },true);
+  window.addEventListener("resize",positionLesson);window.addEventListener("scroll",positionLesson,true);
+  document.querySelectorAll("[data-lesson]").forEach(b=>b.addEventListener("click",()=>startLesson(b.dataset.lesson)));
+
   function replayTutorial(){
     tutorialBackup=clients.map(c=>JSON.parse(JSON.stringify(c)));
     demoMode=true;clients=tutorialSeed.map(normalizeClient);save();renderAll();switchView("dashboard");startTutorial();
